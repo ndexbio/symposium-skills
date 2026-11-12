@@ -100,9 +100,22 @@ This is the skill's second stop and its only review gate. Everything that happen
 permanent, so it is a loop the user drives rather than a summary they are shown. It runs until
 they approve, and nothing becomes an artifact before that.
 
-## The display, in three parts
+## The review display
 
-This is what the user sees when the loop opens, and again after every action they take in it.
+Three parts, and they travel together: **the table, the coverage synopsis, and the choices.**
+Together they are *the review display*, and it is one thing rather than three — the user sees all
+of it when the loop opens, all of it after every action they take, and all of it whenever they
+ask to see where the run stands.
+
+**They ask in many words.** The summary, the corpus, the table, the status, the sources, how it
+looks now, where we are. Every one of those draws the whole display. In particular the synopsis
+is counts over rows, so on its own it is counts over rows the user cannot see — it never appears
+without the table under which it is computed.
+
+**The table is long, and redrawing it is the cost of having a review stop at all.** Forty rows is
+a lot to reprint, and the pull toward a tighter summary is real and gets stronger each time. It
+is the wrong economy: the user is about to approve something permanent, and what they approve has
+to be what is in front of them.
 
 ### 1. The table
 
@@ -176,10 +189,10 @@ what you did to get here — that is plumbing. The review stop is the one moment
 the user's whole attention belongs on the corpus, and a status report under the choices buries
 them.
 
-## After any action, draw all three parts again
+## After any action, draw the review display again
 
-**Write the action to the working file, re-run only what changed, then display the table, the
-synopsis and the choices in full.** Every time, after every action, however small the action was.
+**Write the action to the working file, re-run only what changed, then draw the whole display —
+table, synopsis, choices.** Every time, after every action, however small the action was.
 
 **A description of what changed is not a redraw.** It is much cheaper to write, which is why it is
 the thing you will reach for, and it leaves the user holding a table they can no longer trust plus
