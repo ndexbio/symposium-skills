@@ -237,6 +237,32 @@ file. A run that stops resumes from there. Tell the user at the approval stop th
 long part and can be taken in sittings — quality per source is the point; finishing the list in
 one sitting is not.
 
+### Superseding is a decision the user makes
+
+Where an artifact this run already published turns out to be wrong, the correction goes to the user
+before it goes to the record. Say which artifact, what it states, what the source actually supports,
+and what the correction would claim about the earlier one. They decide.
+
+The case that warrants it is a defect anyone can settle by looking: a count that the file does not
+bear out, a quotation that is not in the source, an address that points at the wrong publication.
+The case that does not is improvement — a better rationale, a cleaner Assertion, an early source
+brought into line with the shape the later ones took. That second case is the one that will tempt
+you, and it arrives late: thirty sources in, the first five read as apprentice work. They are the
+record of what this run published at the time, and leaving them is what makes the later ones mean
+something.
+
+**So where it is improvement, the artifact stands as published and the run goes on to the next
+source.** There is no second rendering of a source this run has already published — one source is
+one publication, and a better version of an Argument alongside the first reads as two. Where what
+changed is how you are working rather than how well, the later sources carry it and the closing
+report says so under *Corrections and departures*.
+
+**Where the later work reveals that the earlier artifacts are actually wrong** — a rendering rule
+you were applying incorrectly for the first five sources, rather than a style you have outgrown —
+that is the first case, and it reaches the user, however many artifacts it touches.
+
+Every supersession, with its reason, goes in **Corrections and departures** in the closing report.
+
 ### When it is done: the closing report
 
 → **[reference/CLOSING-REPORT.md](reference/CLOSING-REPORT.md)**
