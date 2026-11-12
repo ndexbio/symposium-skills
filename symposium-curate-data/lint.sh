@@ -7,20 +7,16 @@ set -eu
 cd "$(dirname "$0")"
 
 SKILL="symposium-curate-data"
-SHIPPED="SKILL.md reference"
 fail=0
 
 say() { printf '%s\n' "$*" >&2; }
 bad() { say "FAIL: $*"; fail=1; }
 
-# Every file that ships, as a newline-separated list of paths relative to here.
-shipped_files() {
-	find $SHIPPED -type f | LC_ALL=C sort
-}
-
-is_shipped() {
-	case " $(shipped_files | tr '\n' ' ') " in
-	*" $1 "*) return 0 ;;
+# What ships: SKILL.md and reference/*.md. Everything else in this folder is a
+# repository concern and stays out of the zip.
+ships() {
+	case "$1" in
+	SKILL.md | reference/*.md) return 0 ;;
 	*) return 1 ;;
 	esac
 }
@@ -38,6 +34,10 @@ else
 	name=$(printf '%s\n' "$fm" | sed -n 's/^name:[[:space:]]*//p')
 	[ "$name" = "$SKILL" ] ||
 		bad "SKILL.md frontmatter name is '$name', expected '$SKILL'"
+	# The build rewrites this line's value from VERSION. With the key gone,
+	# it writes the file through unchanged and ships whatever is committed.
+	printf '%s\n' "$fm" | grep -Eq '^version:[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+' ||
+		bad "SKILL.md frontmatter has no version line for the build to stamp"
 fi
 
 # ----------------------------------------------------------------- the links
@@ -64,14 +64,14 @@ for doc in $(find . -name '*.md' -not -path './dist/*' | sed 's|^\./||' | LC_ALL
 			bad "$doc links to a file that does not exist: $t"
 			continue
 		fi
-		if is_shipped "$doc"; then
+		if ships "$doc"; then
 			# A shipped document reaches only shipped documents: anything
 			# else resolves here and dangles for whoever installed the zip.
 			case "$resolved" in
 			"$here"/*) rel=${resolved#"$here"/} ;;
 			*) bad "$doc ships, and links outside the skill folder: $t" ; continue ;;
 			esac
-			is_shipped "$rel" ||
+			ships "$rel" ||
 				bad "$doc ships, and links to $rel, which does not"
 		else
 			# A repository-only document may reach anywhere in the repository.
@@ -96,7 +96,7 @@ foreign_paths='toolchain/|~/\.claude/skills|\.claude/skills/|~/\.symposium/'
 by_name='[Ss]ymposium skill'
 install_section='## Before you start'
 
-for doc in $(shipped_files | grep '\.md$'); do
+for doc in SKILL.md reference/*.md; do
 	hits=$(grep -nE "$foreign_paths" "$doc" || true)
 	[ -z "$hits" ] || {
 		bad "$doc ships, and holds a path into another skill:"

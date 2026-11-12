@@ -1,6 +1,7 @@
 ---
 name: symposium-curate-data
 description: Build a grounded literature corpus for a scientific hypothesis and publish it into a Symposium community record. Takes one hypothesis stated "If [Cause], then [Effect], because [Rationale]", searches the literature and data repositories for the sources that bear on it, expands one citation hop, resolves access, puts the corpus to the user for review, then hands it to Symposium to publish as ScientificPublication, Data and Argument artifacts. Use for: curate sources for a hypothesis, build a literature corpus, find papers supporting or contradicting a hypothesis, import scientific publications into a community record, gather evidence for a Symposium record.
+version: 0.1.0
 ---
 
 # Curating data for a hypothesis

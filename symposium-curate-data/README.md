@@ -82,11 +82,14 @@ A release is what puts an installable zip in front of a user, and it is driven e
 3. **Publish a GitHub release** whose tag is `symposium-curate-data-v<semver>` — for example
    `symposium-curate-data-v0.1.0`. The prefix is how [release.yml](../.github/workflows/release.yml)
    selects the job, and the semver after it is the version being released.
-4. **Watch the job.** It builds the skill and attaches `symposium-curate-data_skill.zip` to the
-   release, which is the file a user installs.
+4. **Watch the job.** It builds the skill with that semver and attaches
+   `symposium-curate-data_skill.zip` to the release, which is the file a user installs.
 
-The tag is where the version lives, and the skill holds no copy of it — so there is nothing to set
-beforehand and nothing that can disagree with the tag you cut.
+The tag is where the version lives, so there is nothing to set beforehand and nothing that can
+disagree with the tag you cut. The build writes it into `SKILL.md`'s frontmatter on the way into
+the zip, which is how an installed skill can say which release it came from. Your own
+`make build` stamps `0.0.0-dev`, so a copy installed from this working tree stays distinguishable
+from a released one; `make build VERSION=<semver>` stamps whatever you give it.
 
 The trigger is a **published release**, so a pushed tag on its own leaves the workflow idle. Create
 the release in the GitHub UI, or with `gh release create symposium-curate-data-v<semver>`.

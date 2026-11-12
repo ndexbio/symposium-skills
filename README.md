@@ -69,10 +69,12 @@ make -C <skill> build    # lint, then dist/<skill>_skill.zip
 The zip is deterministic: the same documents give the same bytes.
 
 A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. The
-prefix selects the job and the rest is the version, which lives in the tag and nowhere else: a
-skill carries no copy of its version, so there is nothing to set before a release and nothing that
-can disagree with the tag. Publishing the release is the trigger; a pushed tag on its own leaves
-the workflow idle.
+prefix selects the job and the rest is the version, which lives in the tag: the job passes it to
+`make build`, which writes it into the skill's frontmatter on the way into the zip. So a release is
+named in one place, an installed skill can still say which one it came from, and there is nothing
+in the repository to keep in step. A local `make build` stamps `0.0.0-dev`.
+
+Publishing the release is the trigger; a pushed tag on its own leaves the workflow idle.
 
 ## Testing a skill: its rehearsal
 

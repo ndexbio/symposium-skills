@@ -1,16 +1,15 @@
-# symposium-curate-data — lint <- build
+# symposium-curate-data — lint ← build
 #
-#   make lint    frontmatter, foreign references, links, orphans
-#   make build   lint, then the release zip
+#   make lint                  frontmatter, foreign references, links, orphans
+#   make build                 lint, then the release zip, stamped 0.0.0-dev
+#   make build VERSION=0.1.0   stamped 0.1.0 — what release.yml passes from the tag
 #
-# The version lives in the release tag and nowhere else, so there is nothing
-# here to keep in step with it.
+# What ships is SKILL.md and reference/. The version lives in the release tag;
+# the copy in SKILL.md's frontmatter is written here, from VERSION.
 
 SKILL   := symposium-curate-data
 ZIP     := dist/$(SKILL)_skill.zip
-STAGE   := dist/stage
-SHIPPED := SKILL.md reference
-EPOCH   := 198001010000
+VERSION ?= 0.0.0-dev
 
 .PHONY: lint build clean
 
@@ -18,19 +17,12 @@ lint:
 	@./lint.sh
 
 build: lint
-	@rm -rf $(STAGE) $(ZIP)
-	@mkdir -p $(STAGE)/$(SKILL)
-	@for p in $(SHIPPED); do cp -R "$$p" $(STAGE)/$(SKILL)/; done
-	@find $(STAGE) -exec touch -t $(EPOCH) {} +
-	@cd $(STAGE) && find . -type f | LC_ALL=C sort | sed 's|^\./||' | \
-		zip -X -q ../$(SKILL)_skill.zip -@
-	@unzip -Z1 $(ZIP) | LC_ALL=C sort > $(STAGE)/.got
-	@cd $(STAGE) && find $(SKILL) -type f | LC_ALL=C sort > .want
-	@diff -u $(STAGE)/.want $(STAGE)/.got >/dev/null || { \
-		echo "FAIL: the zip does not hold exactly the shipped set" >&2; \
-		diff -u $(STAGE)/.want $(STAGE)/.got >&2; exit 1; }
-	@rm -rf $(STAGE)
-	@echo "build: $(ZIP)"
+	@rm -rf dist && mkdir -p dist/$(SKILL)
+	@cp -R reference dist/$(SKILL)/
+	@awk -v v='$(VERSION)' '/^---$$/ { fence++ } fence == 1 && /^version:/ { print "version: " v; next } { print }' \
+		SKILL.md > dist/$(SKILL)/SKILL.md
+	@cd dist && zip -qr $(SKILL)_skill.zip $(SKILL) && rm -rf $(SKILL)
+	@echo "build: $(ZIP) ($(VERSION))"
 
 clean:
 	@rm -rf dist
