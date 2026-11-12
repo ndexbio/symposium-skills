@@ -38,12 +38,11 @@ A skill folder holds two kinds of file, and the line between them is what ships:
 ├── REHEARSAL.md    what a correct run of it looks like                ·  repository only
 ├── Makefile        lint ← build                                       ·  repository only
 ├── SKILL.md        ┐
-├── VERSION         │  shipped in the zip
-└── reference/      │
+└── reference/      │  shipped in the zip
     └── *.md        ┘
 ```
 
-`SKILL.md`, `VERSION` and `reference/` are all an installed skill has. Everything else is a
+`SKILL.md` and `reference/` are all an installed skill has. Everything else is a
 repository concern — how the skill is described, tested and built — and `make build` keeps it out
 of the zip.
 
@@ -63,15 +62,17 @@ document may link anywhere.
 ## Building and releasing
 
 ```sh
-make -C <skill> lint     # frontmatter, links, orphans, VERSION
+make -C <skill> lint     # frontmatter, foreign references, links, orphans
 make -C <skill> build    # lint, then dist/<skill>_skill.zip
 ```
 
 The zip is deterministic: the same documents give the same bytes.
 
-A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. Its job
-strips the prefix and passes the version to `make build`, which compares it against the skill's
-`VERSION` file, so a mistyped tag fails before anything is built or attached.
+A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. The
+prefix selects the job and the rest is the version, which lives in the tag and nowhere else: a
+skill carries no copy of its version, so there is nothing to set before a release and nothing that
+can disagree with the tag. Publishing the release is the trigger; a pushed tag on its own leaves
+the workflow idle.
 
 ## Testing a skill: its rehearsal
 

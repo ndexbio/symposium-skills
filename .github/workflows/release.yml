@@ -3,6 +3,9 @@ name: release
 # One job per skill, selected by its own tag prefix, so each skill in this
 # repository releases independently. To add a skill, copy the job below and
 # change the name, the tag prefix and the directory.
+#
+# The tag carries the version. The skill holds no copy of it, so there is
+# nothing for a tag to disagree with.
 
 on:
   release:
@@ -20,10 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build the skill at the tag's version
-        run: make -C symposium-curate-data build RELEASE_VERSION="${TAG#symposium-curate-data-v}"
-        env:
-          TAG: ${{ github.event.release.tag_name }}
+      - name: Build the skill
+        run: make -C symposium-curate-data build
 
       - name: Attach the zip to the release
         run: gh release upload "$TAG" symposium-curate-data/dist/symposium-curate-data_skill.zip --clobber

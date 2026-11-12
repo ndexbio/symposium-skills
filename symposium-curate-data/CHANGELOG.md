@@ -1,7 +1,8 @@
 # Changelog — symposium-curate-data
 
 Versions follow [semver](https://semver.org). The release tag is
-`symposium-curate-data-v<version>`, and it must match [VERSION](VERSION).
+`symposium-curate-data-v<version>`, and it is where the version lives — the skill carries no copy
+of it. [README.md](README.md) has the release steps.
 
 ## 0.1.0 — 2026-11-11
 

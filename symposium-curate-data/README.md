@@ -77,16 +77,16 @@ artifact.
 
 A release is what puts an installable zip in front of a user, and it is driven entirely by the tag.
 
-1. **Set [VERSION](VERSION)** to the semver being released, and add its section to
-   [CHANGELOG.md](CHANGELOG.md). Commit both.
-2. **Check it builds**: `make build RELEASE_VERSION=<semver>`. That is the same command the
-   workflow runs, and it fails where `RELEASE_VERSION` and the `VERSION` file disagree — so a
-   mistyped tag is caught here rather than on the runner.
+1. **Add the release's section to [CHANGELOG.md](CHANGELOG.md)** and commit it.
+2. **Check it builds**: `make build`. That is the same command the workflow runs.
 3. **Publish a GitHub release** whose tag is `symposium-curate-data-v<semver>` — for example
    `symposium-curate-data-v0.1.0`. The prefix is how [release.yml](../.github/workflows/release.yml)
-   selects the job, and the semver after it is what gets checked against `VERSION`.
-4. **Watch the job.** It builds the skill at the tag's version and attaches
-   `symposium-curate-data_skill.zip` to the release, which is the file a user installs.
+   selects the job, and the semver after it is the version being released.
+4. **Watch the job.** It builds the skill and attaches `symposium-curate-data_skill.zip` to the
+   release, which is the file a user installs.
+
+The tag is where the version lives, and the skill holds no copy of it — so there is nothing to set
+beforehand and nothing that can disagree with the tag you cut.
 
 The trigger is a **published release**, so a pushed tag on its own leaves the workflow idle. Create
 the release in the GitHub UI, or with `gh release create symposium-curate-data-v<semver>`.

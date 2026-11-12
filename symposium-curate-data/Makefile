@@ -1,21 +1,21 @@
 # symposium-curate-data — lint <- build
 #
-#   make lint                          frontmatter, links, orphans, VERSION
-#   make build                         lint, then the release zip
-#   make build RELEASE_VERSION=1.0.0   also check VERSION matches
+#   make lint    frontmatter, foreign references, links, orphans
+#   make build   lint, then the release zip
+#
+# The version lives in the release tag and nowhere else, so there is nothing
+# here to keep in step with it.
 
 SKILL   := symposium-curate-data
 ZIP     := dist/$(SKILL)_skill.zip
 STAGE   := dist/stage
-SHIPPED := SKILL.md VERSION reference
+SHIPPED := SKILL.md reference
 EPOCH   := 198001010000
-
-RELEASE_VERSION ?=
 
 .PHONY: lint build clean
 
 lint:
-	@./lint.sh $(RELEASE_VERSION)
+	@./lint.sh
 
 build: lint
 	@rm -rf $(STAGE) $(ZIP)

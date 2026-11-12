@@ -1,13 +1,13 @@
 #!/bin/sh
 # Checks that make this skill loadable and whole. Repository only; not shipped.
 #
-# Usage: ./lint.sh [RELEASE_VERSION]
+# Usage: ./lint.sh
 set -eu
 
 cd "$(dirname "$0")"
 
 SKILL="symposium-curate-data"
-SHIPPED="SKILL.md VERSION reference"
+SHIPPED="SKILL.md reference"
 fail=0
 
 say() { printf '%s\n' "$*" >&2; }
@@ -121,17 +121,7 @@ for ref in reference/*.md; do
 	grep -q "$ref" SKILL.md || bad "$ref is not linked from SKILL.md"
 done
 
-# ---------------------------------------------------------------- the version
-
-version=$(cat VERSION)
-printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' ||
-	bad "VERSION is not a semver: $version"
-
-if [ "${1-}" != "" ] && [ "$1" != "$version" ]; then
-	bad "release version '$1' does not match the VERSION file '$version'"
-fi
-
 # ---------------------------------------------------------------------- done
 
 [ "$fail" -eq 0 ] || exit 1
-say "lint: frontmatter, foreign references, links, orphans, version"
+say "lint: frontmatter, foreign references, links, orphans"
