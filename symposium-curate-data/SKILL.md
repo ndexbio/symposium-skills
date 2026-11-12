@@ -225,6 +225,44 @@ file. A run that stops resumes from there. Tell the user at the approval stop th
 long part and can be taken in sittings — quality per source is the point; finishing the list in
 one sitting is not.
 
+### When it is done: the closing report
+
+The run ends with one report, in these six sections, in this order, with these headings, every
+time. A user who has run this before should be able to find the part they want without reading
+the rest, and that only works if it is the same shape each run.
+
+**1. What is in the record.** Counts by artifact type, the community it went to, and whether the
+local copy verifies against the server. Numbers, not prose.
+
+**2. What each source became.** Which sources were published with an Argument extracted, which
+went in as citation only, and which went in with their narrative declared ungroundable. Name the
+sources in each group rather than giving three totals.
+
+**3. What the corpus says about the hypothesis.** Each clause — cause, effect, rationale — and
+how well the *published, groundable* sources actually support it, which is a different question
+from the coverage counts at the review stop, because the sources that ground are a subset of the
+sources that are present. Name the counter-evidence that is now in the record, and name any
+clause the record cannot carry.
+
+**Say this plainly when it undercuts the hypothesis.** A corpus whose own contents put the
+hypothesis in the minority is a real finding and the most useful thing this run can produce; a
+report that softens it has wasted the work. The user asked for what the literature says, not for
+agreement.
+
+**4. Corrections and departures.** Anything superseded and why. Anything published differently
+from what the review table showed. Anything that failed and was recovered. Where nothing applies,
+say so in a line rather than dropping the heading.
+
+**5. Loose ends.** What stayed out and why, and what would change it — a source needing access the
+user could supply, works left behind by the scale, a clause that would need another run. Each one
+with the action that would address it.
+
+**6. Where it is.** The record and how to browse it, and the working file. This is the one place
+in the run where that plumbing belongs: the loop is over, and the user may want to go and look.
+
+Keep the report about the record. How the run went, what was tried, what took a while — that is
+the agent's experience rather than the user's result, and it belongs in none of the six.
+
 ### If the gate refuses
 
 Report what the gate said, and stop there. What to change is the user's decision: amending an
