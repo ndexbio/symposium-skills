@@ -237,11 +237,12 @@ file. A run that stops resumes from there. Tell the user at the approval stop th
 long part and can be taken in sittings — quality per source is the point; finishing the list in
 one sitting is not.
 
-### Superseding is a decision the user makes
+### Correcting something already published
 
-Where an artifact this run already published turns out to be wrong, the correction goes to the user
-before it goes to the record. Say which artifact, what it states, what the source actually supports,
-and what the correction would claim about the earlier one. They decide.
+Where an artifact this run already published turns out to be wrong, the correction is yours to
+make, under the test below. The record expects a Member to correct a defect in their own work, and
+a run of forty sources that stopped to ask about each one would spend the user's attention on the
+part of the decision that needs none.
 
 The case that warrants it is a defect anyone can settle by looking: a count that the file does not
 bear out, a quotation that is not in the source, an address that points at the wrong publication.
@@ -251,15 +252,26 @@ you, and it arrives late: thirty sources in, the first five read as apprentice w
 record of what this run published at the time, and leaving them is what makes the later ones mean
 something.
 
+**The test is whether two quotes settle it.** Put what the artifact states beside what the source
+says. Where the mismatch is visible in the pair, it is a defect: supersede it, write the rationale
+for the record's readers rather than for the run — what the earlier artifact got wrong and what
+this one does about it — and go on. Where settling it would take a judgment instead, whether a
+passage really carries the Assertion, whether the scope is drawn wider than the evidence, it is not
+a defect and superseding is the wrong instrument. That is a disagreement the record settles with an
+Argument, made by someone who means to make it. Leave the artifact as published and record it under
+*Loose ends*.
+
 **So where it is improvement, the artifact stands as published and the run goes on to the next
 source.** There is no second rendering of a source this run has already published — one source is
 one publication, and a better version of an Argument alongside the first reads as two. Where what
 changed is how you are working rather than how well, the later sources carry it and the closing
 report says so under *Corrections and departures*.
 
-**Where the later work reveals that the earlier artifacts are actually wrong** — a rendering rule
-you were applying incorrectly for the first five sources, rather than a style you have outgrown —
-that is the first case, and it reaches the user, however many artifacts it touches.
+**The second time the same defect appears, stop and tell the user.** One is a slip. Two of a kind
+is a method that is wrong, and then the artifacts that need attention include the ones you have not
+rechecked and the ones you have not published yet. Correcting each in place as you meet it hides
+the one thing the user needs to see. Say what the defect is, where it has turned up, and what it
+implies for the rest of the run, and let them decide how far back it reaches.
 
 Every supersession, with its reason, goes in **Corrections and departures** in the closing report.
 
