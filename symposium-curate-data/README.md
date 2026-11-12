@@ -73,6 +73,27 @@ Where you have lawful access to something it could not reach, the table tells yo
 those are, and you can add a copy you obtained yourself. It records that provenance on the
 artifact.
 
+## Release steps
+
+A release is what puts an installable zip in front of a user, and it is driven entirely by the tag.
+
+1. **Set [VERSION](VERSION)** to the semver being released, and add its section to
+   [CHANGELOG.md](CHANGELOG.md). Commit both.
+2. **Check it builds**: `make build RELEASE_VERSION=<semver>`. That is the same command the
+   workflow runs, and it fails where `RELEASE_VERSION` and the `VERSION` file disagree — so a
+   mistyped tag is caught here rather than on the runner.
+3. **Publish a GitHub release** whose tag is `symposium-curate-data-v<semver>` — for example
+   `symposium-curate-data-v0.1.0`. The prefix is how [release.yml](../.github/workflows/release.yml)
+   selects the job, and the semver after it is what gets checked against `VERSION`.
+4. **Watch the job.** It builds the skill at the tag's version and attaches
+   `symposium-curate-data_skill.zip` to the release, which is the file a user installs.
+
+The trigger is a **published release**, so a pushed tag on its own leaves the workflow idle. Create
+the release in the GitHub UI, or with `gh release create symposium-curate-data-v<semver>`.
+
+Each skill in this repository releases on its own prefix, so a tag naming one leaves the others
+alone.
+
 ---
 
 Developing this skill: the repository's [README](../README.md),
