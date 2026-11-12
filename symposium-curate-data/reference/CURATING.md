@@ -127,6 +127,16 @@ never show that.
 
 Listed last, so they sit nearest the cursor.
 
+**Offer the choices, rather than printing their syntax.** Where the environment you are running in
+can put a list in front of the user and take a selection, use it — the user picks rather than
+types, and a long table is tiring enough without composing a command underneath it. Where it
+cannot, fall back to a short typed form. The set of choices and what each one does are fixed here;
+how they are presented belongs to the environment, and the only preference this document has is
+for whichever asks the user to type least.
+
+Name each choice and what it does in a few words. The reasoning behind them is in this document,
+for you, and stays off the screen.
+
 **Per row, by number:**
 
 - **reject** — the row leaves the corpus and is not published
@@ -152,9 +162,17 @@ nothing.
 - **add a source** — give a URL or a path to a local file, for a reference the search missed or
   one obtained through the user's own access. It is identified, triaged and placed in the table
   like any other row
-- **approve, and hand the corpus to Symposium** — the single exit, and the one the user is told
-  the cost of before they take it: each source becomes several artifacts, submitted serially and
-  gated, so publishing is the long part and is meant to be taken in sittings
+- **approve, and hand the corpus over for publishing** — the single exit. Say what it costs **in
+  one sentence** before they take it: publishing is serial and gated, so it is the long part of
+  the run and is meant to be taken in sittings. One sentence, because it is a warning rather than
+  an explanation, and anything longer reads as hedging in front of the only door forward
+
+## Three parts, and nothing after them
+
+Where the working file lives, where fetched copies are cached, which session or server is current,
+what you did to get here — that is plumbing. The review stop is the one moment in the run where
+the user's whole attention belongs on the corpus, and a status report under the choices buries
+them.
 
 ## After any action
 
