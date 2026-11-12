@@ -210,6 +210,18 @@ quotations; everything derived is written in your own words.
 
 **6. Publish into the record**, which owns submission, ordering and the gate.
 
+**Confirm the session before every submission.** Not once at the start, and not only on resume:
+before each one. A session is chosen per agent process and anything running in that process can
+change it — running the gate between submissions is the ordinary way it happens, and the publish
+that follows goes out as whoever the gate ran as. Nothing downstream catches it. The gate is
+checking that the artifact conforms, and an artifact published under the wrong handle conforms
+perfectly; what it carries is a false statement about who brought the material in, in a record
+that cannot withdraw it.
+
+So read the session back, check it against the community and handle in the working file, and
+reselect it where it has moved. It is a cheap check against a permanent error, and the cost of
+skipping it is only ever paid after the fact.
+
 ### Publishing is the long part
 
 Each source becomes several artifacts, and a derived artifact cannot be submitted until the
