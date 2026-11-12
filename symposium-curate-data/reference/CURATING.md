@@ -112,6 +112,13 @@ looks now, where we are. Every one of those draws the whole display. In particul
 is counts over rows, so on its own it is counts over rows the user cannot see — it never appears
 without the table under which it is computed.
 
+**It is redrawn because the person reading it cannot hold it in their head.** Nobody remembers
+forty rows — which ones were abstract-only, which one contradicted the rationale, what number the
+closed paper was. And nobody remembers the choices either: three actions into the loop, *add a
+source* and *regenerate* have been gone from the screen for twenty minutes, and a choice that was
+offered once is a choice that is available once. Everything the user needs in order to act goes
+in front of them every time, or their real options narrow to whatever they happen to recall.
+
 **The table is long, and redrawing it is the cost of having a review stop at all.** Forty rows is
 a lot to reprint, and the pull toward a tighter summary is real and gets stronger each time. It
 is the wrong economy: the user is about to approve something permanent, and what they approve has
