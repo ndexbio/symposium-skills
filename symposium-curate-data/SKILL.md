@@ -41,12 +41,24 @@ So a run keeps one file:
 - **`<user home>/.symposium-curate-data/run.json`** — a directory of this skill's own, in the
   user's home directory, written the way the host platform spells that path.
 - **JSON**, because it is updated a field at a time across a long run. One object holding the
-  hypothesis, the facets, the scale, every source with everything known about it, and the
-  decisions and publications recorded against each.
+  hypothesis, the facets, the scale, **the community and the handle this run publishes as**,
+  every source with everything known about it, and the decisions and publications recorded
+  against each.
 
 Render the table from that file rather than from memory. Write each action to it before redrawing.
 A run that stops for any reason — the review loop, the hand-off, a lost session — resumes by
 reading it.
+
+**Record the community and the handle the moment they are settled, and re-establish that session
+on every resume.** A chosen session belongs to the agent session that chose it and does not
+outlive it, so a run picked up in a new sitting starts with none — by design, so that two agents
+on one machine never change each other's. What the run must carry across the gap is *which
+community it is publishing to*, because a resumed run that inherits whatever session happens to
+be current, or that asks the user to name the community again, can publish into the wrong record.
+That record is append-only, and the artifacts cannot be withdrawn. So: read the community and
+handle out of the working file, select that session, confirm it is the one selected, and only
+then continue. Where the run is resumed and the recorded community cannot be selected, stop and
+say so rather than publishing anywhere else.
 
 One run at a time. Where a run is already in flight, ask the user before starting over it.
 
