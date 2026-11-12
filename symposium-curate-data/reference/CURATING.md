@@ -102,6 +102,8 @@ they approve, and nothing becomes an artifact before that.
 
 ## The display, in three parts
 
+This is what the user sees when the loop opens, and again after every action they take in it.
+
 ### 1. The table
 
 One row per source, numbered, sorted so the rows needing attention are at the top: **failed first,
@@ -174,13 +176,23 @@ what you did to get here — that is plumbing. The review stop is the one moment
 the user's whole attention belongs on the corpus, and a status report under the choices buries
 them.
 
-## After any action
+## After any action, draw all three parts again
 
-**Write it to the working file, re-run only what changed, and display the table again.**
+**Write the action to the working file, re-run only what changed, then display the table, the
+synopsis and the choices in full.** Every time, after every action, however small the action was.
 
-A rejection removes a row. A retry or an addition re-triages one row. A regenerate starts over.
-Recompute the coverage synopsis every time — it is the thing most likely to shift underneath a
-user who is working row by row.
+**A description of what changed is not a redraw.** It is much cheaper to write, which is why it is
+the thing you will reach for, and it leaves the user holding a table they can no longer trust plus
+a correction they have to apply in their head. By the third action they are tracking an imaginary
+table, and the review stop stops working — the whole point of it is that what the user approves is
+what they are looking at. So the table is redrawn even when one row left and nothing else moved.
+
+Recompute the synopsis every time too. It is the thing most likely to shift underneath a user
+working row by row, and the counts are what the table alone will never show them.
+
+Re-run only what the action touched: a rejection removes a row, a retry or an addition re-triages
+one row, a regenerate starts over. Cheap to recompute is not the same as safe to leave out of the
+display.
 
 Writing before redrawing is what lets a run interrupted mid-loop resume where it stopped.
 
