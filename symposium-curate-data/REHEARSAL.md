@@ -70,7 +70,8 @@ costs. Answer small so the table fits a screen:
 
 **The table.** One row per source, numbered, failed rows at the top, then abstract, then
 retrieved. Columns for what it bears on, its stance, its type, its status and a note. Under it, a
-coverage synopsis: counts per clause, counts per stance, independence groups, access tally.
+coverage synopsis: counts per clause, counts per stance, independence groups, access tally, and
+a content line saying how many sources will enter the record with content, in all and by clause.
 
 A healthy run on this hypothesis gives you a row of each status — something retrieved as
 structured full text from a PMC mirror, something retrieved as a flat PDF, something abstract-only
@@ -119,7 +120,13 @@ Browse the record and check:
 
 - **one `ScientificPublication` per source**, each with a `download` Content carrying its location
   and a hash
-- **passages and tables** where the source allowed them, and none where it did not
+- **passages and tables** where the source allowed them, and none where it did not. A source
+  that was free to read as publisher HTML or a flat PDF has passages; one left as a citation with
+  a readable copy named in its own `import_method` is a finding
+- **a source's passages cover its results, not one of them**: open a paper with several
+  experimental arms bearing on the hypothesis and check each is there, with what was compared and
+  the readout, including an arm that came out against. Arms left behind are named in
+  `import_method`
 - **every derived artifact cites its publication by address** — `@name` — rather than repeating
   the URL. A URL repeated across three artifacts is the defect this skill is built to avoid
 - **citation-only sources are present and ground nothing**: a publication, no passages, no

@@ -17,20 +17,29 @@ second Symposium community record out.
   the community admin running the gate.
 - **Reads the corpus from the session's own copy of the record**, indexed once, and takes as
   evidence what that record embeds.
-- **Cites the corpus through pointers**: an artifact in the eval community whose `download`
-  Content locates the corpus artifact, carrying the passage or cells a verdict turns on.
+- **Cites the corpus through pointers**: an artifact in the eval community that reproduces what
+  the corpus artifact embeds, exactly, and keeps a `download` Content locating the original. Every
+  quotation in the evaluation is then one the gate checks.
 - **Fixes the judgment before the evidence**: typed claims with importance and diagnosticity,
   named rivals with the observation that separates each, a four-question audit, and the scales
-  and integration rule, all published before anything is read.
+  and integration rule, all published before anything is read. The verdict word gives the
+  direction of the evidence and the certainty its strength.
+- **Checks what the corpus can test** before reading it through: for each claim the hypothesis
+  stands on, whether any source runs the contrast and reads the readout the claim names.
 - **Collects and appraises in parallel**, with sub-agents that read and draft while the one agent
   holding the session publishes, in layers, with the gate between.
-- **Judges each claim** in an Argument, behind a testability gate, and has a Skeptic challenge
-  each one from the evidence alone.
-- **Integrates by an ordered rule** into *stands*, *weakened* or *refuted*, with coverage and two
-  verdicts: whether the cause–effect relation is decided, and whether the mechanism is.
+- **Judges each claim** in an Argument, behind a testability gate. A Skeptic judges the same
+  claim unseen and publishes a challenge only where it disagrees.
+- **Integrates by an ordered rule** into *stands*, *weakened* or *refuted*, with a floor under
+  which thin contrary evidence does not decide the outcome. The verdict grounds on the reading it
+  adopts for each claim, states what the outcome rests on, gives coverage, and gives two verdicts:
+  whether the cause–effect relation is decided, and whether the mechanism is.
 - **Says what would settle the open points**, proposing a test only where it is targeted,
   diagnostic, feasible and decision-bearing, and abstaining with a reason otherwise.
-- **Ends in one report**, a header and eight sections, the same shape for every hypothesis.
+- **Ends in one report**, a header and eight sections, the same shape for every hypothesis, each
+  section held to a budget the agent counts before publishing.
+- **Asks before taking up an earlier evaluation** of the same hypothesis in the chosen community:
+  adopt it, or start separately.
 - **Keeps one working file per run**, at `.symposium-evaluate-hypothesis/run.json` in the directory
   the session is started in, so separate directories run side by side on one machine.
 - **Stops for the user three times**, each as a review display with its choices: the roster, the

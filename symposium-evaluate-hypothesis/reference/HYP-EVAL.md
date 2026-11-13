@@ -47,18 +47,19 @@ Six members of the eval community, one per scientific role, and the community ad
 | Member | Publishing role | Does | Publishes |
 |---|---|---|---|
 | **Lead** | `principal` | Frames the evaluation: the question, the scope, the corpus as evidence base, what a complete result is | the `ResearchGoal` |
-| **Methodologist** | `hypothesize` | Decomposes the hypothesis; writes claims, rivals and criteria; later proposes what would settle the open points | `NonGroundable`: the claim set and criteria; the proposed tests |
+| **Methodologist** | `hypothesize` | Decomposes the hypothesis; writes claims, rivals and criteria; later proposes what would settle the open points | `NonGroundable`: the claim set and criteria; a criteria correction, where one is needed; the proposed tests |
 | **Librarian** | `importer` | Makes the pointers | `ScientificPublication` and `Data` pointers |
 | **Analyst** | `researcher` | Collects and appraises evidence, and judges each claim | one `Argument` per claim |
-| **Skeptic** | `critic` | Challenges each claim's Argument | Arguments that contest or qualify; Messages |
-| **Adjudicator** | `researcher`, then `scout` | Integrates the claim Arguments into the overall verdict; writes the report | the verdict `Argument`; the report, a `NonGroundable` |
+| **Skeptic** | `critic` | Judges each claim unseen, then challenges the Analyst's Argument where it disagrees | Arguments that contest or qualify; Messages reporting a defect |
+| **Adjudicator** | `researcher`, then `scout` | Decides, claim by claim, whose reading stands; integrates them into the overall verdict; writes the report | the verdict `Argument`; an `Argument` on a claim where it adopts neither reading; the report, a `NonGroundable` |
 
 The **community admin** runs the gate and authors nothing. The Lead and the admin are different
 accounts: setting what is investigated and deciding what is accepted are two hands.
 
 **The separation is the method.** The Methodologist fixes the criteria before the Analyst reads
-evidence. The Skeptic forms a challenge from a claim and its evidence alone. The Adjudicator judges,
-and neither argues nor challenges. With sub-agents, each role reasons in a context of its own. With
+evidence. The Skeptic reaches its own verdict from a claim and its evidence alone, before it sees
+the Analyst's. The Adjudicator judges between them, and writes on a claim only where it can adopt
+neither reading. With sub-agents, each role reasons in a context of its own. With
 a single agent the separation is procedural, and you say so in the report: the order in which the
 gate accepted things is then the proof that the criteria came before the evidence.
 
@@ -94,14 +95,19 @@ it returns its draft as a file.
 Put this in every brief, in these words or close to them: *you have no member to act as; do not
 select a session, sync, validate, publish, run the gate, or act on a community in any way.*
 
-**Where the work fans out, fan it out.** Three phases are wide and independent, and running them
+**Where the work fans out, fan it out.** Four phases are wide and independent, and running them
 serially is the slowest way to get the same answer:
 
 - **collecting** — one sub-agent per batch of at most five sources, each reading its sources
   against every claim;
 - **appraising** — the same batches, in the same pass or a second;
+- **judging** — one analyst per claim, given that claim's items and their appraisal;
 - **challenging** — one skeptic per claim, given the claim, its items and their appraisal, and
-  nothing of the Analyst's reasoning.
+  nothing of the Analyst's reasoning until its own verdict is filed.
+
+**One claim to a sub-agent** in judging and in challenging, so that a verdict on one claim is not
+read into the next. Where claims are grouped to save time, the brief says to finish and file one
+before reading the next, and the report says they were grouped.
 
 Reading and drafting run at once. Publishing stays yours and stays serial, so parallel work and the
 single session never meet.
@@ -129,35 +135,54 @@ judgment on is the passage or the table they point to.
 ## Citing the corpus
 
 A Ground cites an address in its own record, and the corpus is another record. The bridge is a
-**pointer**: an artifact in the eval community that stands for one corpus source.
+**pointer**: an artifact in the eval community that stands for one corpus source and carries what
+the corpus embeds of it.
 
 **Make a pointer for each corpus source a judgment relies on.** The Librarian publishes it, as the
 same type the corpus gave it. It carries:
 
-- a `download` Content whose `location` is the URL at which the corpus community's data server
-  serves that artifact — take the form of that URL from the server's own description of its
-  interface — and whose `access_method` says how a reader with access to that community fetches it;
+- **the content, reproduced exactly** — the quoted text or the data values the corpus artifact
+  embeds, character for character, as content a Ground may cite. Where that content is larger than
+  the size at which the community's embedding policy asks for review, carry the passages and the
+  cells the judgments rely on, each exactly as the corpus has it;
+- a `download` Content, marked as one a Ground may not cite, whose `location` is the URL at which
+  the corpus community's data server serves that artifact — take the form of that URL from the
+  server's own description of its interface — and whose `access_method` says how a reader with
+  access to that community fetches it. This is the pointer's provenance;
 - the authors, and the publication's own identifier, so a reader holding no access to the corpus
   can still tell which work it is;
-- an `import_method` saying that it points at an artifact in the corpus community, and which.
+- an `import_method` saying that the content is reproduced from an artifact in the corpus
+  community, which artifact, and whether whole or in part.
 
-**Where a verdict turns on particular words or a particular cell, the pointer carries them too.**
-Take the passage or the rows as the corpus recorded them, within what the community's embedding
-policy allows. A Ground can then cite the exact words, and the gate checks that the quotation is
-there. A Ground on a bare `download` cites the source whole and rests on trust.
+**Copy by script, and compare.** Have a short script read the content out of the corpus
+artifact's file in your copy of that record and write it into the pointer. Then compare the two,
+byte for byte, before submitting. A passage retyped is a passage in which a dash, a space or a
+Greek letter can change, and a pointer one character off is a different text under the corpus's
+name.
 
-**Expect a finding on those Grounds.** Content held outside the record cannot be machine-checked,
-and the gate says so each time. That finding is the record being candid about where verification
-gives way to trust; it is the expected result, and it goes in the report under
-*Certainty and limits*.
+**Grounds cite the reproduced content**, by the exact words or the exact cells. The gate then
+checks every quotation against the pointer, and a reader who follows one arrives at the corpus's
+own words.
+
+**Write the corpus's artifact names as literals.** Text carried over from the corpus may name
+other artifacts of that record, and may link to them. Here those names resolve to nothing, and a
+link to one is a citation the gate refuses. Put each such name in a code span, and say once in the
+`import_method` that names written that way belong to the corpus community.
+
+**Where a pointer carries part of a source and a later judgment needs more**, the Librarian
+publishes a superseding pointer with the further passage, and the judgment cites that one.
+
+**What stays on trust** is whether the curator's rendering matches the original article. No record
+can check that. The report says so under *Certainty and limits*.
 
 ## Publish in layers
 
 An artifact may cite only what the gate has already accepted. So the run publishes in layers, and
 between layers the gate runs:
 
-**goal → claim set and criteria → pointers → claim Arguments → challenges → revisions → verdict →
-proposed tests → report.**
+**goal → claim set and criteria → pointers → claim Arguments → challenges and defect Messages →
+revisions and criteria corrections → the Adjudicator's own claim Arguments, where there are any →
+verdict → proposed tests → report.**
 
 After a layer is submitted, select the admin's session and run the gate; then select the next
 member and confirm it before submitting anything. The gate changes the session, which is the
@@ -165,6 +190,17 @@ ordinary way a submission goes out under the wrong name.
 
 Every artifact names the goal in `serves_goals`, and carries the run's short name in the topic part
 of its artifact name, so that two evaluations in one community stay apart.
+
+**Validate before every submission.** Symposium checks an artifact where it sits, before
+anything is sent. Run that check on each one and submit only what passes. A pointer or an Argument
+with the wrong shape then fails on this machine, where it costs nothing, and the record never
+sees it.
+
+**Send the first of a kind alone.** Submit the first pointer by itself, run the gate, and read
+what it found. Do the same with the first claim Argument, and confirm the gate verified its
+quotations against the pointer. Then build and submit the rest. A fault in how pointers are made,
+or in how Grounds cite them, is then met once and corrected, and the rest are built right. Both
+are real artifacts of the run; nothing is published only to test.
 
 **Where the gate refuses, report what it said and stop.** What to change is the user's decision.
 
@@ -230,7 +266,7 @@ Five to ten, typed:
 | **Context** | the state or condition the cause brings about | at least one | must hold, should hold |
 | **Mechanism step** | one link of the rationale, as a contrast with and without the cause | at least three | must hold, should hold, nice to hold |
 | **Reversal** | removing the mechanism removes the effect | at most one | must hold, should hold, nice to hold |
-| **Premise** | background the hypothesis takes for granted | at most two | nice to hold |
+| **Premise** | background the hypothesis takes for granted | at most two | must hold, should hold, nice to hold |
 
 Each claim carries: an id; its type; the statement; its scope; **what should be observed if it is
 true**; **what would count against it**; the claim it builds on; and its **importance** — *must
@@ -240,6 +276,11 @@ where it is only context.
 Each mechanism step and reversal also carries the **rival it separates from** and a
 **diagnosticity** — *high*, *moderate* or *low* — with one line of reason: how much more expected
 is the predicted observation under the hypothesis than under that rival?
+
+**Rate a premise by what the hypothesis loses without it.** Background the rationale merely
+mentions is *nice to hold*. A fact the rationale stands on — that the agent it names acts in the
+way it says — is a premise that *must hold*, and rating it lower puts the foundation of the
+hypothesis where the integration rule cannot reach it.
 
 **Add a claim only where it raises diagnosticity.** Ten claims that all pass under every rival
 tell a reader less than three that could each have failed.
@@ -251,8 +292,8 @@ Answer each. All four pass before the set goes to the user.
 1. **Scope stripped.** Take the scope off each mechanism claim. Does what remains fail to stand as
    a plain textbook fact? A claim that is true everywhere tests nothing here.
 2. **Discrimination.** Does each mechanism claim separate the hypothesis from at least one rival?
-3. **Fail state.** Were every premise to hold and every mechanism claim to fail, would you decline
-   to call the hypothesis right?
+3. **Fail state.** Were every *nice to hold* claim to hold and every mechanism claim to fail, would
+   you decline to call the hypothesis right?
 4. **Diagnosticity.** Is at least one mechanism claim high?
 
 Where one fails, rewrite the claims and audit again.
@@ -263,7 +304,23 @@ Write down, in the claim set itself, the scales and the rule the run will judge 
 
 - **claim verdict** — *supported*, *partially supported*, *contradicted*, *mixed*, *not tested*;
 - **certainty** — *high*, *moderate*, *low*, *very low*;
-- **the integration rule** of [phase 9](#phase-9--integrate), word for word.
+- **the integration rule** of [phase 9](#phase-9--integrate), word for word, with its floor.
+
+**The verdict word gives the direction, and the certainty gives the strength.** Write this into
+the criteria too, because two readers who split on it reach different outcomes from the same
+evidence:
+
+| Word | The evidence |
+|---|---|
+| *supported* | runs for the claim, and shows the whole of what the claim predicts |
+| *partially supported* | runs for the claim, and shows part of it, or shows it by proxy |
+| *contradicted* | runs against the claim |
+| *mixed* | carries comparable weight for and against |
+| *not tested* | nothing in the corpus could have observed what the claim predicts |
+
+Thin evidence against a claim is *contradicted* at *low* or *very low* certainty. It is never
+softened to *mixed*: the word would then be doing the certainty's work, and the rule reads the
+word.
 
 ### Stop: the claim set
 
@@ -281,21 +338,30 @@ departures*.
 
 ## Phase 4 — Survey coverage
 
-**Analyst.** From the index alone, mark for each claim which corpus sources could bear on it. This
-is a map, made before the reading, of where the corpus can speak.
+**Analyst.** Mark for each claim which corpus sources could bear on it. This is a map, made before
+the reading, of where the corpus can speak.
 
-A claim with no source is recorded **not tested**, with the gap type *corpus gap*.
+**From the index, for every claim**: the sources whose subject touches it. A claim with none is
+recorded **not tested**, with the gap type *corpus gap*.
+
+**From a short read, for each must-hold and each high-diagnosticity claim**: open its candidate
+sources and answer one question — *does any source run the contrast this claim names and read the
+readout it names?* The answer is yes, with the source, or no. A source on the right subject that
+never ran the contrast cannot test the claim, and a title does not tell the two apart. Keep the
+read to that one question; collecting is phase 5. Where there are sub-agents, give each one claim.
 
 ### Stop: corpus coverage
 
-Only where a **must-hold** claim has no source. A corpus that cannot reach the claims the
-hypothesis stands on may have been gathered for a different one, and the user should know before
-the run spends itself. Draw the review display:
+Only where the answer is **no** for a must-hold or a high-diagnosticity claim. A corpus that
+cannot test the claims the hypothesis stands on may have been gathered for a different one, and
+the user should know before the run spends itself. Draw the review display:
 
-- **Table** — claim · importance · the sources that could bear on it.
-- **Synopsis** — claims with a source, out of the total; the must-hold claims with none.
-- **Choices** — **Continue** (those claims stay *not tested*) · **Revise claims** (back to phase
-  3; the new set supersedes the old, and the report records it as a departure) · **Cancel**.
+- **Table** — claim · importance · diagnosticity · the sources that could bear on it · whether
+  any runs its contrast and reads its readout.
+- **Synopsis** — claims with a source, out of the total; the claims no source can test.
+- **Choices** — **Continue** (those claims are expected to end *not tested*) · **Revise claims**
+  (back to phase 3; the new set supersedes the old, and the report records it as a departure) ·
+  **Cancel**.
 
 ## Phase 5 — Collect
 
@@ -349,7 +415,9 @@ scope; its Grounds are the pointers; what it takes for granted goes in as Assump
 **Apply the testability gate first.** A negative counts against a claim only where the study could
 have observed the readout **and** the contrast. Where it could not — the wrong readout, a single
 condition, a population in which the effect cannot appear — the item is uninformative, and a claim
-with only such items is **not tested**. An untested claim counts neither way.
+with only such items is **not tested**. An untested claim counts neither for the hypothesis nor
+against it. It does leave something standing: where the claim was to separate the hypothesis from
+a rival, the Argument names that rival and says it remains unseparated.
 
 **Then interrogate the support.** Was the full discriminating prediction observed, or the half of
 it that every rival also predicts? Did the support come from an item that observes the claimed
@@ -362,10 +430,20 @@ verdicts and one of the four certainties, with the reasons certainty was rated d
 
 **Judge each claim on its own.** A strong first claim is no evidence for the third.
 
+**Check every quotation before the Argument is submitted.** A script takes each quoted span in
+the draft and tests that it appears, character for character, in the content of the pointer it
+cites. On a miss the draft goes back to whoever wrote it, to take the words again from the
+pointer. Do not mend a quotation to make it match: the author decides what the source said. The
+same check runs on the Skeptic's Arguments and on any the Adjudicator writes.
+
 ## Phase 8 — Challenge
 
-**Skeptic**, one per claim. Each receives the claim, its items and their appraisal, and forms a
-challenge before seeing the Analyst's Argument.
+**Skeptic**, one per claim. Each receives the claim, its items and their appraisal.
+
+**Judge first, unseen.** Before opening the Analyst's Argument, the Skeptic writes its own verdict
+on the claim — the word, the certainty and the reasons — to a file in the scratch folder. The
+brief names where the Analyst's Argument is and says to open it only once that file is written.
+The questions it works through:
 
 - **Across the rivals.** Take each item and ask of every rival: is this observation equally
   expected there? An item every rival predicts supports none of them.
@@ -376,16 +454,40 @@ challenge before seeing the Analyst's Argument.
   shown by experiment?
 - **Rescue.** Has a failed prediction been absorbed by an assumption that phase 2 never named?
 
-The Skeptic publishes an Argument that contests or qualifies, in the manner the community's
-discourse policy and the critic's charter set out. The Analyst then answers in one of two ways:
-supersede the claim's Argument, saying what changed and why; or let it stand. Where both stand,
-the disagreement is the record's, and the Adjudicator weighs it.
+**Then compare, and publish only a disagreement.**
+
+- **The two agree** in verdict and in reasoning. The Skeptic publishes nothing for that claim.
+  Agreement reached unseen is a result, and a stronger one than a contest written to fill a slot.
+  Record it in the working file; the Adjudicator names those claims in the verdict and the report.
+- **They differ on the judgment.** The Skeptic publishes an Argument that contests or qualifies,
+  in the manner the community's discourse policy and the critic's charter set out.
+- **The Analyst's Argument holds a defect that looking settles** — a value misread, a figure
+  reported as absent that is there. That is a defect report, and it goes in a Message.
+
+The Analyst then answers each in one of two ways: supersede the claim's Argument, saying what
+changed and why; or let it stand. Where both stand, the disagreement is the record's, and the
+Adjudicator decides it.
+
+**Where the evidence shows a diagnosticity rating was wrong** — a rival turns out to predict the
+very observation a claim was rated *high* for — the Methodologist publishes a **criteria
+correction** before the verdict: the claim, the rating as fixed, the corrected rating, and the
+item that showed it. The claim set stays as it was accepted. The correction is a departure, and
+the report lists it.
 
 ## Phase 9 — Integrate
 
-**Adjudicator.** One Argument whose primary Assertion is the hypothesis, grounded on the primary
-Assertions of the claim Arguments it accepts. Where it sides with a challenge, it grounds on the
-challenge.
+**Adjudicator.** One Argument whose primary Assertion is the hypothesis.
+
+**Decide each claim first, and ground on the reading you adopt.** For every claim there is the
+Analyst's Argument and, where the Skeptic disagreed, the Skeptic's. Adopt one, and ground the
+verdict on that Argument's primary Assertion; grounding on it is how the record shows it was
+accepted. Where you can adopt neither, publish an Argument of your own on that claim, let the gate
+accept it, and ground on that. A final verdict on a claim that exists only in your rationale
+leaves the claim's own Argument saying something else, and a reader who starts there never learns
+it was overturned.
+
+**Put the decisions in a table** in the verdict: claim · final verdict · final certainty · the
+address of the Argument adopted · whether the Skeptic agreed unseen.
 
 **The rule, in order; the first that applies decides.**
 
@@ -394,10 +496,29 @@ challenge.
    or low-certainty evidence → **weakened**.
 3. Otherwise → **stands**.
 
+**The floor.** A claim contradicted at *very low* certainty triggers neither limb. Name it in the
+verdict as a caveat. Without the floor a single weak item against any claim would decide the
+outcome, and the outcome would stop telling hypotheses apart.
+
+**Apply the rule to the corrected criteria.** Where a diagnosticity rating was corrected in phase
+8, the verdict takes no strength from the rating as first fixed.
+
 Certainty in the outcome is no higher than the lowest certainty among the must-hold claims.
+
+**State the basis.** The first limb needs establishing evidence, and a corpus drawn from published
+papers often holds none against a mechanism claim: the measurements are in another tissue, on
+another agent, or by proxy. A hypothesis can then be contradicted on every mechanism claim and
+come out *weakened*. So say which it is — the outcome rests on **evidence for the hypothesis**, or
+on there being **no establishing evidence against it** — and give the number of establishing items
+that bear on the mechanism claims.
 
 **Report coverage**: claims tested, out of the total. *Stands* at three claims tested of nine is a
 different statement from *stands* at nine of nine, and the verdict says which.
+
+**Say what each untested claim leaves standing.** For every high-diagnosticity claim that ended
+*not tested*, name the rival it was to separate and the evidence that rival has in the corpus. A
+rival with its own necessity evidence and no test against it is the main finding about the
+mechanism, and *not tested* alone hides it.
 
 **Give two verdicts.** Is the **cause–effect relation** decided — does the relationship claim hold
 or fail on establishing evidence? Is the **mechanism** decided — are the high-diagnosticity claims

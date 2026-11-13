@@ -45,17 +45,22 @@ Say what you want — a hypothesis, where its corpus is, and that you want it ev
 5. **It reads the corpus** against every claim, in parallel where it can, and appraises what it
    finds.
 6. **It judges each claim** in an Argument grounded on the corpus sources.
-7. **It challenges those judgments**, claim by claim.
-8. **It reaches a verdict** — stands, weakened or refuted — with how certain, and how much of the
-   hypothesis the corpus could test.
+7. **It judges each claim a second time, unseen**, and publishes a challenge wherever the second
+   judgment differs from the first.
+8. **It reaches a verdict** — stands, weakened or refuted — with how certain, what the outcome
+   rests on, and how much of the hypothesis the corpus could test. Claim by claim, the record
+   shows whose reading was adopted.
 9. **It says what would settle the open points**, or why nothing would.
 10. **It writes the report**, publishes it, and shows it to you.
 
 ## The three places it stops
 
 **The team**, before anyone is invited. **The claims and criteria**, before evidence is read.
-**Corpus coverage**, only where the corpus cannot reach a claim the hypothesis depends on. Each
-stop offers its choices as a list.
+**Corpus coverage**, only where no source in the corpus runs the test that a claim the hypothesis
+depends on needs. Each stop offers its choices as a list.
+
+Where the community you choose already holds an evaluation of the same hypothesis, it also asks
+whether to carry that one on or start a separate one.
 
 ## What it asks of you
 
@@ -86,7 +91,9 @@ communities, the team, and what has been decided and published so far.
 ## What it reads, and where it publishes
 
 It reads the corpus community's record through a copy Symposium keeps on your machine, and
-publishes into the eval community. The corpus is the whole of its evidence.
+publishes into the eval community. The corpus is the whole of its evidence. Each source it relies
+on is copied into the eval community exactly as the corpus holds it, with a link back, so every
+quotation in the evaluation can be checked there.
 
 ## Release steps
 

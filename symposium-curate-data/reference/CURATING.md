@@ -84,6 +84,11 @@ hypothesis, however good those twenty are.
 The counts across both axes are the most useful thing this skill prints, because they say what the
 corpus can and cannot be asked to do.
 
+**Count what can be read.** A source that enters the record as a citation carries no evidence, so
+a clause is covered by its **retrieved** sources and by nothing else. Give every count twice: over
+all sources, and over the retrieved ones. A clause with twelve sources of which one was retrieved
+has one.
+
 ## What each source records
 
 Title, authors, venue, year, type — primary research, review, preprint or dataset — licence, every
@@ -140,6 +145,10 @@ A few lines under the table:
 - counts across both axes — cause / effect / rationale, and supports / contradicts / background
 - the independence groups, and which rows share one
 - the access tally — retrieved, abstract, failed
+- **the content line** — how many of the sources will enter the record with content, out of the
+  total, and the same by clause. Where that is under half, or a clause has fewer than two, say so
+  here in one line, with what would change it: retry, or a copy the user adds through their own
+  access
 
 These are the things a user approving row by row can still get wrong. A corpus of twenty sources
 bearing on the cause and none on the effect cannot ground the hypothesis, and the table alone will

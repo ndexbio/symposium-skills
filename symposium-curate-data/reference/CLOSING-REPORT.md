@@ -18,6 +18,8 @@ only works if it is the same shape each run. Fill the skeleton; do not redesign 
 | Argument | <n> |
 | Data | <n> |
 
+**With content** — <n> of <n> publications · cause <n> · effect <n> · rationale <n>
+
 Local copy verifies against the server: <yes, or what differs>.
 
 ## What each source became
@@ -52,7 +54,9 @@ table; what failed and was recovered — or one line saying none applies>
 ## What each section is for
 
 **1. What is in the record.** Numbers, not prose. The community it went to, counts by artifact
-type, and whether the local copy verifies against the server.
+type, how many publications carry content and how that falls across the three clauses, and whether
+the local copy verifies against the server. The content line is what someone about to evaluate
+against this corpus needs first: a clause with one readable source will be judged on that one.
 
 **2. What each source became.** Name the sources in each group. Three totals tell the user how
 much was done; names tell them what they can now reach, which is the question they will actually

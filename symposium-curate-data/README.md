@@ -58,6 +58,10 @@ a third of the search looks for.
 **Attention at the table.** It is the only review gate, and the record is append-only — what gets
 published cannot be withdrawn.
 
+**A look at the content line.** Under the review table it says how many sources will enter the
+record with something readable, in all and for each clause. A corpus is only as useful as that
+number: a source kept as a citation can be cited and carries no evidence.
+
 **Time for the publishing.** Each source becomes several artifacts, and Symposium submits them
 serially with the gate between dependent ones. Forty sources is a long stretch, and it is meant to
 be taken in sittings: the run records what it has published and resumes where it stopped.

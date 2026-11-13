@@ -96,6 +96,10 @@ should offer an existing one you administer or a new one; choose new, on the loc
 Expect a suggested name drawn from the hypothesis, within Symposium's limits for a community
 name, and a question for the admin's handle. Accept the name; answer `evaladmin`.
 
+**An earlier evaluation is asked about.** Run it a second time and choose the existing community
+instead. Expect it to show what that community already holds for this hypothesis and to offer
+adopt, start separately, or cancel. Taking the earlier artifacts up without asking is a finding.
+
 **It reads before it builds.** Before any artifact exists, expect it to say in its own words what
 an Argument's verdict, rationale and scope hold, what each of the six publishing roles may
 publish, how content held outside the record is cited, and what contesting an Argument amounts
@@ -131,42 +135,63 @@ Add a reversal claim: restoring FXR signalling should reduce the proliferation m
 
 Expect the display again with the claim added and the audit re-run. Then **approve**.
 
-**Stop three: corpus coverage — perhaps.** It appears only where a must-hold claim has no source.
-With a twelve-source corpus it often does. Where it appears, expect a table of claims against the
-sources that could bear on them and the choices continue, revise claims, cancel; choose
-**continue**. Where every must-hold claim is covered, the run goes straight on, and that is
-correct.
+**Stop three: corpus coverage — perhaps.** Before the full reading, expect a short read of the
+candidate sources for each must-hold and each high-diagnosticity claim, asking whether any runs
+the claim's contrast and reads its readout. The stop appears only where the answer is no for one
+of them; with a twelve-source corpus it often is. Where it appears, expect a table of claims
+against their sources with that answer in a column, and the choices continue, revise claims,
+cancel; choose **continue**. Where every such claim can be tested, the run goes straight on, and
+that is correct.
 
-**Reading fans out.** Where the environment has sub-agents, expect collecting and appraising to
-run across several at once, and one skeptic per claim. Expect all publishing to come from the main
-agent, one submission at a time, with the session read back before each. A sub-agent that selects
-a session or publishes is the most important finding this rehearsal can produce.
+A claim that had sources at this stop and still ends *not tested* because none ran its contrast is
+the finding this stop exists to prevent.
+
+**Reading fans out.** Where the environment has sub-agents, expect collecting and appraising to run
+across several at once, and one analyst and one skeptic per claim. Each skeptic should file its own
+verdict in the scratch folder before it opens the Analyst's Argument. Expect all publishing to come
+from the main agent, one submission at a time, with the session read back before each. A sub-agent
+that selects a session or publishes is the most important finding this rehearsal can produce.
 
 **The gate gets run between layers**, as the admin, and the member is reselected after it.
 
+**Checks before the gate.** Expect each artifact validated on this machine before it is
+submitted; the first pointer, and later the first claim Argument, submitted alone and the gate's
+findings read before the rest are built; pointer content copied by script and compared with the
+corpus; and each drafted Argument's quotations tested against its pointers before submission. A
+run that meets the same gate refusal on several artifacts in a row skipped these.
+
 **The report**, shown in full at the end: the header, then *Verdict*, *The hypothesis as
-evaluated*, *Claims and verdicts*, *Rival explanations*, *Certainty and limits*, *What would
-settle it*, *Method and departures*, *Where it is* — those headings, that order. About two pages.
+evaluated*, *Claims and verdicts*, *Rival explanations*, *Certainty and limits*, *What would settle
+it*, *Method and departures*, *Where it is* — those headings, that order. Each part within its
+budget: for ten claims and eight rivals, about 2,200 words. A Verdict section that runs to several
+paragraphs is a finding.
 
 **The working file is in the QA directory**, at `.symposium-evaluate-hypothesis/run.json`, with
 the scratch folder beside it. Nothing of the run's is written under your home directory.
 
 **It resumes.** Stop it during the claim Arguments and start a new session in the same directory
-with *carry on with the evaluation*. It should read the working file, reselect and confirm the session, and pick up at
-the next unpublished claim.
+with *carry on with the evaluation*. It should read the working file, reselect and confirm the
+session, and pick up at the next unpublished claim.
 
 ## 5. What to read in the record afterward
 
 Browse the eval community's record and check:
 
 - **the order the gate accepted things**: goal, then claim set and criteria, then pointers, then
-  claim Arguments, challenges, any revisions, the verdict, proposed tests, the report. The claim
+  claim Arguments, challenges and any defect Messages, any revisions and criteria corrections,
+  the verdict, proposed tests, the report. The claim
   set's `created` is earlier than every claim Argument's
 - **each artifact is published by the member whose role it is**, and names the goal in
   `serves_goals`
-- **pointers**: one per corpus source relied on, each a `ScientificPublication` or `Data` with a
-  `download` Content whose location leads to the artifact in `corpus_bile_fxr`, and an
-  `import_method` saying so. Where a verdict quotes a passage, the pointer carries that passage
+- **pointers**: one per corpus source relied on, each a `ScientificPublication` or `Data` that
+  reproduces what the corpus artifact embeds, exactly, and keeps a `download` Content whose
+  location leads to the artifact in `corpus_bile_fxr`, with an `import_method` saying so. Names
+  of corpus artifacts inside a pointer are written as literals
+- **every Ground in a claim Argument was verified by the gate**: each cites content in a pointer,
+  and none carries a finding that its content could not be checked. One unverified Ground is a
+  finding, however good the Argument reads
+- **a pointer's content equals the corpus's**: pick three pointers and compare each with the
+  artifact it names in `corpus_bile_fxr`, byte for byte
 - **every Ground in a claim Argument cites a pointer**, by address. A URL in a Ground's place, or
   a claim resting on something that is in neither community, is the defect this skill is built to
   avoid
@@ -175,10 +200,16 @@ Browse the eval community's record and check:
   the nouns swapped, the judging degraded
 - **the testability gate was applied**: a claim whose only evidence could not have observed the
   readout is *not tested*, never *contradicted*
-- **challenges exist**, one per claim, published by the Skeptic's handle, and each either drew a
-  superseding Argument or was left standing and weighed in the verdict
-- **the verdict Argument** grounds on the claim Arguments, states coverage, and gives both
-  verdicts — the relation and the mechanism
+- **challenges exist where the Skeptic disagreed**, published by the Skeptic's handle, and each
+  either drew a superseding Argument or was left standing. A claim with no challenge should have
+  a blind verdict in the scratch folder that matches the Analyst's; ten challenges for ten claims
+  suggests contests written to fill a slot
+- **the verdict Argument** grounds, for each claim, on the Argument whose reading it adopts — the
+  Analyst's or the Skeptic's — and carries a table of final verdicts. No claim's final verdict
+  exists only in the verdict's prose. It states its basis and coverage, and gives both verdicts,
+  the relation and the mechanism
+- **the rule's floor was applied**: a claim contradicted at very low certainty is a caveat, and
+  did not decide the outcome
 - **the report** asserts nothing the Arguments do not, links each statement to its Argument, and
   says plainly where the corpus goes against the hypothesis
 - **the corpus community is as the first run left it**: same artifacts, same members

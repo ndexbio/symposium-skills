@@ -203,15 +203,18 @@ disagree, **the community's documents are right.**
 **4. Sync and read the record first.** It is append-only, so anything it already holds is cited by
 address rather than published again.
 
-**5. Build, for each source:** the `ScientificPublication`, the passages each Ground needs, the
-tables an Argument turns on, and the Argument extracted from it. Every derived artifact cites the
-publication **by its address** rather than repeating its location. All of it under
+**5. Build, for each source:** the `ScientificPublication`, the passages and tables that carry
+every result bearing on the hypothesis, and the Argument extracted from it. Every derived artifact
+cites the publication **by its address** rather than repeating its location. All of it under
 `--role importer`.
 
 What may be taken from the source on the way in is
 **[reference/TAKING.md](reference/TAKING.md)**: measurements are observations of the world and are
 rendered as recorded; sentences are authored expression and are taken as bounded, attributed
-quotations; everything derived is written in your own words.
+quotations; everything derived is written in your own words. It also says how much to take —
+every result that bears on a clause, the contrary ones included, because whoever evaluates the
+hypothesis against this record has only what was taken — and how to render a source that arrived
+as plain HTML or a flat PDF.
 
 **6. Publish into the record**, which owns submission, ordering and the gate.
 

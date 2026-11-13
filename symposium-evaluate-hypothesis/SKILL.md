@@ -30,7 +30,7 @@ Three documents share this vocabulary. It is fixed here.
 | **rival** | another explanation of the same observations |
 | **criteria** | the verdict scale, the certainty scale and the integration rule, fixed before evidence is read |
 | **item** | one place where one corpus source bears on one claim |
-| **pointer** | an artifact in the eval community that stands for one corpus source, so a Ground can cite it |
+| **pointer** | an artifact in the eval community that reproduces what the corpus holds of one source and links back to it, so a Ground can cite it |
 | **role** | one of the team's six scientific jobs: Lead, Methodologist, Librarian, Analyst, Skeptic, Adjudicator |
 | **publishing role** | the Symposium role a member publishes under |
 | **roster** | which member holds which role |
@@ -105,6 +105,19 @@ Where the evaluation is carried out and published. Offer two ways in.
 access role, each as `<community>:<handle>`, and let the user choose one. Admin access is what the
 run needs to invite the team and run the gate.
 
+**Where the chosen community already holds an evaluation of this hypothesis**, sync it, show the
+user what is there — the artifacts, who published them, the short name they carry — and offer the
+choices as a list:
+
+- **Adopt** — carry that evaluation on, under its short name. What the gate has accepted is done,
+  and the run takes up at the first phase with nothing accepted.
+- **Start separately** — a new short name. The earlier artifacts stay as they are and this run
+  cites none of them.
+- **Cancel**.
+
+Record the choice in the working file. An evaluation taken up without asking merges two runs the
+short name exists to keep apart.
+
 **A new community.** Ask three things:
 
 1. **Where** — a data server on this machine, or one elsewhere. For one elsewhere, the user gives
@@ -158,7 +171,9 @@ of it is restated here, and where this skill and the community's own documents d
 community's documents are right.**
 
 **4. Sync and read the eval record first.** It is append-only. Where it already holds an
-evaluation, this run's artifacts carry their own short name and cite what is there by address.
+evaluation of another hypothesis, this run's artifacts carry their own short name and stay apart
+from it. Where it holds one of this hypothesis, the user has already chosen, at the third input,
+whether this run adopts it.
 
 ## The session rule
 
@@ -198,16 +213,16 @@ After the three inputs, three places, each drawn as a review display:
 1. **The roster**, before any member is invited — approve, change, or cancel.
 2. **The claim set and criteria**, before they are published and before evidence is read —
    approve, revise, regenerate, or cancel.
-3. **Corpus coverage**, only where the corpus cannot reach a claim the hypothesis stands on —
-   continue, revise the claims, or cancel.
+3. **Corpus coverage**, only where no source in the corpus runs the test that a claim the
+   hypothesis stands on needs — continue, revise the claims, or cancel.
 
 Everything else runs through.
 
 ## On scripts
 
 This skill is prose. Code written in the moment — indexing the corpus copy, tallying items by
-claim, checking that every Ground names a pointer the gate accepted — is ordinary work; write it,
-use it, discard it.
+claim, copying a source's content into its pointer and comparing the two, testing that every
+quotation appears in the pointer it cites — is ordinary work; write it, use it, discard it.
 
 A script that *decides* something is a different matter. Where you find yourself writing one that
 rates an item, rules on a claim or picks a verdict, stop: that judgment is a member's, made in
