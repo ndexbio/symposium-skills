@@ -11,6 +11,7 @@ the Symposium skill installed alongside it.
 | Skill | What it does |
 |---|---|
 | [`symposium-curate-data`](symposium-curate-data/README.md) | Takes one hypothesis, finds the scientific sources that bear on it, and publishes them into a community record as a grounded corpus |
+| [`symposium-evaluate-hypothesis`](symposium-evaluate-hypothesis/README.md) | Takes one hypothesis and the community holding its corpus, evaluates the hypothesis against that corpus with a team of members, and publishes the claims, the arguments, the verdict and a report into a second community record |
 
 ## Installing a skill
 
@@ -66,7 +67,7 @@ make -C <skill> lint     # frontmatter, foreign references, links, orphans
 make -C <skill> build    # lint, then dist/<skill>_skill.zip
 ```
 
-The zip is deterministic: the same documents give the same bytes.
+The zip holds one folder named for the skill, with `SKILL.md` and `reference/` inside it.
 
 A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. The
 prefix selects the job and the rest is the version, which lives in the tag: the job passes it to

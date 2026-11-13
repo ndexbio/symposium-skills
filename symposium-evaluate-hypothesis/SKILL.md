@@ -1,0 +1,210 @@
+---
+name: symposium-evaluate-hypothesis
+description: Evaluate a scientific hypothesis against a curated corpus held in a Symposium community, and publish the evaluation into a second Symposium community record. Takes one hypothesis stated "If [Cause], then [Effect], because [Rationale]", a corpus community to read, and a community to evaluate in. A team of members decomposes the hypothesis into testable claims, names rival explanations, fixes the judging criteria, collects and appraises evidence from the corpus, judges each claim, challenges the judgments, integrates a verdict, proposes what would settle the open points, and writes a fixed-format assessment report. Use for: evaluate a hypothesis, test a hypothesis against the literature, assess the evidence for a hypothesis, hypothesis verdict, does the corpus support this hypothesis, hypothesis evaluation report, evaluate a hypothesis in Symposium.
+version: 0.1.0
+---
+
+# Evaluating a hypothesis
+
+One hypothesis and a corpus in. An evaluation in a Symposium community record out: the claims the
+hypothesis stands on, an Argument judging each against the corpus, the challenges to those
+judgments, a verdict, and a report.
+
+The science is this skill's work, and
+**[reference/HYP-EVAL.md](reference/HYP-EVAL.md)** is where it is set out. This document gathers
+what that process needs before it can start — three inputs, a team, and a record to publish to —
+and says how the work reaches Symposium.
+
+## Terms
+
+Three documents share this vocabulary. It is fixed here.
+
+| Term | Means |
+|---|---|
+| **hypothesis** | one statement of the form `If [Cause], then [Effect], because [Rationale]` |
+| **clause** | one of its three parts: cause, effect, rationale |
+| **corpus community** | the Symposium community holding the sources gathered for this hypothesis; this run reads it |
+| **eval community** | the Symposium community this run publishes the evaluation into |
+| **the corpus copy** | the corpus session's own copy of that community's record, on this machine |
+| **claim** | one testable statement the hypothesis stands on, with what would count against it |
+| **rival** | another explanation of the same observations |
+| **criteria** | the verdict scale, the certainty scale and the integration rule, fixed before evidence is read |
+| **item** | one place where one corpus source bears on one claim |
+| **pointer** | an artifact in the eval community that stands for one corpus source, so a Ground can cite it |
+| **role** | one of the team's six scientific jobs: Lead, Methodologist, Librarian, Analyst, Skeptic, Adjudicator |
+| **publishing role** | the Symposium role a member publishes under |
+| **roster** | which member holds which role |
+| **review display** | a table, a line of synopsis and the choices, drawn at each stop |
+| **address** | a Symposium artifact reference, written `@name` |
+
+## The working file
+
+A run spans many submissions and more than one sitting. So a run keeps one file:
+
+- **`<user home>/.symposium-evaluate-hypothesis/run.json`** — a directory of this skill's own, in
+  the user's home directory, written the way the host platform spells that path.
+- **JSON**, updated a field at a time. One object holding the hypothesis; the corpus community
+  and the handle that reads it; **the eval community and its admin handle**; the roster; the
+  run's short name; the phase reached; the address of everything the gate has accepted; and the
+  scratch folder where the index and the drafts live.
+
+Write each decision and each accepted artifact to it as it happens. A run that stops for any
+reason resumes by reading it.
+
+**Record both communities and the roster the moment they are settled, and re-establish the session
+on every resume.** A chosen session belongs to the agent session that chose it. What the run
+carries across the gap is which community it publishes to and as whom, because the record is
+append-only and an artifact published into the wrong one stays there. So on resume: read the
+working file, select the eval session for the member whose turn it is, confirm it is the one
+selected, sync, and take what has been accepted from the record itself. Where the recorded
+community cannot be selected, stop and say so.
+
+One run at a time. Where a run is already in flight, ask the user before starting over it.
+
+## Before you start: establish that a record is reachable
+
+This run reads one **Symposium community record** and publishes into another — both append-only,
+both reached through a session, the second decided by a gate.
+
+**Where nothing in this environment can act on a Symposium community record** — no session, no
+community, no way to reach a data server — the **Symposium skill** is missing, and it is required.
+Say so, and point the user at **https://github.com/ndexbio/symposium/releases** to install it
+alongside this one.
+
+Asking Symposium which sessions this machine holds is the whole of the check, and it is the first
+thing the inputs below need.
+
+## Input 1 — The hypothesis
+
+A hypothesis states all three clauses: `If [Cause], then [Effect], because [Rationale]`.
+
+Where one is missing, say which, and work with the user to state it. The rationale is the one
+people leave out, and it is the clause the mechanism claims are drawn from: an evaluation of a
+hypothesis with no rationale can say whether the effect follows the cause and nothing about why.
+
+## Input 2 — The corpus community
+
+The community a curation run published the sources into, and a handle that can read it.
+
+Have Symposium refresh what access each session on this machine holds, then list the communities
+and handles and let the user choose one. Any access that reads the record will do.
+
+**This run reads that community.** Sync its session once and work from the corpus copy. Evidence
+is what that record embeds — passages, tables, extracted Arguments.
+
+## Input 3 — The eval community
+
+Where the evaluation is carried out and published. Offer two ways in.
+
+**An existing community.** List the sessions on this machine that hold the **community-admin**
+access role, each as `<community>:<handle>`, and let the user choose one. Admin access is what the
+run needs to invite the team and run the gate.
+
+**A new community.** Ask three things:
+
+1. **Where** — a data server on this machine, or one elsewhere. For one elsewhere, the user gives
+   its URL and the handle of a **server-level** user whose invite this machine has already
+   accepted; founding a community is a server-level act, and that acceptance is what makes it
+   possible from here. For one on this machine, a running local data server and its server-level
+   user are needed; where there is none yet, standing one up is a path Symposium documents, and
+   you take the user through it.
+2. **Its name** — offer a default drawn from the hypothesis: a few of its key words, lowercase,
+   joined by underscores, within the length and characters Symposium allows a community name.
+3. **Its admin's handle.**
+
+Then found the community with that admin and with the team's members named for invitation, and
+join the admin and each member on this machine. Keys and invites move as files; a key, a
+passphrase or an invite belongs in a file, and the chat is somewhere it may not go.
+
+Record all three inputs in the working file. The run now has what it needs.
+
+## How this work reaches Symposium
+
+The eval community defines how reasoning becomes artifacts — completely, in its own documents.
+Naming its concepts here makes this skill legible; it stands in for none of that reading.
+
+**1. Say what you are doing, and let the community's documents answer.** You are acting, in turn,
+as each of several **Members of the eval community**, **publishing artifacts into its record**,
+each under one **publishing role**: `principal` to set the goal, `hypothesize` to state claims and
+propose tests, `importer` to bring corpus sources within reach, `researcher` to argue from
+evidence and to give the verdict, `critic` to contest, `scout` to write the report.
+
+**2. Read, before building anything:** the **operating instructions for a Member**; the
+**charter of each of those six publishing roles**; the **standing policies** on what may be
+embedded from a source, on what a rendering may change, and on how Members contest one another;
+and the community's account of **the canonical form of an artifact**. Follow every onward
+reference they make.
+
+**3. Check you arrived.** Before you build, say in your own words:
+
+| What you must be able to say | Which means you reached |
+|---|---|
+| what an Artifact, an Assertion, a Ground and an Assumption are; what an Argument's verdict, rationale and scope hold; how one artifact addresses another | the specification |
+| what a goal is, why nothing may ground on it, and why the account that sets it stays apart from the gate | the principal's charter |
+| what a conjecture may be published as, and what it must state to be testable | the hypothesizer's charter |
+| what `import_method` has to state, and how content held outside the record is described and cited | the importer's charter and the canonical form |
+| what a researcher may and may not ground on | the researcher's charter |
+| what contesting an Argument amounts to, and what it leaves standing | the critic's charter and the discourse policy |
+| what a survey may say, and why it grounds nothing | the scout's charter |
+| what may be embedded from a source, and what a rendering may change | the embedding and fidelity policies |
+
+Where you cannot say one of them, you have read too little: go back and find what covers it. None
+of it is restated here, and where this skill and the community's own documents disagree, **the
+community's documents are right.**
+
+**4. Sync and read the eval record first.** It is append-only. Where it already holds an
+evaluation, this run's artifacts carry their own short name and cite what is there by address.
+
+## The session rule
+
+Symposium keeps one current session for an agent process, and sub-agents run inside that process.
+
+**You alone act on Symposium** — select a member, sync, validate, publish, run the gate.
+**Sub-agents read and draft**, in parallel wherever the work is wide, and return files.
+**Confirm the session before every submission**: read it back, check it against the roster, and
+reselect where it has moved. Running the gate moves it.
+
+[reference/HYP-EVAL.md](reference/HYP-EVAL.md) sets out who reads what in parallel and what goes
+in a sub-agent's brief.
+
+## Carry out the evaluation
+
+→ **[reference/HYP-EVAL.md](reference/HYP-EVAL.md)**
+
+Settle the roster and stand up the team. Read the corpus once and index it. Then eleven phases:
+frame, decompose, claims and criteria, coverage, collect, appraise, judge, challenge, integrate,
+what would settle it, report. Each ends in something published, in layers, with the gate between.
+
+### When it is done: the evaluation report
+
+→ **[reference/EVAL-REPORT.md](reference/EVAL-REPORT.md)**
+
+One report, a header and eight sections, the same shape for every hypothesis. Fill the skeleton it
+carries rather than composing one. Publish it and show it to the user.
+
+### If the gate refuses
+
+Report what the gate said, and stop there. What to change is the user's decision.
+
+## Where this stops and asks
+
+After the three inputs, three places, each drawn as a review display:
+
+1. **The roster**, before any member is invited — approve, change, or cancel.
+2. **The claim set and criteria**, before they are published and before evidence is read —
+   approve, revise, regenerate, or cancel.
+3. **Corpus coverage**, only where the corpus cannot reach a claim the hypothesis stands on —
+   continue, revise the claims, or cancel.
+
+Everything else runs through.
+
+## On scripts
+
+This skill is prose. Code written in the moment — indexing the corpus copy, tallying items by
+claim, checking that every Ground names a pointer the gate accepted — is ordinary work; write it,
+use it, discard it.
+
+A script that *decides* something is a different matter. Where you find yourself writing one that
+rates an item, rules on a claim or picks a verdict, stop: that judgment is a member's, made in
+words a reader can contest, and compiling it into code leaves the record holding a number where
+the reasoning should be.
