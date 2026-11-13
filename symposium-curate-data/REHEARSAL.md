@@ -106,8 +106,12 @@ arrange it. A run that stalls at submission waiting for something to accept it i
 report, not something to rescue by hand.
 
 **Publishing is incremental.** Expect it to go source by source, to tell you that at the approval
-stop, and to be resumable. Stop it halfway and start a new session to check that it picks up where
-it left off rather than starting over.
+stop, and to be resumable. Stop it halfway and start a new session **in the same directory** to
+check that it picks up where it left off rather than starting over.
+
+**The working file is in the QA directory**, at `.symposium-curate-data/run.json`, and nothing of
+the run's is written under your home directory. A session started in a different directory should
+find no run and offer to begin one.
 
 ## 4. What to read in the record afterward
 
@@ -133,4 +137,5 @@ Browse the record and check:
 ## 5. Teardown
 
 Stop the data server container and remove its state directory. Remove the throwaway community's
-session under `~/.symposium/`, and the run's working file at `~/.symposium-curate-data/run.json`.
+session under `~/.symposium/`, and the run's working folder, `.symposium-curate-data/`, in the QA
+directory the session was started in.

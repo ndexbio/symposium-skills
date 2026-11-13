@@ -13,3 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: make -C symposium-curate-data build
+
+  symposium-evaluate-hypothesis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make -C symposium-evaluate-hypothesis build

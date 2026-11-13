@@ -33,3 +33,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
+
+  symposium-evaluate-hypothesis:
+    if: startsWith(github.event.release.tag_name, 'symposium-evaluate-hypothesis-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the skill, stamped with the tag's version
+        run: make -C symposium-evaluate-hypothesis build VERSION="${TAG#symposium-evaluate-hypothesis-v}"
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+
+      - name: Attach the zip to the release
+        run: gh release upload "$TAG" symposium-evaluate-hypothesis/dist/symposium-evaluate-hypothesis_skill.zip --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}

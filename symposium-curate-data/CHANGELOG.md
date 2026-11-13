@@ -4,6 +4,15 @@ Versions follow [semver](https://semver.org). The release tag is
 `symposium-curate-data-v<version>`, and it is where the version lives — the skill carries no copy
 of it. [README.md](README.md) has the release steps.
 
+## 0.2.0 — 2026-11-12
+
+- **The working file moves into the directory the session is started in**, at
+  `.symposium-curate-data/run.json`. It was a single file under the user's home directory. A run
+  now belongs to its directory: separate directories run side by side on one machine, and a run
+  is resumed from the directory that holds it.
+- **Carrying a run across**: move `run.json` from `.symposium-curate-data/` in your home directory
+  into `.symposium-curate-data/` in the directory you resume from.
+
 ## 0.1.0 — 2026-11-11
 
 The first release. A prose skill: one hypothesis in, a grounded corpus in a Symposium community
