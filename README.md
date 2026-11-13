@@ -37,7 +37,7 @@ A skill folder holds two kinds of file, and the line between them is what ships:
 <skill>/
 ├── README.md       what the skill does and how to install it          ·  repository only
 ├── REHEARSAL.md    what a correct run of it looks like                ·  repository only
-├── Makefile        lint ← build                                       ·  repository only
+├── Makefile        lint ← build ← deploy-local                        ·  repository only
 ├── SKILL.md        ┐
 └── reference/      │  shipped in the zip
     └── *.md        ┘
@@ -63,9 +63,13 @@ document may link anywhere.
 ## Building and releasing
 
 ```sh
-make -C <skill> lint     # frontmatter, foreign references, links, orphans
-make -C <skill> build    # lint, then dist/<skill>_skill.zip
+make -C <skill> lint            # frontmatter, foreign references, links, orphans
+make -C <skill> build           # lint, then dist/<skill>_skill.zip
+make -C <skill> deploy-local    # build, then install from the zip into ~/.claude/skills
 ```
+
+`deploy-local` installs what the zip holds, replacing any copy already there, and installs nothing
+where the checks fail. `SKILLS=<dir>` sends it to another skills directory.
 
 The zip holds one folder named for the skill, with `SKILL.md` and `reference/` inside it.
 
@@ -86,9 +90,7 @@ works, and it is **the expected outcomes for that skill's prose as it stands**.
 Run one like this:
 
 ```sh
-make -C <skill> build
-mkdir -p ~/dev/qa-<skill>/.claude/skills
-unzip -o <skill>/dist/<skill>_skill.zip -d ~/dev/qa-<skill>/.claude/skills/
+make -C <skill> deploy-local SKILLS=~/dev/qa-<skill>/.claude/skills
 cd ~/dev/qa-<skill> && claude
 ```
 

@@ -27,8 +27,9 @@ curation skill build one, and the second evaluates against it.
 | This skill installed in the QA directory | `ls ~/dev/qa-symposium-evaluate-hypothesis/.claude/skills/symposium-evaluate-hypothesis/SKILL.md` |
 | Network access | the first run queries public indexes; the second needs none beyond the data server |
 
-Both zips go into the one QA directory: `make -C symposium-curate-data build` and
-`make -C symposium-evaluate-hypothesis build`, then unzip each into its `.claude/skills/`.
+Both skills go into the one QA directory: run `make -C symposium-curate-data deploy-local` and
+`make -C symposium-evaluate-hypothesis deploy-local`, each with
+`SKILLS=~/dev/qa-symposium-evaluate-hypothesis/.claude/skills`.
 
 Set aside an evening for the first run and an hour or two for the second.
 
