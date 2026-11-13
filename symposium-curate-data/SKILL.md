@@ -39,8 +39,10 @@ Five documents share this vocabulary. It is fixed here.
 A run holds more than fits in a conversation, and the review table is redrawn after every action.
 So a run keeps one file:
 
-- **`<user home>/.symposium-curate-data/run.json`** — a directory of this skill's own, in the
-  user's home directory, written the way the host platform spells that path.
+- **`.symposium-curate-data/run.json`, in the directory the session was started in** — a folder of
+  this skill's own, beside whatever else that directory holds. Work out its absolute path once,
+  at the start, record that path in the file, and use the absolute path from then on, so that a
+  change of directory mid-run cannot move the run.
 - **JSON**, because it is updated a field at a time across a long run. One object holding the
   hypothesis, the facets, the scale, **the community and the handle this run publishes as**,
   every source with everything known about it, and the decisions and publications recorded
@@ -61,7 +63,9 @@ handle out of the working file, select that session, confirm it is the one selec
 then continue. Where the run is resumed and the recorded community cannot be selected, stop and
 say so rather than publishing anywhere else.
 
-One run at a time. Where a run is already in flight, ask the user before starting over it.
+One run to a directory. Where this directory already holds a run in flight, ask the user before
+starting over it. A run in another directory is another run, and the two do not meet; to resume a
+run, the session is opened in the directory that holds it.
 
 ## Before you start: establish where you are publishing
 

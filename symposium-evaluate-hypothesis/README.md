@@ -68,6 +68,21 @@ can find, and the record is append-only.
 **A corpus gathered for this hypothesis.** The evaluation says what that body of evidence
 supports. Where the corpus cannot reach a claim, the report says so.
 
+## Where a run keeps its state
+
+A run writes one working file, **`.symposium-evaluate-hypothesis/run.json`, in the directory you
+start the agent in**. It is how a run survives being stopped: it holds the hypothesis, the two
+communities, the team, and what has been decided and published so far.
+
+- **One run to a directory.** Start the agent in a different directory and you get a separate
+  run, so several can go at once on one machine.
+- **Resume from the same directory.** A session opened anywhere else finds no run and offers to
+  start a new one.
+- **It holds names, and no keys.** Communities and handles are in it; credentials stay with
+  Symposium. Where the directory is a git repository, add `.symposium-evaluate-hypothesis/` to its
+  `.gitignore`.
+- **Deleting the folder forgets the run.** What the run published stays in the record.
+
 ## What it reads, and where it publishes
 
 It reads the corpus community's record through a copy Symposium keeps on your machine, and

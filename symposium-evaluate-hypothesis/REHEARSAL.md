@@ -148,8 +148,11 @@ a session or publishes is the most important finding this rehearsal can produce.
 evaluated*, *Claims and verdicts*, *Rival explanations*, *Certainty and limits*, *What would
 settle it*, *Method and departures*, *Where it is* — those headings, that order. About two pages.
 
-**It resumes.** Stop it during the claim Arguments and start a new session with *carry on with the
-evaluation*. It should read the working file, reselect and confirm the session, and pick up at
+**The working file is in the QA directory**, at `.symposium-evaluate-hypothesis/run.json`, with
+the scratch folder beside it. Nothing of the run's is written under your home directory.
+
+**It resumes.** Stop it during the claim Arguments and start a new session in the same directory
+with *carry on with the evaluation*. It should read the working file, reselect and confirm the session, and pick up at
 the next unpublished claim.
 
 ## 5. What to read in the record afterward
@@ -183,5 +186,5 @@ Browse the eval community's record and check:
 ## 6. Teardown
 
 Stop the data server container and remove its state directory. Remove both throwaway communities'
-sessions under `~/.symposium/`, and the two working files,
-`~/.symposium-curate-data/run.json` and `~/.symposium-evaluate-hypothesis/run.json`.
+sessions under `~/.symposium/`, and the two working folders in the QA directory,
+`.symposium-curate-data/` and `.symposium-evaluate-hypothesis/`.

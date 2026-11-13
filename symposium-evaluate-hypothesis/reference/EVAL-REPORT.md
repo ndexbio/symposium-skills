@@ -87,7 +87,7 @@ contexts or in one>
 
 ## Where it is
 
-<the eval community and how to browse it; this report's address; the working file>
+<the eval community and how to browse it; this report's address; the working file's full path>
 ```
 
 ## What each part is for
@@ -139,7 +139,8 @@ the skill beside it. Then anything that changed after the criteria were fixed. W
 say so in a line and keep the heading: a missing section reads as an omission.
 
 **8. Where it is.** The one place for locations: the community, how to browse it, the report's
-address, the working file.
+address, and the working file by its full path, since it lives in the directory the run was started
+in.
 
 ## Filling it
 

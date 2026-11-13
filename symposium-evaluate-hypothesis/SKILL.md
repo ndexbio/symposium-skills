@@ -41,12 +41,15 @@ Three documents share this vocabulary. It is fixed here.
 
 A run spans many submissions and more than one sitting. So a run keeps one file:
 
-- **`<user home>/.symposium-evaluate-hypothesis/run.json`** — a directory of this skill's own, in
-  the user's home directory, written the way the host platform spells that path.
+- **`.symposium-evaluate-hypothesis/run.json`, in the directory the session was started in** — a
+  folder of this skill's own, beside whatever else that directory holds. Work out its absolute
+  path once, at the start, record that path in the file, and use the absolute path from then on,
+  so that a change of directory mid-run cannot move the run.
 - **JSON**, updated a field at a time. One object holding the hypothesis; the corpus community
   and the handle that reads it; **the eval community and its admin handle**; the roster; the
   run's short name; the phase reached; the address of everything the gate has accepted; and the
-  scratch folder where the index and the drafts live.
+  scratch folder where the index and the drafts live, which sits beside this file in the same
+  folder.
 
 Write each decision and each accepted artifact to it as it happens. A run that stops for any
 reason resumes by reading it.
@@ -59,7 +62,9 @@ working file, select the eval session for the member whose turn it is, confirm i
 selected, sync, and take what has been accepted from the record itself. Where the recorded
 community cannot be selected, stop and say so.
 
-One run at a time. Where a run is already in flight, ask the user before starting over it.
+One run to a directory. Where this directory already holds a run in flight, ask the user before
+starting over it. A run in another directory is another run, and the two do not meet; to resume a
+run, the session is opened in the directory that holds it.
 
 ## Before you start: establish that a record is reachable
 

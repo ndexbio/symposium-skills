@@ -31,6 +31,8 @@ second Symposium community record out.
 - **Says what would settle the open points**, proposing a test only where it is targeted,
   diagnostic, feasible and decision-bearing, and abstaining with a reason otherwise.
 - **Ends in one report**, a header and eight sections, the same shape for every hypothesis.
+- **Keeps one working file per run**, at `.symposium-evaluate-hypothesis/run.json` in the directory
+  the session is started in, so separate directories run side by side on one machine.
 - **Stops for the user three times**, each as a review display with its choices: the roster, the
   claim set and criteria, and corpus coverage.
 

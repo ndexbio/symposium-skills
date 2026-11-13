@@ -46,7 +46,7 @@ table; what failed and was recovered — or one line saying none applies>
 
 ## Where it is
 
-<the record and how to browse it; the working file>
+<the record and how to browse it; the working file's full path>
 ```
 
 ## What each section is for
@@ -77,7 +77,8 @@ so in a line and keep the heading — a missing section reads as an omission rat
 needing access the user could supply, works left behind by the scale, a clause that would need
 another run.
 
-**6. Where it is.** The record and how to browse it, and the working file. This is the one place
+**6. Where it is.** The record and how to browse it, and the working file by its full path, since
+it lives in the directory the run was started in. This is the one place
 in the run where that belongs — the loop is over, and the user may want to go and look.
 
 ## Keep it about the record

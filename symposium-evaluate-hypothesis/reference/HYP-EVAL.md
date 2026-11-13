@@ -89,7 +89,8 @@ Before each submission, select the member whose role authors that artifact, read
 check it against the roster in the working file, and only then publish. One submission at a time.
 
 **Sub-agents read and draft, and you should use them.** Give a sub-agent its role's brief, the
-corpus index, the paths of the files it owns, and a scratch folder; it returns its draft as a file.
+corpus index, the paths of the files it owns, and a scratch folder, every one as an absolute path;
+it returns its draft as a file.
 Put this in every brief, in these words or close to them: *you have no member to act as; do not
 select a session, sync, validate, publish, run the gate, or act on a community in any way.*
 

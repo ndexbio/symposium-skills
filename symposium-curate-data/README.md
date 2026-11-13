@@ -62,6 +62,21 @@ published cannot be withdrawn.
 serially with the gate between dependent ones. Forty sources is a long stretch, and it is meant to
 be taken in sittings: the run records what it has published and resumes where it stopped.
 
+## Where a run keeps its state
+
+A run writes one working file, **`.symposium-curate-data/run.json`, in the directory you start
+the agent in**. It is how a run survives being stopped: it holds the hypothesis, the community
+and handle it publishes as, every source, and what has been decided and published so far.
+
+- **One run to a directory.** Start the agent in a different directory and you get a separate
+  run, so several can go at once on one machine.
+- **Resume from the same directory.** A session opened anywhere else finds no run and offers to
+  start a new one.
+- **It holds names, and no keys.** Communities and handles are in it; credentials stay with
+  Symposium. Where the directory is a git repository, add `.symposium-curate-data/` to its
+  `.gitignore`.
+- **Deleting the folder forgets the run.** What the run published stays in the record.
+
 ## Where it draws a line
 
 It reaches sources the way any reader without a subscription does — the open copy, a mirror, the
