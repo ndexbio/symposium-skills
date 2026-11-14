@@ -4,8 +4,9 @@ name: release
 # repository releases independently. To add a skill, copy the job below and
 # change the name, the tag prefix and the directory.
 #
-# The tag carries the version, and the build stamps it into the skill's
-# frontmatter — so nothing in the repository has to be kept in step with it.
+# The tag carries the version, and the build stamps it into the zip's name and
+# into the skill's frontmatter — so nothing in the repository has to be kept in
+# step with it. Each job attaches <skill>/dist/<skill>_skill-<version>.zip.
 
 on:
   release:
@@ -29,7 +30,7 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
 
       - name: Attach the zip to the release
-        run: gh release upload "$TAG" symposium-curate-data/dist/symposium-curate-data_skill.zip --clobber
+        run: gh release upload "$TAG" "symposium-curate-data/dist/symposium-curate-data_skill-${TAG#symposium-curate-data-v}.zip" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
@@ -48,7 +49,7 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
 
       - name: Attach the zip to the release
-        run: gh release upload "$TAG" symposium-evaluate-hypothesis/dist/symposium-evaluate-hypothesis_skill.zip --clobber
+        run: gh release upload "$TAG" "symposium-evaluate-hypothesis/dist/symposium-evaluate-hypothesis_skill-${TAG#symposium-evaluate-hypothesis-v}.zip" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}

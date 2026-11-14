@@ -12,11 +12,12 @@ fail=0
 say() { printf '%s\n' "$*" >&2; }
 bad() { say "FAIL: $*"; fail=1; }
 
-# What ships: SKILL.md and reference/*.md. Everything else in this folder is a
-# repository concern and stays out of the zip.
+# What ships: SKILL.md, README.md and reference/*.md, with the repository's
+# LICENSE. Everything else in this folder is a repository concern and stays out
+# of the zip.
 ships() {
 	case "$1" in
-	SKILL.md | reference/*.md) return 0 ;;
+	SKILL.md | README.md | reference/*.md) return 0 ;;
 	*) return 1 ;;
 	esac
 }
@@ -34,17 +35,29 @@ else
 	name=$(printf '%s\n' "$fm" | sed -n 's/^name:[[:space:]]*//p')
 	[ "$name" = "$SKILL" ] ||
 		bad "SKILL.md frontmatter name is '$name', expected '$SKILL'"
+	printf '%s\n' "$fm" | grep -q '^license:[[:space:]]*[^[:space:]]' ||
+		bad "SKILL.md frontmatter has no license"
 	# The build rewrites this line's value from VERSION. With the key gone,
 	# it writes the file through unchanged and ships whatever is committed.
-	printf '%s\n' "$fm" | grep -Eq '^version:[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+' ||
-		bad "SKILL.md frontmatter has no version line for the build to stamp"
+	printf '%s\n' "$fm" | awk '
+		/^metadata:[[:space:]]*$/ { inside = 1; next }
+		/^[^[:space:]]/ { inside = 0 }
+		inside && /^  version:[[:space:]]*"[0-9]+\.[0-9]+\.[0-9]+[^"]*"[[:space:]]*$/ { found = 1 }
+		END { exit !found }
+	' || bad "SKILL.md frontmatter has no metadata.version line for the build to stamp"
+	# The Agent Skills format names the keys a frontmatter may hold.
+	extra=$(printf '%s\n' "$fm" | sed -n 's/^\([A-Za-z][A-Za-z0-9_-]*\):.*/\1/p' |
+		grep -Ev '^(name|description|license|compatibility|metadata|allowed-tools)$' || true)
+	[ -z "$extra" ] ||
+		bad "SKILL.md frontmatter holds a key outside the Agent Skills format: $extra"
 fi
 
 # ----------------------------------------------------------------- the links
 #
-# A shipped document links only to shipped documents: README.md and REHEARSAL.md
-# live in this folder and stay out of the zip, so a link to one of them from
-# SKILL.md resolves here and dangles for everyone who installed the release.
+# A shipped document links only to shipped documents: REHEARSAL.md and
+# CHANGELOG.md live in this folder and stay out of the zip, so a link to one of
+# them from SKILL.md or README.md resolves here and dangles for everyone who
+# installed the release.
 
 for doc in $(find . -name '*.md' -not -path './dist/*' | sed 's|^\./||' | LC_ALL=C sort); do
 	dir=$(dirname "$doc")

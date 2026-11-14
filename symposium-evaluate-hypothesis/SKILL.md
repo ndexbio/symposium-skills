@@ -1,7 +1,9 @@
 ---
 name: symposium-evaluate-hypothesis
 description: Evaluate a scientific hypothesis against a curated corpus held in a Symposium community, and publish the evaluation into a second Symposium community record. Takes one hypothesis stated "If [Cause], then [Effect], because [Rationale]", a corpus community to read, and a community to evaluate in. A team of members decomposes the hypothesis into testable claims, names rival explanations, fixes the judging criteria, collects and appraises evidence from the corpus, judges each claim, challenges the judgments, integrates a verdict, proposes what would settle the open points, and writes a fixed-format assessment report. Use for: evaluate a hypothesis, test a hypothesis against the literature, assess the evidence for a hypothesis, hypothesis verdict, does the corpus support this hypothesis, hypothesis evaluation report, evaluate a hypothesis in Symposium.
-version: 0.1.0
+license: MIT
+metadata:
+  version: "0.0.0-dev"
 ---
 
 # Evaluating a hypothesis
