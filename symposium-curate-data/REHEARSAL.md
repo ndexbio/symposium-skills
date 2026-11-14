@@ -52,10 +52,10 @@ Judge the shape.
 strength of its description. An agent that starts searching the web by hand is the first finding,
 and it is a `description` problem.
 
-**Symposium comes first.** Before searching, it should establish a session and a community through
-the Symposium skill, and with neither in place it should take you through Symposium's own path to
-standing up a local data server and founding one. Expect to be asked for a handle and a community
-name. The community is a throwaway; part 5 removes it.
+**Symposium comes first.** Before searching, it should establish a community and the user context
+it publishes as through the Symposium skill, and with neither in place it should take you through
+Symposium's own path to standing up a local data server and founding one. Expect to be asked for a
+handle and a community name. The community is a throwaway; part 5 removes it.
 
 **The facets, before anything is searched.** You should see the hypothesis decomposed — entities
 like bile acids, FXR, colonic epithelium; a population; an outcome; a method — and be able to
@@ -101,18 +101,27 @@ An agent that starts writing artifact JSON without having gone for the importer 
 finding — the routing failed, and everything downstream is improvised. An agent that recites the
 topics as headings with nothing under them is the same finding wearing a hat.
 
-**The gate gets run.** Publishing needs it, and in a one-person rehearsal you are both the member
-and the community admin — Symposium documents that as a two-terminal pattern. The agent should
-arrange it. A run that stalls at submission waiting for something to accept it is a finding to
-report, not something to rescue by hand.
+**A gate watches throughout.** Before the first submission, expect one watching gate started in
+the background under the community admin's user context, and left running. A run that stalls at
+submission waiting for something to accept it is a finding to report, not something to rescue by
+hand.
 
-**Publishing is incremental.** Expect it to go source by source, to tell you that at the approval
-stop, and to be resumable. Stop it halfway and start a new session **in the same directory** to
-check that it picks up where it left off rather than starting over.
+**Every command names its user context.** Expect `--user-context` on each Symposium command the
+run issues, with a value it took from Symposium's listing, and no switching of the current
+session during publishing. A command that goes out with no context named is a finding.
 
-**The working file is in the QA directory**, at `.symposium-curate-data/run.json`, and nothing of
-the run's is written under your home directory. A session started in a different directory should
-find no run and offer to begin one.
+**Publishing is incremental, and wide.** Expect it to tell you at the approval stop that this is
+the long part. Where the environment has sub-agents, expect several sources published side by
+side, each in order within itself, and decisions read by artifact name.
+
+**The working file is under your home directory**, at
+`~/.symposium-curate-data/runs/<community>-<short name>/run.json`, with a pointer for the agent
+session in `~/.symposium-curate-data/current/`. Nothing of the run's is written in the QA
+directory.
+
+**It resumes from anywhere.** Stop it halfway, start a new session in any directory, and say
+*carry on with the curation*. Expect it to list the runs in flight and ask which. Start a second
+session while the first is still running: the run should show as in use there.
 
 ## 4. What to read in the record afterward
 
@@ -138,11 +147,11 @@ Browse the record and check:
   while the `download` Content still points at the canonical location
 - **the preserved passages**, against the originals. They should be verbatim, with hedges intact,
   and a figure caption should not be fused onto the end of the paragraph before it
-- **the gate's findings**, including any independence review, and whether it was answered or
-  waved past
+- **the findings validation printed before each submission**, including any independence
+  review, and whether it was answered or waved past
 
 ## 5. Teardown
 
 Stop the data server container and remove its state directory. Remove the throwaway community's
-session under `~/.symposium/`, and the run's working folder, `.symposium-curate-data/`, in the QA
-directory the session was started in.
+session under `~/.symposium/`, and the skill's folder under your home directory,
+`~/.symposium-curate-data/`.

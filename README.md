@@ -97,6 +97,9 @@ cd ~/dev/qa-<skill> && claude
 Then paste the rehearsal's prompt — **only the prompt** — and drive the run from there, reading the
 rest of `REHEARSAL.md` yourself to judge what comes back.
 
+The QA directory holds the installed skills and nothing else. A run's state lives under your home
+directory, in `~/.symposium-<skill>/`, and each skill's rehearsal says how to clear it.
+
 Two things about that recipe carry the whole method:
 
 **A fresh session.** A session that has been discussing the prose fills its gaps from memory

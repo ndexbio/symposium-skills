@@ -200,10 +200,10 @@ nothing.
 
 ## Three parts, and nothing after them
 
-Where the working file lives, where fetched copies are cached, which session or server is current,
-what you did to get here — that is plumbing. The review stop is the one moment in the run where
-the user's whole attention belongs on the corpus, and a status report under the choices buries
-them.
+Where the working file lives, where fetched copies are cached, which user context or server the run
+works with, what you did to get here — that is plumbing. The review stop is the one moment in the
+run where the user's whole attention belongs on the corpus, and a status report under the choices
+buries them.
 
 ## After any action, draw the review display again
 

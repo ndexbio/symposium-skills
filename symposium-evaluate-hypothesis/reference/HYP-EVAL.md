@@ -15,11 +15,12 @@ unfollowed, and a search of the web or of your own recall adds nothing an Argume
 evaluation is a statement about what this body of evidence supports, and it only means that while
 the body is fixed.
 
-**The corpus community is read.** Sync it and read your copy. Everything this run publishes, and
-every Message it sends, goes to the eval community.
+**The corpus community is read.** Sync it as the corpus reader and read that copy. Everything this
+run publishes, and every Message it sends, goes to the eval community.
 
-**One agent acts on Symposium.** You, the agent the user is talking to. Sub-agents read and draft.
-[The session rule](#one-session-and-who-may-touch-it) says why.
+**Every command names its member.** You and your sub-agents act on Symposium as the member whose
+role the work belongs to, by that member's user context.
+[Who acts, and as whom](#who-acts-and-as-whom) sets it out.
 
 **The record carries the reasoning.** Each phase ends in something published, by the member whose
 role it is. A conclusion that exists only in the conversation is one a reader cannot contest.
@@ -42,7 +43,7 @@ Each phase below applies one of these. They are stated once so the phases can be
 
 ## The team
 
-Six members of the eval community, one per scientific role, and the community admin.
+Six members of the eval community, one per scientific role, and the account its gate runs as.
 
 | Member | Publishing role | Does | Publishes |
 |---|---|---|---|
@@ -53,8 +54,9 @@ Six members of the eval community, one per scientific role, and the community ad
 | **Skeptic** | `critic` | Judges each claim unseen, then challenges the Analyst's Argument where it disagrees | Arguments that contest or qualify; Messages reporting a defect |
 | **Adjudicator** | `researcher`, then `scout` | Decides, claim by claim, whose reading stands; integrates them into the overall verdict; writes the report | the verdict `Argument`; an `Argument` on a claim where it adopts neither reading; the report, a `NonGroundable` |
 
-The **community admin** runs the gate and authors nothing. The Lead and the admin are different
-accounts: setting what is investigated and deciding what is accepted are two hands.
+The **gate** runs as a user context that holds the `gate` grant — the community admin from the
+third input, or a gate-keeper — and that account authors nothing. The Lead and the gate's account
+are different: setting what is investigated and deciding what is accepted are two hands.
 
 **The separation is the method.** The Methodologist fixes the criteria before the Analyst reads
 evidence. The Skeptic reaches its own verdict from a claim and its evidence alone, before it sees
@@ -73,35 +75,49 @@ This is the run's first stop. Draw it as a [review display](#the-review-display)
   community already has) · **Cancel**.
 
 Handles default to the role names in lowercase letters: `lead`, `methodologist`, `librarian`,
-`analyst`, `skeptic`, `adjudicator`. Where the community already has members with sessions on this
-machine, offer them against the roles and invite only what is missing.
+`analyst`, `skeptic`, `adjudicator`. Where the community already has members with user contexts
+on this machine, offer them against the roles and invite only what is missing.
 
 Then, as the community admin, invite each missing member with the access a member needs to publish
-to every collection, and join each on this machine. Invites and keys move as files. Write the
-roster — role, handle, publishing role — into the working file the moment it is settled.
+to every collection, and join each on this machine. Invites and keys move as files. Take each
+member's `user_context` from Symposium's listing, and write the roster — role, handle, publishing
+role, user context — into the working file the moment it is settled, with the gate's user
+context beside it.
 
-## One session, and who may touch it
+## Who acts, and as whom
 
-Symposium keeps one current session for an agent process, and a sub-agent runs inside that process.
-A session selected anywhere is selected for everyone.
+Symposium runs a command as the user context named on it, so one agent session works as every
+member of the team at once.
 
-**So you alone act on Symposium.** You select a member, sync, validate, publish and run the gate.
-Before each submission, select the member whose role authors that artifact, read the session back,
-check it against the roster in the working file, and only then publish. One submission at a time.
+**Name the member on every command.** Each Symposium command carries the user context of the
+member whose role the work belongs to, exactly as the roster records it. Read `session` in the
+report to confirm it. Nobody changes the agent session's current context during a run.
 
-**Sub-agents read and draft, and you should use them.** Give a sub-agent its role's brief, the
-corpus index, the paths of the files it owns, and a scratch folder, every one as an absolute path;
-it returns its draft as a file.
-Put this in every brief, in these words or close to them: *you have no member to act as; do not
-select a session, sync, validate, publish, run the gate, or act on a community in any way.*
+**Sub-agents read, draft, validate and publish, and you should use them.** Give a sub-agent:
 
-**Where the work fans out, fan it out.** Four phases are wide and independent, and running them
-serially is the slowest way to get the same answer:
+- its role's brief, and the one user context and publishing role it acts as;
+- the names of the artifacts it owns, so that no two publish one name;
+- the corpus index, the paths of the files it reads, and the scratch folder, every one as an
+  absolute path.
+
+Put this in every brief, in these words or close to them: *name your user context on every
+Symposium command, and use no other; publish only the artifacts named here; return a file per
+artifact saying what you submitted and what became of it.*
+
+**You hold the order and the record of the run.** An artifact cites only what the gate has
+accepted, so release a layer to sub-agents once what it cites is in the record. You are the one
+writer of the working file: a sub-agent returns a file, and you record it.
+
+**Where the work fans out, fan it out.** Five kinds of work are wide and independent, and running
+them serially is the slowest way to get the same answer:
 
 - **collecting** — one sub-agent per batch of at most five sources, each reading its sources
   against every claim;
 - **appraising** — the same batches, in the same pass or a second;
-- **judging** — one analyst per claim, given that claim's items and their appraisal;
+- **pointers** — the Librarian's, a batch of sources to a sub-agent, each published as it is
+  made;
+- **judging** — one analyst per claim, given that claim's items and their appraisal, publishing
+  its claim's Argument;
 - **challenging** — one skeptic per claim, given the claim, its items and their appraisal, and
   nothing of the Analyst's reasoning until its own verdict is filed.
 
@@ -109,17 +125,16 @@ serially is the slowest way to get the same answer:
 read into the next. Where claims are grouped to save time, the brief says to finish and file one
 before reading the next, and the report says they were grouped.
 
-Reading and drafting run at once. Publishing stays yours and stays serial, so parallel work and the
-single session never meet.
-
-**With a single agent**, do each role's work in turn and select the member before each submission.
+**With a single agent**, do each role's work in turn, naming that role's user context on each
+command.
 
 ## Read the corpus once
 
-1. Select the corpus session, sync it, and select the eval session again.
-2. Take the folder of that session's copy of the record from Symposium's own account of its
-   sessions. Each accepted artifact is one file there, in the community's canonical form; the
-   community's documents define that form, and you read them for it rather than inferring it.
+1. Sync as the corpus reader.
+2. Take the folder of the corpus reader's copy of the record from Symposium's listing of the
+   user contexts on this machine. Each accepted artifact is one file there, in the community's
+   canonical form; the community's documents define that form, and you read them for it rather
+   than inferring it.
 3. Build **one index** in the scratch folder: name, type, title, authors, what each Argument and
    each data artifact cites, and which artifact supersedes which. Where one supersedes another, the
    index keeps the superseding one.
@@ -177,30 +192,43 @@ can check that. The report says so under *Certainty and limits*.
 
 ## Publish in layers
 
-An artifact may cite only what the gate has already accepted. So the run publishes in layers, and
-between layers the gate runs:
+An artifact may cite only what the gate has already accepted. So the run publishes in layers:
 
 **goal → claim set and criteria → pointers → claim Arguments → challenges and defect Messages →
 revisions and criteria corrections → the Adjudicator's own claim Arguments, where there are any →
 verdict → proposed tests → report.**
 
-After a layer is submitted, select the admin's session and run the gate; then select the next
-member and confirm it before submitting anything. The gate changes the session, which is the
-ordinary way a submission goes out under the wrong name.
+A layer goes out once the layer it cites is accepted. Inside a layer nothing waits on anything
+else, so its artifacts are published side by side: every pointer, every claim Argument, every
+challenge.
 
 Every artifact names the goal in `serves_goals`, and carries the run's short name in the topic part
 of its artifact name, so that two evaluations in one community stay apart.
 
-**Validate before every submission.** Symposium checks an artifact where it sits, before
-anything is sent. Run that check on each one and submit only what passes. A pointer or an Argument
-with the wrong shape then fails on this machine, where it costs nothing, and the record never
-sees it.
+**A gate watches for the whole run.** Before the goal is submitted, start Symposium's watching
+gate as a background command, under the gate's user context from the working file, and leave it
+running; Symposium's own instructions for commands that keep running say how to follow it.
+Symposium keeps one gate deciding for a community on a machine: where another is already
+watching, yours stands by and watches from the moment that one ends, so start yours without
+looking for another. A community's gate runs from one machine; where the user says it already
+runs elsewhere, start none here.
 
-**Send the first of a kind alone.** Submit the first pointer by itself, run the gate, and read
-what it found. Do the same with the first claim Argument, and confirm the gate verified its
-quotations against the pointer. Then build and submit the rest. A fault in how pointers are made,
-or in how Grounds cite them, is then met once and corrected, and the rest are built right. Both
-are real artifacts of the run; nothing is published only to test.
+**Read each decision by the artifact's name.** Accepted, the artifact is in its member's copy of
+the record after a sync. Rejected, it is among the gate's replies to that member, which Symposium
+lists in full on request, each with the artifact it is about. Several sub-agents publish as one
+member, and each finds its own decision this way.
+
+**Validate before every submission.** Symposium checks an artifact where it sits, before
+anything is sent, with the gate's own checks against the same record. Run that check on each one,
+read its findings, and submit only what passes. A pointer or an Argument with the wrong shape
+then fails on this machine, where it costs nothing, and the record never sees it. The findings
+the gate would print are the ones this check prints.
+
+**Send the first of a kind alone.** Submit the first pointer by itself and wait for it to be
+accepted. Do the same with the first claim Argument, and confirm that validation checked its
+quotations against the pointer. Then release the rest of the layer. A fault in how pointers are
+made, or in how Grounds cite them, is then met once and corrected, and the rest are built right.
+Both are real artifacts of the run; nothing is published only to test.
 
 **Where the gate refuses, report what it said and stop.** What to change is the user's decision.
 
@@ -380,7 +408,8 @@ items that were gathered without one.
 **Look for the contrary on purpose.** For each claim, ask which sources would be expected to show
 the observation that counts against it, and read those first.
 
-The Librarian publishes a pointer for each source that yielded an item.
+The Librarian publishes a pointer for each source that yielded an item, as the Librarian's user
+context, a batch of sources to a sub-agent.
 
 ## Phase 6 — Appraise
 
@@ -458,7 +487,8 @@ The questions it works through:
 
 - **The two agree** in verdict and in reasoning. The Skeptic publishes nothing for that claim.
   Agreement reached unseen is a result, and a stronger one than a contest written to fill a slot.
-  Record it in the working file; the Adjudicator names those claims in the verdict and the report.
+  The sub-agent says so in the file it returns, and you record it in the working file; the
+  Adjudicator names those claims in the verdict and the report.
 - **They differ on the judgment.** The Skeptic publishes an Argument that contests or qualifies,
   in the manner the community's discourse policy and the critic's charter set out.
 - **The Analyst's Argument holds a defect that looking settles** — a value misread, a figure

@@ -37,43 +37,63 @@ Five documents share this vocabulary. It is fixed here.
 ## The working file
 
 A run holds more than fits in a conversation, and the review table is redrawn after every action.
-So a run keeps one file:
+So a run keeps one folder of its own, and one file in it:
 
-- **`.symposium-curate-data/run.json`, in the directory the session was started in** — a folder of
-  this skill's own, beside whatever else that directory holds. Work out its absolute path once,
-  at the start, record that path in the file, and use the absolute path from then on, so that a
-  change of directory mid-run cannot move the run.
+- **`<user home>/.symposium-curate-data/runs/<run>/run.json`** — under a directory of this
+  skill's own in the user's home directory, written the way the host platform spells that path.
+  `<run>` is the community the run publishes to and the run's **short name**, joined by a
+  hyphen. The short name is a few of the hypothesis's key words, lowercase, joined by
+  underscores; it also goes in the topic part of every artifact name the run publishes, so two
+  runs in one community stay apart. Anything else the run keeps — fetched copies, drafts, what a
+  sub-agent returns — goes in that folder beside the file.
 - **JSON**, because it is updated a field at a time across a long run. One object holding the
-  hypothesis, the facets, the scale, **the community and the handle this run publishes as**,
-  every source with everything known about it, and the decisions and publications recorded
-  against each.
+  hypothesis, the short name, the facets, the scale, **the user context this run publishes as
+  and the one its gate runs as**, every source with everything known about it, and the decisions
+  and publications recorded against each.
 
 Render the table from that file rather than from memory. Write each action to it before redrawing.
 A run that stops for any reason — the review loop, the hand-off, a lost session — resumes by
 reading it.
 
-**Record the community and the handle the moment they are settled, and re-establish that session
-on every resume.** A chosen session belongs to the agent session that chose it and does not
-outlive it, so a run picked up in a new sitting starts with none — by design, so that two agents
-on one machine never change each other's. What the run must carry across the gap is *which
-community it is publishing to*, because a resumed run that inherits whatever session happens to
-be current, or that asks the user to name the community again, can publish into the wrong record.
-That record is append-only, and the artifacts cannot be withdrawn. So: read the community and
-handle out of the working file, select that session, confirm it is the one selected, and only
-then continue. Where the run is resumed and the recorded community cannot be selected, stop and
-say so rather than publishing anywhere else.
+**You are the one writer of that file.** A sub-agent returns what it did as a file of its own in
+the run's folder, named for the artifact, and you record it.
 
-One run to a directory. Where this directory already holds a run in flight, ask the user before
-starting over it. A run in another directory is another run, and the two do not meet; to resume a
-run, the session is opened in the directory that holds it.
+### Which run this agent session is working
+
+Runs belong to the machine, and an agent session works one of them. An **agent session** is what
+Symposium defines it to be, and Symposium reports the two values that identify it: `pid` and
+`started`. Ask Symposium for them; work nothing out yourself.
+
+The choice is kept in **`<user home>/.symposium-curate-data/current/<pid>.json`**, holding the
+run's name and `started`. At the start of every sitting:
+
+1. Ask Symposium for this agent session.
+2. Read your own pointer. Where it names a run and carries this agent session's `started`, that
+   is your run: carry on with it.
+3. Otherwise read the run folders and the other pointers. A pointer holds its run **in use**
+   while Symposium reports the agent session it names as running, with the same `started`.
+   Remove a pointer whose agent session has ended.
+4. Put the choice to the user as a list: each run that is free, named by its hypothesis, its
+   community and the stage it reached, to resume; and a new run. Show a run in use with the
+   agent session that holds it; it is another agent's to work.
+5. Write your pointer.
+
+Where Symposium reports no agent session, keep no pointer and put the list to the user at each
+start.
+
+**A run belongs to the machine it was started on.** Its folder is there and it is resumed there.
+Two machines working one run, or a run folder on a drive they share, is unsafe: nothing
+coordinates them.
 
 ## Before you start: establish where you are publishing
 
 Everything this run produces goes into a **Symposium community record** — append-only, reached
 through a session, and decided by a gate. So settle two things before searching anything:
 
-1. **The session you are working in.**
-2. **The community you are a member of and will publish to.**
+1. **The community you are a member of and will publish to.**
+2. **The user context you publish as**: a session this machine holds in that community, taken
+   from Symposium's listing of them and recorded in the working file exactly as it is printed
+   there.
 
 Where there is no community yet, there is a path through it: standing up a data server, founding a
 community with a `community.json`, and joining it with an invite file. Take the user through that
@@ -88,6 +108,26 @@ later; step 7 waits until it is there.
 
 That attempt is the whole of the check. Asking for a session and a community is work this run
 needs regardless, and what comes back — or what fails to — says whether the record is reachable.
+
+**The Symposium in place has to let a command name its user context**, with `--user-context`, and
+has to report the agent session. Its own help says whether it does. Where it does not, tell the
+user to update it from the same releases page before going on.
+
+### Who a command runs as
+
+**Every Symposium command this run issues names the user context it runs as**, with
+`--user-context`. That is the one way a run chooses who acts, so the run works whatever the agent
+session's current context is, and several runs and sub-agents work side by side.
+
+- **A value comes from Symposium's listing of the user contexts this machine holds**, where each
+  entry prints it as `user_context`. Record it in the working file and pass it back as it was
+  printed. A value from anywhere else is a guess, and Symposium refuses it.
+- **Read `session` in each command's report** to confirm it ran as the context you named.
+- **Where a command is refused for a context this machine does not hold**, the refusal carries
+  the listing. Correct the working file from it and tell the user what changed.
+- **Listing the contexts changes nothing.** Joining a community and founding one are done as
+  Symposium provides them, and each makes its session the agent session's current one; the run
+  carries on unaffected, because each of its commands names its own.
 
 ## Step 1 — Read the hypothesis
 
@@ -218,32 +258,54 @@ as plain HTML or a flat PDF.
 
 **6. Publish into the record**, which owns submission, ordering and the gate.
 
-**Confirm the session before every submission.** Not once at the start, and not only on resume:
-before each one. A session is chosen per agent process and anything running in that process can
-change it — running the gate between submissions is the ordinary way it happens, and the publish
-that follows goes out as whoever the gate ran as. Nothing downstream catches it. The gate is
-checking that the artifact conforms, and an artifact published under the wrong handle conforms
+**Name the publishing context on every command**, as [who a command runs as](#who-a-command-runs-as)
+sets out, and read `session` in the report. An artifact published under the wrong handle conforms
 perfectly; what it carries is a false statement about who brought the material in, in a record
 that cannot withdraw it.
 
-So read the session back, check it against the community and handle in the working file, and
-reselect it where it has moved. It is a cheap check against a permanent error, and the cost of
-skipping it is only ever paid after the fact.
+**A gate watches for the whole of publishing.** Before the first submission, start Symposium's
+watching gate as a background command, under a user context that holds the `gate` grant, and
+leave it running; Symposium's own instructions for commands that keep running say how to follow
+it. Symposium keeps one gate deciding for a community on a machine: where another is already
+watching, yours stands by and watches from the moment that one ends, so start yours without
+looking for another.
+
+- **Which context**: from Symposium's listing, the contexts in the publishing community whose
+  roles are `community-admin` or `gate-keeper`. One: use it, and record it. Several: ask the
+  user, as a pick list. None: the gate runs from another machine; say so, publish, and wait for
+  its decisions.
+- **A community's gate runs from one machine.** Where the user says it already runs elsewhere,
+  start none here.
+
+**Read each decision by the artifact's name.** Accepted, the artifact is in the publishing
+context's copy of the record after a sync. Rejected, it is among the gate's replies to that
+context, which Symposium lists in full on request, each with the artifact it is about. What the
+gate will find, the publishing check finds first: validate before submitting and read its
+findings there.
 
 ### Publishing is the long part
 
 Each source becomes several artifacts, and a derived artifact cannot be submitted until the
-publication it cites has been accepted — so submissions are serial, with the gate between
-dependent ones. Forty sources is a few hundred submissions and a great deal of judgment: passage
-selection, an Argument, two method properties, each written fresh.
+publication it cites has been accepted. So **within a source the order is fixed**: the
+publication, then its passages and tables, then its Argument, each after the gate has accepted
+what it cites. **Across sources nothing waits**: forty sources is a few hundred submissions and a
+great deal of judgment — passage selection, an Argument, two method properties, each written
+fresh.
+
+**Where the environment has sub-agents, publish sources side by side.** Give each sub-agent a
+few sources, the publishing user context exactly as recorded, the `importer` publishing role, and
+the artifact names it owns. It builds, validates and publishes its sources in order, and returns
+a file per source saying what was accepted. You record those in the working file. One sub-agent
+to a source: two working one source publish the same name twice, and the second is refused.
 
 The risk is not failure but decay. An agent forty sources deep settles into a template, and a
-templated Argument is the defect this skill exists to avoid, arrived at by exhaustion.
+templated Argument is the defect this skill exists to avoid, arrived at by exhaustion. A fresh
+sub-agent per handful of sources is also the remedy for that.
 
-**So publish incrementally.** Go source by source. Record each published source in the working
-file. A run that stops resumes from there. Tell the user at the approval stop that this is the
-long part and can be taken in sittings — quality per source is the point; finishing the list in
-one sitting is not.
+**So publish incrementally.** Record each published source in the working file as it lands. A run
+that stops resumes from there. Tell the user at the approval stop that this is the long part and
+can be taken in sittings — quality per source is the point; finishing the list in one sitting is
+not.
 
 ### Correcting something already published
 

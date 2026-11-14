@@ -64,7 +64,7 @@ For the purpose here, the short form:
 - **Let it publish to the end** and read its closing report. Note which clause it says the corpus
   carries least well.
 
-Leave the data server running. Open a **new** session in the same QA directory for the next part.
+Leave the data server running. Open a **new** session for the next part.
 
 ## 3. The evaluation prompt
 
@@ -113,8 +113,8 @@ change, cancel, offered as a list. Choose **change**, rename `skeptic` to `criti
 the whole display again with the new handle. Then **approve**. Six members should be invited and
 joined, and the Lead should not be the admin.
 
-**The corpus is read once.** Expect one sync of the corpus session, a return to the eval session,
-and an index built in a scratch folder. No web search, and no fetch of a publisher's page, at any
+**The corpus is read once.** Expect one sync under the corpus reader's user context, and an index
+built in the run's scratch folder. No web search, and no fetch of a publisher's page, at any
 point in this run. Either is a finding.
 
 **A goal is published first**, by the Lead, and it says a bounded negative is a complete result.
@@ -149,17 +149,26 @@ the finding this stop exists to prevent.
 
 **Reading fans out.** Where the environment has sub-agents, expect collecting and appraising to run
 across several at once, and one analyst and one skeptic per claim. Each skeptic should file its own
-verdict in the scratch folder before it opens the Analyst's Argument. Expect all publishing to come
-from the main agent, one submission at a time, with the session read back before each. A sub-agent
-that selects a session or publishes is the most important finding this rehearsal can produce.
+verdict in the scratch folder before it opens the Analyst's Argument.
 
-**The gate gets run between layers**, as the admin, and the member is reselected after it.
+**Publishing fans out too, a layer at a time.** Expect pointers, claim Arguments and challenges
+each published side by side by sub-agents, every one as the member its role belongs to, and each
+layer released once the gate has accepted what it cites.
 
-**Checks before the gate.** Expect each artifact validated on this machine before it is
-submitted; the first pointer, and later the first claim Argument, submitted alone and the gate's
-findings read before the rest are built; pointer content copied by script and compared with the
-corpus; and each drafted Argument's quotations tested against its pointers before submission. A
-run that meets the same gate refusal on several artifacts in a row skipped these.
+**Every command names its user context.** Expect `--user-context` on each Symposium command, with
+values taken from Symposium's listing and recorded in the working file, and the agent session's
+current context left alone from the roster stop to the report. A command with no context named,
+or a member switched to mid-run, is the most important finding this rehearsal can produce. So is
+an artifact published by a member whose role it is not.
+
+**A gate watches throughout.** Expect one watching gate started in the background before the
+goal is submitted, under the eval admin's user context, and decisions read by artifact name.
+
+**Checks before the gate.** Expect each artifact validated on this machine before it is submitted,
+and its findings read there; the first pointer, and later the first claim Argument, submitted alone
+and accepted before the rest of the layer is released; pointer content copied by script and
+compared with the corpus; and each drafted Argument's quotations tested against its pointers before
+submission. A run that meets the same gate refusal on several artifacts in a row skipped these.
 
 **The report**, shown in full at the end: the header, then *Verdict*, *The hypothesis as
 evaluated*, *Claims and verdicts*, *Rival explanations*, *Certainty and limits*, *What would settle
@@ -167,12 +176,18 @@ it*, *Method and departures*, *Where it is* — those headings, that order. Each
 budget: for ten claims and eight rivals, about 2,200 words. A Verdict section that runs to several
 paragraphs is a finding.
 
-**The working file is in the QA directory**, at `.symposium-evaluate-hypothesis/run.json`, with
-the scratch folder beside it. Nothing of the run's is written under your home directory.
+**The working file is under your home directory**, at
+`~/.symposium-evaluate-hypothesis/runs/<eval community>-<short name>/run.json`, with `scratch/`
+beside it and a pointer for the agent session in `~/.symposium-evaluate-hypothesis/current/`.
+Nothing of the run's is written in the QA directory.
 
-**It resumes.** Stop it during the claim Arguments and start a new session in the same directory
-with *carry on with the evaluation*. It should read the working file, reselect and confirm the
-session, and pick up at the next unpublished claim.
+**It resumes from anywhere.** Stop it during the claim Arguments, start a new session in any
+directory, and say *carry on with the evaluation*. It should list the runs in flight, take up
+the one you pick, sync, and carry on at the next unpublished claim. Start a second session while
+the first is still running: the run should show as in use there.
+
+**Two runs at once.** With a second agent session curating into another community at the same
+time, neither run should publish under the other's members, and each should finish.
 
 ## 5. What to read in the record afterward
 
@@ -218,5 +233,5 @@ Browse the eval community's record and check:
 ## 6. Teardown
 
 Stop the data server container and remove its state directory. Remove both throwaway communities'
-sessions under `~/.symposium/`, and the two working folders in the QA directory,
-`.symposium-curate-data/` and `.symposium-evaluate-hypothesis/`.
+sessions under `~/.symposium/`, and the two skills' folders under your home directory,
+`~/.symposium-curate-data/` and `~/.symposium-evaluate-hypothesis/`.

@@ -25,7 +25,10 @@ Three documents share this vocabulary. It is fixed here.
 | **clause** | one of its three parts: cause, effect, rationale |
 | **corpus community** | the Symposium community holding the sources gathered for this hypothesis; this run reads it |
 | **eval community** | the Symposium community this run publishes the evaluation into |
-| **the corpus copy** | the corpus session's own copy of that community's record, on this machine |
+| **agent session** | one agent process and everything it starts, sub-agents included, as Symposium defines and reports it |
+| **user context** | one user's session on this machine, named as Symposium's listing prints it; every command the run issues names one |
+| **corpus reader** | the user context this run reads the corpus community as |
+| **the corpus copy** | the corpus reader's own copy of that community's record, on this machine |
 | **claim** | one testable statement the hypothesis stands on, with what would count against it |
 | **rival** | another explanation of the same observations |
 | **criteria** | the verdict scale, the certainty scale and the integration rule, fixed before evidence is read |
@@ -39,32 +42,54 @@ Three documents share this vocabulary. It is fixed here.
 
 ## The working file
 
-A run spans many submissions and more than one sitting. So a run keeps one file:
+A run spans many submissions and more than one sitting. So a run keeps one folder of its own, and
+one file in it:
 
-- **`.symposium-evaluate-hypothesis/run.json`, in the directory the session was started in** — a
-  folder of this skill's own, beside whatever else that directory holds. Work out its absolute
-  path once, at the start, record that path in the file, and use the absolute path from then on,
-  so that a change of directory mid-run cannot move the run.
-- **JSON**, updated a field at a time. One object holding the hypothesis; the corpus community
-  and the handle that reads it; **the eval community and its admin handle**; the roster; the
-  run's short name; the phase reached; the address of everything the gate has accepted; and the
-  scratch folder where the index and the drafts live, which sits beside this file in the same
-  folder.
+- **`<user home>/.symposium-evaluate-hypothesis/runs/<run>/run.json`** — under a directory of
+  this skill's own in the user's home directory, written the way the host platform spells that
+  path. `<run>` is the eval community and the run's **short name**, joined by a hyphen. The
+  short name is a few of the hypothesis's key words, lowercase, joined by underscores; it also
+  goes in the topic part of every artifact name the run publishes.
+- **The scratch folder** is `scratch/` in that same folder: the corpus index, the drafts, and
+  what each sub-agent returns.
+- **JSON**, updated a field at a time. One object holding the hypothesis; the short name; **the
+  user context of every part in the run** — the corpus reader, the six team members, the gate —
+  each as Symposium printed it; the phase reached; and the address of everything the gate has
+  accepted.
 
 Write each decision and each accepted artifact to it as it happens. A run that stops for any
-reason resumes by reading it.
+reason resumes by reading it, then syncing and taking what has been accepted from the record
+itself.
 
-**Record both communities and the roster the moment they are settled, and re-establish the session
-on every resume.** A chosen session belongs to the agent session that chose it. What the run
-carries across the gap is which community it publishes to and as whom, because the record is
-append-only and an artifact published into the wrong one stays there. So on resume: read the
-working file, select the eval session for the member whose turn it is, confirm it is the one
-selected, sync, and take what has been accepted from the record itself. Where the recorded
-community cannot be selected, stop and say so.
+**You are the one writer of that file.** A sub-agent returns what it did as a file of its own in
+the scratch folder, named for the artifact, and you record it.
 
-One run to a directory. Where this directory already holds a run in flight, ask the user before
-starting over it. A run in another directory is another run, and the two do not meet; to resume a
-run, the session is opened in the directory that holds it.
+### Which run this agent session is working
+
+Runs belong to the machine, and an agent session works one of them. An **agent session** is what
+Symposium defines it to be, and Symposium reports the two values that identify it: `pid` and
+`started`. Ask Symposium for them; work nothing out yourself.
+
+The choice is kept in **`<user home>/.symposium-evaluate-hypothesis/current/<pid>.json`**,
+holding the run's name and `started`. At the start of every sitting:
+
+1. Ask Symposium for this agent session.
+2. Read your own pointer. Where it names a run and carries this agent session's `started`, that
+   is your run: carry on with it.
+3. Otherwise read the run folders and the other pointers. A pointer holds its run **in use**
+   while Symposium reports the agent session it names as running, with the same `started`.
+   Remove a pointer whose agent session has ended.
+4. Put the choice to the user as a list: each run that is free, named by its hypothesis, its
+   eval community and the phase it reached, to resume; and a new run. Show a run in use with
+   the agent session that holds it; it is another agent's to work.
+5. Write your pointer.
+
+Where Symposium reports no agent session, keep no pointer and put the list to the user at each
+start.
+
+**A run belongs to the machine it was started on.** Its folder is there and it is resumed there.
+Two machines working one run, or a run folder on a drive they share, is unsafe: nothing
+coordinates them.
 
 ## Before you start: establish that a record is reachable
 
@@ -76,8 +101,30 @@ community, no way to reach a data server — the **Symposium skill** is missing,
 Say so, and point the user at **https://github.com/ndexbio/symposium/releases** to install it
 alongside this one.
 
-Asking Symposium which sessions this machine holds is the whole of the check, and it is the first
-thing the inputs below need.
+Asking Symposium which user contexts this machine holds is the whole of the check, and it is the
+first thing the inputs below need.
+
+**The Symposium in place has to let a command name its user context**, with `--user-context`, and
+has to report the agent session. Its own help says whether it does. Where it does not, tell the
+user to update it from the same releases page before going on.
+
+### Who a command runs as
+
+A run works as eight user contexts: the corpus reader, six team members, and the one its gate
+runs as. **Every Symposium command this run issues names the user context it runs as**, with
+`--user-context`. That is the one way a run chooses who acts, so the run works whatever the agent
+session's current context is, and sub-agents work as different members side by side.
+
+- **A value comes from Symposium's listing of the user contexts this machine holds**, where each
+  entry prints it as `user_context`. Record it in the working file against the part it plays,
+  and pass it back as it was printed. A value from anywhere else is a guess, and Symposium
+  refuses it.
+- **Read `session` in each command's report** to confirm it ran as the context you named.
+- **Where a command is refused for a context this machine does not hold**, the refusal carries
+  the listing. Correct the working file from it and tell the user what changed.
+- **Listing the contexts changes nothing.** Joining a member and founding a community are done as
+  Symposium provides them, and each makes its session the agent session's current one; the run
+  carries on unaffected, because each of its commands names its own.
 
 ## Input 1 — The hypothesis
 
@@ -91,19 +138,21 @@ hypothesis with no rationale can say whether the effect follows the cause and no
 
 The community a curation run published the sources into, and a handle that can read it.
 
-Have Symposium refresh what access each session on this machine holds, then list the communities
-and handles and let the user choose one. Any access that reads the record will do.
+Have Symposium refresh what access each user context on this machine holds, then list them and
+let the user choose one in the corpus community. Any access that reads the record will do. Record
+its `user_context` as the **corpus reader**.
 
-**This run reads that community.** Sync its session once and work from the corpus copy. Evidence
-is what that record embeds — passages, tables, extracted Arguments.
+**This run reads that community.** Sync once as the corpus reader and work from the corpus copy.
+Evidence is what that record embeds — passages, tables, extracted Arguments.
 
 ## Input 3 — The eval community
 
 Where the evaluation is carried out and published. Offer two ways in.
 
-**An existing community.** List the sessions on this machine that hold the **community-admin**
-access role, each as `<community>:<handle>`, and let the user choose one. Admin access is what the
-run needs to invite the team and run the gate.
+**An existing community.** List the user contexts on this machine that hold the
+**community-admin** access role, each by its `user_context`, and let the user choose one. Admin
+access is what the run needs to invite the team, and it holds the `gate` grant the run's gate
+needs.
 
 **Where the chosen community already holds an evaluation of this hypothesis**, sync it, show the
 user what is there — the artifacts, who published them, the short name they carry — and offer the
@@ -131,7 +180,8 @@ short name exists to keep apart.
 3. **Its admin's handle.**
 
 Then found the community with that admin and with the team's members named for invitation, and
-join the admin and each member on this machine. Keys and invites move as files; a key, a
+join the admin and each member on this machine. Take each one's `user_context` from Symposium's
+listing afterward. Keys and invites move as files; a key, a
 passphrase or an invite belongs in a file, and the chat is somewhere it may not go.
 
 Record all three inputs in the working file. The run now has what it needs.
@@ -141,8 +191,8 @@ Record all three inputs in the working file. The run now has what it needs.
 The eval community defines how reasoning becomes artifacts — completely, in its own documents.
 Naming its concepts here makes this skill legible; it stands in for none of that reading.
 
-**1. Say what you are doing, and let the community's documents answer.** You are acting, in turn,
-as each of several **Members of the eval community**, **publishing artifacts into its record**,
+**1. Say what you are doing, and let the community's documents answer.** You are acting as each of
+several **Members of the eval community**, **publishing artifacts into its record**,
 each under one **publishing role**: `principal` to set the goal, `hypothesize` to state claims and
 propose tests, `importer` to bring corpus sources within reach, `researcher` to argue from
 evidence and to give the verdict, `critic` to contest, `scout` to write the report.
@@ -175,17 +225,21 @@ evaluation of another hypothesis, this run's artifacts carry their own short nam
 from it. Where it holds one of this hypothesis, the user has already chosen, at the third input,
 whether this run adopts it.
 
-## The session rule
+## Who acts, and the gate
 
-Symposium keeps one current session for an agent process, and sub-agents run inside that process.
+**Each command names its member.** You and your sub-agents validate and publish, each as the
+member whose role authors the artifact, by that member's user context. Nobody switches the agent
+session's current context during a run.
 
-**You alone act on Symposium** — select a member, sync, validate, publish, run the gate.
-**Sub-agents read and draft**, in parallel wherever the work is wide, and return files.
-**Confirm the session before every submission**: read it back, check it against the roster, and
-reselect where it has moved. Running the gate moves it.
+**You decide the order.** An artifact cites only what the gate has accepted, so you release a
+layer of work to sub-agents once what it cites is in the record.
 
-[reference/HYP-EVAL.md](reference/HYP-EVAL.md) sets out who reads what in parallel and what goes
-in a sub-agent's brief.
+**A gate watches for the whole run.** You start it once, in the background, under the user
+context the working file records for the gate, and Symposium keeps exactly one deciding for the
+community on this machine.
+
+[reference/HYP-EVAL.md](reference/HYP-EVAL.md) sets out who does what in parallel, what goes in a
+sub-agent's brief, and how a decision is read.
 
 ## Carry out the evaluation
 
@@ -193,7 +247,8 @@ in a sub-agent's brief.
 
 Settle the roster and stand up the team. Read the corpus once and index it. Then eleven phases:
 frame, decompose, claims and criteria, coverage, collect, appraise, judge, challenge, integrate,
-what would settle it, report. Each ends in something published, in layers, with the gate between.
+what would settle it, report. Each ends in something published, in layers, each layer released
+once the gate has accepted what it cites.
 
 ### When it is done: the evaluation report
 

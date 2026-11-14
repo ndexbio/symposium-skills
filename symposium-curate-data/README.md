@@ -16,7 +16,8 @@ reaches a record through Symposium: the session, the community membership, the v
 publishing and the gate. Symposium will also take you through standing up a data server and
 founding a community if you have not got one.
 
-**A session and a community** you are a member of. Symposium owns both, and this skill asks it.
+**A community** you are a member of, joined on this machine. Symposium owns the membership, and
+this skill asks it which ones the machine holds.
 
 ## Installing
 
@@ -62,24 +63,39 @@ published cannot be withdrawn.
 record with something readable, in all and for each clause. A corpus is only as useful as that
 number: a source kept as a citation can be cited and carries no evidence.
 
-**Time for the publishing.** Each source becomes several artifacts, and Symposium submits them
-serially with the gate between dependent ones. Forty sources is a long stretch, and it is meant to
-be taken in sittings: the run records what it has published and resumes where it stopped.
+**Time for the publishing.** Each source becomes several artifacts, published in order within
+the source, with a gate watching throughout and sources going side by side where the agent has
+sub-agents. Forty sources is a long stretch, and it is meant to be taken in sittings: the run
+records what it has published and resumes where it stopped.
 
 ## Where a run keeps its state
 
-A run writes one working file, **`.symposium-curate-data/run.json`, in the directory you start
-the agent in**. It is how a run survives being stopped: it holds the hypothesis, the community
-and handle it publishes as, every source, and what has been decided and published so far.
+Each run has a folder of its own, **`~/.symposium-curate-data/runs/<run>/`**, named for the
+community it publishes to and a short name drawn from the hypothesis. Its working file,
+`run.json`, is how a run survives being stopped: it holds the hypothesis, who it publishes as,
+every source, and what has been decided and published so far.
 
-- **One run to a directory.** Start the agent in a different directory and you get a separate
-  run, so several can go at once on one machine.
-- **Resume from the same directory.** A session opened anywhere else finds no run and offers to
-  start a new one.
+- **Runs belong to the machine, and work from any directory.** Start the agent wherever you
+  like.
+- **Several runs go at once.** Each agent session works one run, and a run is worked by one
+  agent session at a time. `~/.symposium-curate-data/current/` records which agent session has
+  which.
+- **Resuming.** A new agent session lists the runs in flight and asks which to carry on, or
+  whether to start a new one. A run another agent session is working shows as in use.
+- **One machine.** A run is resumed on the machine it was started on. Two machines working one
+  run, or a run folder on a drive they share, is unsafe: nothing coordinates them.
 - **It holds names, and no keys.** Communities and handles are in it; credentials stay with
-  Symposium. Where the directory is a git repository, add `.symposium-curate-data/` to its
-  `.gitignore`.
-- **Deleting the folder forgets the run.** What the run published stays in the record.
+  Symposium.
+- **Deleting a run's folder forgets the run.** What the run published stays in the record.
+
+## Working in parallel
+
+Several agents can curate on one machine at the same time, and one agent publishes several
+sources at once through its sub-agents. Every command the skill issues names the member it runs
+as, so runs do not disturb each other or whatever else you are doing with Symposium. One gate
+decides for a community at a time; the skill starts one and Symposium keeps exactly one working.
+The Symposium skill's "Agent runtime" section has the full rules, including what is unsafe
+across machines.
 
 ## Where it draws a line
 

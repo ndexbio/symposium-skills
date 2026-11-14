@@ -178,8 +178,8 @@ arrive at the same place. Then anything that changed after the criteria were fix
 did, say so in a line and keep the heading: a missing section reads as an omission.
 
 **8. Where it is.** The one place for locations: the community, how to browse it, the report's
-address, and the working file by its full path, since it lives in the directory the run was
-started in.
+address, and the working file by its full path, in the run's own folder under the user's home
+directory.
 
 ## Filling it
 

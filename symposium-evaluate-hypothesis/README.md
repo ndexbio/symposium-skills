@@ -13,8 +13,8 @@ fixed format, the same for every hypothesis.
 
 **The Symposium skill**, installed alongside this one, from
 [its releases](https://github.com/ndexbio/symposium/releases). Everything this skill reads and
-publishes goes through Symposium: the sessions, the memberships, the validation, the publishing
-and the gate.
+publishes goes through Symposium: the memberships, the validation, the publishing and the gate.
+It needs a release that lets a command name the member it runs as.
 
 **A corpus community**, and a handle on this machine that can read it. The
 [`symposium-curate-data`](../symposium-curate-data/README.md) skill builds one from a hypothesis.
@@ -75,18 +75,33 @@ supports. Where the corpus cannot reach a claim, the report says so.
 
 ## Where a run keeps its state
 
-A run writes one working file, **`.symposium-evaluate-hypothesis/run.json`, in the directory you
-start the agent in**. It is how a run survives being stopped: it holds the hypothesis, the two
-communities, the team, and what has been decided and published so far.
+Each run has a folder of its own, **`~/.symposium-evaluate-hypothesis/runs/<run>/`**, named for
+the eval community and a short name drawn from the hypothesis. Its working file, `run.json`, is
+how a run survives being stopped: it holds the hypothesis, the two communities, the team, and
+what has been decided and published so far. Drafts and the corpus index sit beside it in
+`scratch/`.
 
-- **One run to a directory.** Start the agent in a different directory and you get a separate
-  run, so several can go at once on one machine.
-- **Resume from the same directory.** A session opened anywhere else finds no run and offers to
-  start a new one.
+- **Runs belong to the machine, and work from any directory.** Start the agent wherever you
+  like.
+- **Several runs go at once.** Each agent session works one run, and a run is worked by one
+  agent session at a time. `~/.symposium-evaluate-hypothesis/current/` records which agent
+  session has which.
+- **Resuming.** A new agent session lists the runs in flight and asks which to carry on, or
+  whether to start a new one. A run another agent session is working shows as in use.
+- **One machine.** A run is resumed on the machine it was started on. Two machines working one
+  run, or a run folder on a drive they share, is unsafe: nothing coordinates them.
 - **It holds names, and no keys.** Communities and handles are in it; credentials stay with
-  Symposium. Where the directory is a git repository, add `.symposium-evaluate-hypothesis/` to its
-  `.gitignore`.
-- **Deleting the folder forgets the run.** What the run published stays in the record.
+  Symposium.
+- **Deleting a run's folder forgets the run.** What the run published stays in the record.
+
+## Working in parallel
+
+One agent works as the whole team at once: its sub-agents publish as different members side by
+side, every command naming the member it runs as, and a gate watches for the whole run. Several
+agents can also evaluate on one machine at the same time without disturbing each other or
+whatever else you are doing with Symposium. One gate decides for a community at a time; the
+skill starts one and Symposium keeps exactly one working. The Symposium skill's "Agent runtime"
+section has the full rules, including what is unsafe across machines.
 
 ## What it reads, and where it publishes
 
