@@ -13,17 +13,30 @@ the Symposium skill installed alongside it.
 | [`symposium-curate-data`](symposium-curate-data/README.md) | Takes one hypothesis, finds the scientific sources that bear on it, and publishes them into a community record as a grounded corpus |
 | [`symposium-evaluate-hypothesis`](symposium-evaluate-hypothesis/README.md) | Takes one hypothesis and the community holding its corpus, evaluates the hypothesis against that corpus with a team of members, and publishes the claims, the arguments, the verdict and a report into a second community record |
 
-## Installing a skill
+## Installing Skill
 
-Download the skill's zip from a release and unzip it into a skills directory:
+Each Symposium skill ships as a zip file attached on a Github release:
 
-```sh
-unzip -o symposium-curate-data_skill.zip -d ~/.claude/skills/
+| Skill | Zip | Releases |
+|---|---|---|
+| `symposium` | `symposium_skill-<version>.zip` | [ndexbio/symposium](https://github.com/ndexbio/symposium/releases) |
+| `symposium-curate-data` | `symposium-curate-data_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
+| `symposium-evaluate-hypothesis` | `symposium-evaluate-hypothesis_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
+
+Download `<skill>_skill-<version>.zip` from the Github release of the skill you want. The zip
+follows the standard [Agent Skills](https://agentskills.io) format and is usable by any skills compatible agent. 
+
+All skills here requires the `symposium` skill be installed first as prerequisite, which installs the same way.
+
+**Machine wide install** - Every agent running in any directory will load the skill. Unzip the skill zip file into the conventional agent sub path under your home directory - `<USER_HOME>/.agents/skills`. If using Claude, then do `<USER_HOME>/.claude/skills` instead.
+
+**Folder only install** - only agents running in this folder will load the skill. Unzip the skill zip file into the conventional agent sub path under that folder - `<FOLDER>/.agents/skills`. If using Claude, then do `<FOLDER>/.claude/skills` instead.
+
+Example to install for Claude:
 ```
-
-That lands the skill folder at `~/.claude/skills/<skill>/`, where an agent finds it. Unzipping
-into a project's `.claude/skills/` instead scopes the skill to that project. Install Symposium the
-same way, from [its releases](https://github.com/ndexbio/symposium/releases).
+ curl -fLO https://github.com/ndexbio/symposium-skills/releases/download/symposium-curate-data-v0.2.0/symposium-curate-data_skill-0.2.0.zip
+ unzip symposium-curate-data_skill-0.2.0.zip -d ~/.claude/skills
+```
 
 ---
 
@@ -35,22 +48,27 @@ A skill folder holds two kinds of file, and the line between them is what ships:
 
 ```
 <skill>/
-├── README.md       what the skill does and how to install it          ·  repository only
 ├── REHEARSAL.md    what a correct run of it looks like                ·  repository only
-├── Makefile        lint ← build                                       ·  repository only
-├── SKILL.md        ┐
-└── reference/      │  shipped in the zip
+├── CHANGELOG.md    what each release provides                         ·  repository only
+├── Makefile        lint ← build ← deploy-local                        ·  repository only
+├── lint.sh         the checks `make lint` runs                        ·  repository only
+├── SKILL.md        ┐  what the agent reads
+├── README.md       │  what the skill does, installing it, using it
+└── reference/      │  shipped in the zip, with the repository's LICENSE
     └── *.md        ┘
 ```
 
-`SKILL.md` and `reference/` are all an installed skill has. Everything else is a
-repository concern — how the skill is described, tested and built — and `make build` keeps it out
-of the zip.
+`SKILL.md`, `README.md`, `reference/` and `LICENSE` are all an installed skill has. Everything
+else is a repository concern — how the skill is tested, built and released — and `make build`
+keeps it out of the zip.
 
 Because the two kinds sit in one folder, `make lint` holds one rule that is easy to break by
-accident: **a shipped document links only to shipped documents.** A link from `SKILL.md` to
-`README.md` resolves here and dangles for everyone who installed the zip. A repository-only
-document may link anywhere.
+accident: **a shipped document links only to shipped documents, or to a full web address.** A
+link from `README.md` to `CHANGELOG.md` resolves here and dangles for everyone who installed the
+zip. A repository-only document may link anywhere.
+
+`SKILL.md`'s frontmatter holds the [Agent Skills](https://agentskills.io/specification) fields
+and no others: `name`, `description`, `license`, and the version under `metadata`.
 
 ## Adding a skill
 
@@ -58,24 +76,45 @@ document may link anywhere.
 2. A job in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) running `make -C <skill> build`.
 3. A job in [`.github/workflows/release.yml`](.github/workflows/release.yml) under the tag prefix
    `<skill>-v`, copied from the one that is there.
-4. Its own `README.md` and `REHEARSAL.md`.
+4. Its own `README.md`, `REHEARSAL.md` and `CHANGELOG.md`.
 
 ## Building and releasing
 
 ```sh
-make -C <skill> lint     # frontmatter, foreign references, links, orphans
-make -C <skill> build    # lint, then dist/<skill>_skill.zip
+make -C <skill> lint            # frontmatter, foreign references, links, orphans
+make -C <skill> build           # lint, then dist/<skill>_skill-0.0.0-dev.zip
+make -C <skill> build VERSION=<semver>    # dist/<skill>_skill-<semver>.zip
+make -C <skill> deploy-local    # build, then install from the zip into ~/.claude/skills
 ```
 
-The zip holds one folder named for the skill, with `SKILL.md` and `reference/` inside it.
+`deploy-local` installs what the zip holds, replacing any copy already there, and installs nothing
+where the checks fail. `SKILLS=<dir>` sends it to another skills directory.
+
+The zip holds one folder named for the skill, with `SKILL.md`, `README.md`, `LICENSE` and
+`reference/` inside it. Its name carries the version stamped inside it.
 
 A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. The
 prefix selects the job and the rest is the version, which lives in the tag: the job passes it to
-`make build`, which writes it into the skill's frontmatter on the way into the zip. So a release is
-named in one place, an installed skill can still say which one it came from, and there is nothing
-in the repository to keep in step. A local `make build` stamps `0.0.0-dev`.
+`make build`, which names the zip for it and writes it into the skill's frontmatter, as
+`metadata.version`, on the way in. So a release is named in one place, an installed skill says
+which one it came from, and there is nothing in the repository to keep in step. A local
+`make build` stamps `0.0.0-dev`, so a copy installed from a working tree stays distinguishable
+from a released one.
 
-Publishing the release is the trigger; a pushed tag on its own leaves the workflow idle.
+### Release steps
+
+1. **Add the release's section to the skill's `CHANGELOG.md`**, ending with the *Install
+   Skill Instructions* link, and commit it.
+2. **Check it builds**: `make -C <skill> build`. That is the command the workflow runs.
+3. **Publish a GitHub release** whose tag is `<skill>-v<semver>`. The prefix is how
+   [release.yml](.github/workflows/release.yml) selects the job, and the semver after it is the
+   version being released.
+4. **Watch the job.** It builds the skill with that semver and attaches
+   `<skill>_skill-<semver>.zip` to the release, which is the file a user installs.
+
+The trigger is a **published release**; a pushed tag on its own leaves the workflow idle. Create
+the release in the GitHub UI, or with `gh release create <skill>-v<semver>`. Each skill releases
+on its own prefix, so a tag naming one leaves the others alone.
 
 ## Testing a skill: its rehearsal
 
@@ -86,14 +125,15 @@ works, and it is **the expected outcomes for that skill's prose as it stands**.
 Run one like this:
 
 ```sh
-make -C <skill> build
-mkdir -p ~/dev/qa-<skill>/.claude/skills
-unzip -o <skill>/dist/<skill>_skill.zip -d ~/dev/qa-<skill>/.claude/skills/
+make -C <skill> deploy-local SKILLS=~/dev/qa-<skill>/.claude/skills
 cd ~/dev/qa-<skill> && claude
 ```
 
 Then paste the rehearsal's prompt — **only the prompt** — and drive the run from there, reading the
 rest of `REHEARSAL.md` yourself to judge what comes back.
+
+The QA directory holds the installed skills and nothing else. A run's state lives under your home
+directory, in `~/.symposium-<skill>/`, and each skill's rehearsal says how to clear it.
 
 Two things about that recipe carry the whole method:
 

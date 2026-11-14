@@ -18,6 +18,8 @@ only works if it is the same shape each run. Fill the skeleton; do not redesign 
 | Argument | <n> |
 | Data | <n> |
 
+**With content** — <n> of <n> publications · cause <n> · effect <n> · rationale <n>
+
 Local copy verifies against the server: <yes, or what differs>.
 
 ## What each source became
@@ -52,7 +54,9 @@ table; what failed and was recovered — or one line saying none applies>
 ## What each section is for
 
 **1. What is in the record.** Numbers, not prose. The community it went to, counts by artifact
-type, and whether the local copy verifies against the server.
+type, how many publications carry content and how that falls across the three clauses, and whether
+the local copy verifies against the server. The content line is what someone about to evaluate
+against this corpus needs first: a clause with one readable source will be judged on that one.
 
 **2. What each source became.** Name the sources in each group. Three totals tell the user how
 much was done; names tell them what they can now reach, which is the question they will actually
@@ -77,8 +81,8 @@ so in a line and keep the heading — a missing section reads as an omission rat
 needing access the user could supply, works left behind by the scale, a clause that would need
 another run.
 
-**6. Where it is.** The record and how to browse it, and the working file by its full path, since
-it lives in the directory the run was started in. This is the one place
+**6. Where it is.** The record and how to browse it, and the working file by its full path, in
+the run's own folder under the user's home directory. This is the one place
 in the run where that belongs — the loop is over, and the user may want to go and look.
 
 ## Keep it about the record

@@ -51,6 +51,7 @@ reason to skip its data availability statement.** Check this rung for every sour
 | `503`, a bot-mitigation interstitial, a captcha | the host is declining automated requests | leave that host alone, next rung |
 | a `robots.txt` exclusion covering the path | the host has asked you not to | next rung, or the host's own API |
 | `404` on a DOI | link rot | re-resolve through the DOI resolver and look for a replacement |
+| publisher HTML, or a PDF with a text layer | a document — **retrieved** | extract from it; [taking](TAKING.md) says how |
 | a PDF with no text layer | retrievable, not yet quotable | a rendering question for [taking](TAKING.md), not an access one |
 
 ## The `200` is the trap
@@ -66,6 +67,18 @@ status code said.
 Publishing a paywall page as a preserved passage is the worst outcome in this document, because it
 is wrong in a way the gate cannot see: the quote verifies, the hash is real, and the record now
 holds a publisher's advertisement presented as a scientific finding.
+
+## A readable copy is a retrieved source
+
+Structured full text is the easier copy to extract from. It is not the only one. **A free copy
+that a person can open and read — a publisher's HTML page, a PDF with a text layer — is a
+retrieved source**, and its passages are taken from it like any other's.
+
+Leaving such a source as a citation because its text arrived without structure empties the
+corpus for no reason the source gave. What the lack of structure costs is care in the rendering,
+and [taking](TAKING.md#rendering-from-html-or-a-flat-pdf) covers that. A source falls short of
+*retrieved* only where no rung answered, where the body was a wall, or where the copy holds no
+text at all.
 
 ## The line
 

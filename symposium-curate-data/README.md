@@ -16,15 +16,16 @@ reaches a record through Symposium: the session, the community membership, the v
 publishing and the gate. Symposium will also take you through standing up a data server and
 founding a community if you have not got one.
 
-**A session and a community** you are a member of. Symposium owns both, and this skill asks it.
+**A community** you are a member of, joined on this machine. Symposium owns the membership, and
+this skill asks it which ones the machine holds.
 
-## Installing
+## Installing Skill
 
-```sh
-unzip -o symposium-curate-data_skill.zip -d ~/.claude/skills/
-```
+[Installing Skill](https://github.com/ndexbio/symposium-skills/blob/main/README.md#installing-skill) has
+the steps: how to install skill in agent.
 
-Or into a project's `.claude/skills/` to scope it to that project.
+The Symposium skill this one needs installs the same way:
+[Installing Skill](https://github.com/ndexbio/symposium/blob/main/README.md#installing-skill).
 
 ## What a run looks like
 
@@ -58,24 +59,43 @@ a third of the search looks for.
 **Attention at the table.** It is the only review gate, and the record is append-only — what gets
 published cannot be withdrawn.
 
-**Time for the publishing.** Each source becomes several artifacts, and Symposium submits them
-serially with the gate between dependent ones. Forty sources is a long stretch, and it is meant to
-be taken in sittings: the run records what it has published and resumes where it stopped.
+**A look at the content line.** Under the review table it says how many sources will enter the
+record with something readable, in all and for each clause. A corpus is only as useful as that
+number: a source kept as a citation can be cited and carries no evidence.
+
+**Time for the publishing.** Each source becomes several artifacts, published in order within
+the source, with a gate watching throughout and sources going side by side where the agent has
+sub-agents. Forty sources is a long stretch, and it is meant to be taken in sittings: the run
+records what it has published and resumes where it stopped.
 
 ## Where a run keeps its state
 
-A run writes one working file, **`.symposium-curate-data/run.json`, in the directory you start
-the agent in**. It is how a run survives being stopped: it holds the hypothesis, the community
-and handle it publishes as, every source, and what has been decided and published so far.
+Each run has a folder of its own, **`~/.symposium-curate-data/runs/<run>/`**, named for the
+community it publishes to and a short name drawn from the hypothesis. Its working file,
+`run.json`, is how a run survives being stopped: it holds the hypothesis, who it publishes as,
+every source, and what has been decided and published so far.
 
-- **One run to a directory.** Start the agent in a different directory and you get a separate
-  run, so several can go at once on one machine.
-- **Resume from the same directory.** A session opened anywhere else finds no run and offers to
-  start a new one.
+- **Runs belong to the machine, and work from any directory.** Start the agent wherever you
+  like.
+- **Several runs go at once.** Each agent session works one run, and a run is worked by one
+  agent session at a time. `~/.symposium-curate-data/current/` records which agent session has
+  which.
+- **Resuming.** A new agent session lists the runs in flight and asks which to carry on, or
+  whether to start a new one. A run another agent session is working shows as in use.
+- **One machine.** A run is resumed on the machine it was started on. Two machines working one
+  run, or a run folder on a drive they share, is unsafe: nothing coordinates them.
 - **It holds names, and no keys.** Communities and handles are in it; credentials stay with
-  Symposium. Where the directory is a git repository, add `.symposium-curate-data/` to its
-  `.gitignore`.
-- **Deleting the folder forgets the run.** What the run published stays in the record.
+  Symposium.
+- **Deleting a run's folder forgets the run.** What the run published stays in the record.
+
+## Working in parallel
+
+Several agents can curate on one machine at the same time, and one agent publishes several
+sources at once through its sub-agents. Every command the skill issues names the member it runs
+as, so runs do not disturb each other or whatever else you are doing with Symposium. One gate
+decides for a community at a time; the skill starts one and Symposium keeps exactly one working.
+The Symposium skill's "Agent runtime" section has the full rules, including what is unsafe
+across machines.
 
 ## Where it draws a line
 
@@ -88,32 +108,9 @@ Where you have lawful access to something it could not reach, the table tells yo
 those are, and you can add a copy you obtained yourself. It records that provenance on the
 artifact.
 
-## Release steps
-
-A release is what puts an installable zip in front of a user, and it is driven entirely by the tag.
-
-1. **Add the release's section to [CHANGELOG.md](CHANGELOG.md)** and commit it.
-2. **Check it builds**: `make build`. That is the same command the workflow runs.
-3. **Publish a GitHub release** whose tag is `symposium-curate-data-v<semver>` — for example
-   `symposium-curate-data-v0.1.0`. The prefix is how [release.yml](../.github/workflows/release.yml)
-   selects the job, and the semver after it is the version being released.
-4. **Watch the job.** It builds the skill with that semver and attaches
-   `symposium-curate-data_skill.zip` to the release, which is the file a user installs.
-
-The tag is where the version lives, so there is nothing to set beforehand and nothing that can
-disagree with the tag you cut. The build writes it into `SKILL.md`'s frontmatter on the way into
-the zip, which is how an installed skill can say which release it came from. Your own
-`make build` stamps `0.0.0-dev`, so a copy installed from this working tree stays distinguishable
-from a released one; `make build VERSION=<semver>` stamps whatever you give it.
-
-The trigger is a **published release**, so a pushed tag on its own leaves the workflow idle. Create
-the release in the GitHub UI, or with `gh release create symposium-curate-data-v<semver>`.
-
-Each skill in this repository releases on its own prefix, so a tag naming one leaves the others
-alone.
-
 ---
 
-Developing this skill: the repository's [README](../README.md),
-[REHEARSAL.md](REHEARSAL.md) for what a correct run looks like, and
-[CHANGELOG.md](CHANGELOG.md) for what each release changed.
+Releases and what each changed:
+[the changelog](https://github.com/ndexbio/symposium-skills/blob/main/symposium-curate-data/CHANGELOG.md).
+Building and releasing this skill:
+[the repository](https://github.com/ndexbio/symposium-skills#development).

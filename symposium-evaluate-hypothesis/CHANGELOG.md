@@ -1,8 +1,42 @@
 # Changelog — symposium-evaluate-hypothesis
 
-Versions follow [semver](https://semver.org). The release tag is
-`symposium-evaluate-hypothesis-v<version>`, and it is where the version lives — the skill carries
-no copy of it. [README.md](README.md) has the release steps.
+Versions follow [semver](https://semver.org). The release tag is `symposium-evaluate-hypothesis-v<version>`, and it
+is where the version lives: the build stamps it into the zip's name and into the skill's
+frontmatter, as `metadata.version`. The repository's
+[README](../README.md#building-and-releasing) has the release steps.
+
+## 0.2.0 — 2026-11-13
+
+Needs Symposium Skill 0.3.0, which lets a command name the member it runs as.
+
+- **Checks what the corpus can test before reading it through**: for each claim the hypothesis
+  stands on, whether any source runs the contrast and reads the readout the claim names. The
+  coverage stop asks the user where none does.
+- **The verdict word gives the direction of the evidence and the certainty its strength**, fixed
+  in the criteria. A premise the rationale stands on can be rated *must hold*.
+- **Pointers reproduce what the corpus embeds, exactly**, and keep a `download` Content locating
+  the original, so the gate checks every quotation. The content is copied by script and compared,
+  each quotation is tested against its pointer before submission, each artifact is validated
+  first, and the first of a kind is accepted before the rest are released.
+- **The Skeptic judges each claim unseen** and publishes a challenge only where it disagrees. A
+  defect that looking settles goes in a Message, and a diagnosticity rating the evidence
+  disproved gets a criteria correction before the verdict.
+- **The verdict grounds on the reading it adopts for each claim** and carries a table of final
+  verdicts. A claim contradicted at very low certainty is a caveat and leaves the outcome as it
+  is. The verdict states what the outcome rests on and what each untested claim leaves standing.
+- **The report keeps to a budget for each part** that the agent counts before publishing.
+- **Asks before taking up an earlier evaluation** of the same hypothesis in the chosen community:
+  adopt it, or start separately.
+- **Keeps a folder per run** under the user's home directory, so runs work from any directory,
+  several go at once on one machine, and a new agent session lists the runs in flight to resume.
+- **Works in parallel**: sub-agents collect, appraise, judge, challenge and publish side by side,
+  each command naming the member it runs as, in layers released as the gate accepts what each
+  cites. A gate watches for the whole run under the community admin or a gate-keeper.
+- **The release zip is `symposium-evaluate-hypothesis_skill-<version>.zip`** and holds one folder
+  in the Agent Skills format, with this skill's README and licence inside it. The skill's
+  frontmatter holds the Agent Skills fields: `license`, and its version under `metadata`.
+
+[Install Skill Instructions](../README.md#installing-skill)
 
 ## 0.1.0 — 2026-11-12
 
