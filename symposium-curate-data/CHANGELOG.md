@@ -26,11 +26,7 @@ Needs Symposium Skill 0.3.0, which lets a command name the member it runs as.
   Agent Skills format, with this skill's README and licence inside it. The skill's frontmatter
   holds the Agent Skills fields: `license`, and its version under `metadata`.
 
-### Installing Skill
-
-[Installing](README.md#installing): the skills directory for Claude Code, Codex, Gemini CLI,
-GitHub Copilot and Cursor, and the commands that remove an installed copy and unzip this
-release.
+[Install Skill Instructions](../README.md#installing-skill)
 
 ## 0.1.0 — 2026-11-11
 

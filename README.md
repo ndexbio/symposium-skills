@@ -13,77 +13,30 @@ the Symposium skill installed alongside it.
 | [`symposium-curate-data`](symposium-curate-data/README.md) | Takes one hypothesis, finds the scientific sources that bear on it, and publishes them into a community record as a grounded corpus |
 | [`symposium-evaluate-hypothesis`](symposium-evaluate-hypothesis/README.md) | Takes one hypothesis and the community holding its corpus, evaluates the hypothesis against that corpus with a team of members, and publishes the claims, the arguments, the verdict and a report into a second community record |
 
-## Installing a skill
+## Installing Skill
 
-Each skill ships as a zip attached to its releases:
+Each Symposium skill ships as a zip file attached on a Github release:
 
 | Skill | Zip | Releases |
 |---|---|---|
-| `symposium` | `symposium_skill-<version>.zip` | [ndexbio/symposium](https://github.com/ndexbio/symposium/releases), tags beginning `symposium-v` |
-| `symposium-curate-data` | `symposium-curate-data_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases), tags beginning `symposium-curate-data-v` |
-| `symposium-evaluate-hypothesis` | `symposium-evaluate-hypothesis_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases), tags beginning `symposium-evaluate-hypothesis-v` |
+| `symposium` | `symposium_skill-<version>.zip` | [ndexbio/symposium](https://github.com/ndexbio/symposium/releases) |
+| `symposium-curate-data` | `symposium-curate-data_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
+| `symposium-evaluate-hypothesis` | `symposium-evaluate-hypothesis_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
 
-Download `<skill>_skill-<version>.zip` from the latest release of the skill you want. The zip
-holds one folder, `<skill>/`, in the [Agent Skills](https://agentskills.io) format, and
-installing it is placing that folder in the skills directory your agent reads. Every skill here
-needs `symposium` installed beside it, the same way.
+Download `<skill>_skill-<version>.zip` from the Github release of the skill you want. The zip
+follows the standard [Agent Skills](https://agentskills.io) format and is usable by any skills compatible agent. 
 
-**1. Find your agent's skills directory.** It applies to every session of that agent on the
-machine.
+All skills here requires the `symposium` skill be installed first as prerequisite, which installs the same way.
 
-| Agent | Skills directory |
-|---|---|
-| [Claude Code](https://code.claude.com/docs/en/skills) — terminal, IDE extensions, and local sessions in the Code tab of the Claude desktop app | `~/.claude/skills` |
-| [OpenAI Codex](https://developers.openai.com/codex/skills) | `~/.agents/skills` |
-| [Gemini CLI](https://geminicli.com/docs/cli/using-agent-skills/) | `~/.agents/skills` |
-| [GitHub Copilot](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) — CLI, VS Code, Visual Studio | `~/.copilot/skills` |
-| [Cursor](https://cursor.com/docs/skills) | `~/.agents/skills` |
-| Another agent that supports Agent Skills | the directory its documentation names, commonly `~/.agents/skills` |
+**Machine wide install** - Every agent running in any directory will load the skill. Unzip the skill zip file into the conventional agent sub path under your home directory - `<USER_HOME>/.agents/skills`. If using Claude, then do `<USER_HOME>/.claude/skills` instead.
 
-Each agent's name links to its own page on skills, where the directory is stated. Checked
-November 2026.
+**Folder only install** - only agents running in this folder will load the skill. Unzip the skill zip file into the conventional agent sub path under that folder - `<FOLDER>/.agents/skills`. If using Claude, then do `<FOLDER>/.claude/skills` instead.
 
-For one project only, use the same directory inside the project: `.claude/skills` or
-`.agents/skills`.
-
-**2. Remove the installed copy, then unzip.** Removing it first leaves no file behind from an
-earlier release. The folder holds only the skill: your sessions, keys and runs are kept
-elsewhere and stay as they are.
-
-macOS and Linux:
-
-```sh
-SKILLS_DIR=~/.claude/skills        # your agent's directory, from the table
-rm -rf "${SKILLS_DIR:?}/<skill>"
-mkdir -p "$SKILLS_DIR"
-unzip <skill>_skill-<version>.zip -d "$SKILLS_DIR"
+Example to install for Claude:
 ```
-
-Windows (PowerShell):
-
-```powershell
-$SkillsDir = "$HOME\.claude\skills"   # your agent's directory, from the table
-if (-not $SkillsDir) { throw "set SkillsDir first" }
-Remove-Item -Recurse -Force "$SkillsDir\<skill>" -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force $SkillsDir | Out-Null
-Expand-Archive <skill>_skill-<version>.zip -DestinationPath $SkillsDir
+ curl -fLO https://github.com/ndexbio/symposium-skills/releases/download/symposium-curate-data-v0.2.0/symposium-curate-data_skill-0.2.0.zip
+ unzip symposium-curate-data_skill-0.2.0.zip -d ~/.claude/skills
 ```
-
-**3. Check it.** `<skills directory>/<skill>/SKILL.md` exists. Start a new session of your
-agent, or reload its skills, and ask it which skills it has.
-
-**Install each skill in one directory.** Some agents read more than one: Cursor reads
-`~/.claude/skills` as well as its own, and so does Copilot in Visual Studio and in VS Code's
-local sessions. Where you run two agents that share a directory, one install serves both.
-
-**Claude desktop app.** In the **Code** tab, start a **Local** session: it runs on your machine
-and loads `~/.claude/skills`, so install as above. Cloud sessions, chat and Cowork run on
-Anthropic's infrastructure and take their skills from your claude.ai account, where a zip is
-uploaded under Customize > Skills. These skills work on your machine — their commands, their
-keys and their runs are there — so use a Local session.
-
-These skills are developed and tested with Claude Code. The other agents' directories are the
-ones their own documentation gives.
 
 ---
 
@@ -150,8 +103,8 @@ from a released one.
 
 ### Release steps
 
-1. **Add the release's section to the skill's `CHANGELOG.md`**, ending with its *Installing
-   Skill* section, and commit it.
+1. **Add the release's section to the skill's `CHANGELOG.md`**, ending with the *Install
+   Skill Instructions* link, and commit it.
 2. **Check it builds**: `make -C <skill> build`. That is the command the workflow runs.
 3. **Publish a GitHub release** whose tag is `<skill>-v<semver>`. The prefix is how
    [release.yml](.github/workflows/release.yml) selects the job, and the semver after it is the

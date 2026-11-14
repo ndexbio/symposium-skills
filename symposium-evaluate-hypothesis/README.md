@@ -23,73 +23,13 @@ skill builds one from a hypothesis.
 **Somewhere to evaluate**: a community you administer, or a data server you can found one on.
 Symposium will take you through standing up a local data server if you have not got one.
 
-## Installing
+## Installing Skill
 
-Download `symposium-evaluate-hypothesis_skill-<version>.zip` from the [releases
-page](https://github.com/ndexbio/symposium-skills/releases): take the latest release whose tag
-begins `symposium-evaluate-hypothesis-v`, since the page lists other releases too. The zip holds
-one folder, `symposium-evaluate-hypothesis/`, in the [Agent Skills](https://agentskills.io) format,
-and installing it is placing that folder in the skills directory your agent reads.
+[Installing Skill](https://github.com/ndexbio/symposium-skills/blob/main/README.md#installing-skill) has
+the steps: how to install skill in agent.
 
-**1. Find your agent's skills directory.** It applies to every session of that agent on the
-machine.
-
-| Agent | Skills directory |
-|---|---|
-| [Claude Code](https://code.claude.com/docs/en/skills) — terminal, IDE extensions, and local sessions in the Code tab of the Claude desktop app | `~/.claude/skills` |
-| [OpenAI Codex](https://developers.openai.com/codex/skills) | `~/.agents/skills` |
-| [Gemini CLI](https://geminicli.com/docs/cli/using-agent-skills/) | `~/.agents/skills` |
-| [GitHub Copilot](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) — CLI, VS Code, Visual Studio | `~/.copilot/skills` |
-| [Cursor](https://cursor.com/docs/skills) | `~/.agents/skills` |
-| Another agent that supports Agent Skills | the directory its documentation names, commonly `~/.agents/skills` |
-
-Each agent's name links to its own page on skills, where the directory is stated. Checked
-November 2026.
-
-For one project only, use the same directory inside the project: `.claude/skills` or
-`.agents/skills`.
-
-**2. Remove the installed copy, then unzip.** Removing it first leaves no file behind from an
-earlier release. The folder holds only the skill: your sessions, keys and runs are kept
-elsewhere and stay as they are.
-
-macOS and Linux:
-
-```sh
-SKILLS_DIR=~/.claude/skills        # your agent's directory, from the table
-rm -rf "${SKILLS_DIR:?}/symposium-evaluate-hypothesis"
-mkdir -p "$SKILLS_DIR"
-unzip symposium-evaluate-hypothesis_skill-<version>.zip -d "$SKILLS_DIR"
-```
-
-Windows (PowerShell):
-
-```powershell
-$SkillsDir = "$HOME\.claude\skills"   # your agent's directory, from the table
-if (-not $SkillsDir) { throw "set SkillsDir first" }
-Remove-Item -Recurse -Force "$SkillsDir\symposium-evaluate-hypothesis" -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force $SkillsDir | Out-Null
-Expand-Archive symposium-evaluate-hypothesis_skill-<version>.zip -DestinationPath $SkillsDir
-```
-
-**3. Check it.** `<skills directory>/symposium-evaluate-hypothesis/SKILL.md` exists. Start a new
-session of your agent, or reload its skills, and ask it which skills it has.
-
-**Install each skill in one directory.** Some agents read more than one: Cursor reads
-`~/.claude/skills` as well as its own, and so does Copilot in Visual Studio and in VS Code's
-local sessions. Where you run two agents that share a directory, one install serves both.
-
-**Claude desktop app.** In the **Code** tab, start a **Local** session: it runs on your machine
-and loads `~/.claude/skills`, so install as above. Cloud sessions, chat and Cowork run on
-Anthropic's infrastructure and take their skills from your claude.ai account, where a zip is
-uploaded under Customize > Skills. This skill works on your machine — its commands, its keys and
-its runs are there — so use a Local session.
-
-This skill is developed and tested with Claude Code. The other agents' directories are the ones
-their own documentation gives.
-
-The Symposium skill this one needs installs the same way, as `symposium`, from
-[its own releases page](https://github.com/ndexbio/symposium/releases).
+The Symposium skill this one needs installs the same way:
+[Installing Skill](https://github.com/ndexbio/symposium/blob/main/README.md#installing-skill).
 
 ## What a run looks like
 
