@@ -56,12 +56,15 @@ one file in it:
   what each sub-agent returns.
 - **JSON**, updated a field at a time. One object holding the hypothesis; the short name; **the
   user context of every part in the run** — the corpus reader, the six team members, the gate —
-  each as Symposium printed it; the phase reached; and the address of everything the gate has
-  accepted.
+  each as Symposium printed it; the phase reached; the address of everything the gate has
+  accepted; and, once it is written, the report file's full path as `report_file`.
+- **The report file** is written into that same folder when the gate has accepted the report:
+  the accepted report as Markdown, for the user to read and keep.
 
 Write each decision and each accepted artifact to it as it happens. A run that stops for any
 reason resumes by reading it, then syncing and taking what has been accepted from the record
-itself.
+itself. A run whose report the gate has accepted, and whose report file is not there, takes up at
+writing it.
 
 **You are the one writer of that file.** A sub-agent returns what it did as a file of its own in
 the scratch folder, named for the artifact, and you record it.
@@ -83,7 +86,8 @@ holding the run's name and `started`. At the start of every sitting:
    Remove a pointer whose agent session has ended.
 4. Put the choice to the user as a list: each run that is free, named by its hypothesis, its
    eval community and the phase it reached, to resume; and a new run. Show a run in use with
-   the agent session that holds it; it is another agent's to work.
+   the agent session that holds it; it is another agent's to work. A run that holds its report
+   file is finished, and is listed as finished: choosing it shows the report again.
 5. Write your pointer.
 
 Where Symposium reports no agent session, keep no pointer and put the list to the user at each
@@ -257,7 +261,12 @@ once the gate has accepted what it cites.
 → **[reference/EVAL-REPORT.md](reference/EVAL-REPORT.md)**
 
 One report, a header and eight sections, the same shape for every hypothesis. Fill the skeleton it
-carries rather than composing one. Publish it and show it to the user.
+carries rather than composing one.
+
+Publish it. Once the gate has accepted it, write **the report file** from the accepted artifact:
+the report and everything else the record holds about it, as Markdown, in the run's folder. Close
+the run by showing that file's content to the user in full, with the file's full path as the last
+line. The same document fixes the file's name, what it holds and the closing message.
 
 ### If the gate refuses
 

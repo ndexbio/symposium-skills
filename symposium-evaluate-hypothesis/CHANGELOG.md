@@ -5,6 +5,18 @@ is where the version lives: the build stamps it into the zip's name and into the
 frontmatter, as `metadata.version`. The repository's
 [README](../README.md#building-and-releasing) has the release steps.
 
+## 0.2.1 — 2026-11-15
+
+- **Closes by showing the whole report, from a file.** Once the gate has accepted the report, the
+  run writes it out as Markdown — the report, then the rest of its entry in the record, one to
+  one with the artifact — and shows that in full, with the file's full path as the last line.
+- **The report file is in the run's folder**, named
+  `<short name>_eval_<created>_<eval community>.md` from the report artifact's own `created`. The
+  working file names it as `report_file`, and a resumed run whose report is accepted and whose
+  file is missing writes it.
+
+[Install Skill Instructions](../README.md#installing-skill)
+
 ## 0.2.0 — 2026-11-13
 
 Needs Symposium Skill 0.3.0, which lets a command name the member it runs as.

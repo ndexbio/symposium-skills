@@ -596,5 +596,7 @@ further curation of the corpus.
 **Adjudicator.** → **[EVAL-REPORT.md](EVAL-REPORT.md)**
 
 Fill the skeleton it carries. Every statement in the report links to the Argument it comes from;
-the report asserts nothing the record does not already hold. Publish it, and show it to the user in
-full.
+the report asserts nothing the record does not already hold. Publish it. Once the gate has
+accepted it, write the report file from the accepted artifact and show it to the user in full,
+with the file's full path last, as [EVAL-REPORT.md](EVAL-REPORT.md#showing-it-the-report-file)
+sets out.

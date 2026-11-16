@@ -179,7 +179,8 @@ did, say so in a line and keep the heading: a missing section reads as an omissi
 
 **8. Where it is.** The one place for locations: the community, how to browse it, the report's
 address, and the working file by its full path, in the run's own folder under the user's home
-directory.
+directory. The report file sits beside the working file and takes its name once the gate has
+accepted the report, so its path is given in the closing message.
 
 ## Filling it
 
@@ -194,3 +195,83 @@ reports can be compared only where the same word means the same thing in both.
 
 **Keep it about the evaluation.** How the run went, what was retried, how long the gate took: that
 is the agent's experience, and it belongs in none of the eight.
+
+## Showing it: the report file
+
+The record holds the report as an artifact. The user reads it as Markdown: one file, written from
+that artifact, shown in full when the run ends.
+
+**The report is the eight sections, and the report file is the artifact entire**: the report, then
+everything else the record holds about it. The skeleton, the budgets and what is published stay as
+they are set out above.
+
+### The order
+
+1. The Adjudicator publishes the report, and the gate accepts it.
+2. Sync as the Adjudicator's user context, and read the report artifact from the Adjudicator's
+   copy of the eval record. The accepted artifact carries `created`; the draft in the scratch
+   folder does not.
+3. Write the report file. This is yours to do, as the one writer of the run's folder.
+4. Record the file's full path in the working file as `report_file`, and only then set the phase
+   it holds to complete. A run is complete once it holds `report_file`, and not before.
+5. Send the closing message.
+
+**Where the gate refuses the report**, there is no report file: report what the gate said, and
+stop.
+
+**Where a run is resumed**, look at the record and the working file:
+
+- the record holds an accepted report, and the working file has no `report_file` or names a file
+  that is gone: take up at step 2.
+- `report_file` names a file that is there: show it again, from the file.
+
+**Where a report supersedes an earlier one**, write the file for the latest the gate accepted. Its
+`created` is its own, so it is a new file; `report_file` moves to it, and the earlier file stays.
+
+### Its name and place
+
+**`<short name>_eval_<created>_<eval community>.md`**, in the run's folder, beside the working
+file.
+
+- `<short name>` is the run's short name, as the working file holds it.
+- `<created>` is the artifact's `created`, in UTC, to the second, written `YYYYMMDDTHHMMSSZ`.
+- `<eval community>` is the eval community's name.
+
+So `excipient_oligomer_bile_eval_20261115T074640Z_shawn_test.md`. Every part of the name comes from
+the record and the working file, so writing it again gives the same file.
+
+### What it holds
+
+Two parts, in this order.
+
+**1. The report**: the artifact's `text`, character for character. It opens with its own heading.
+Its citations stay as written; an address resolves in the community's record.
+
+**2. `## Record entry`**, after a rule: everything else the artifact's file holds, each property
+once, in the order the file holds it.
+
+- Each other property held under `artifact` is one bullet: `- **<property>** — <value>`. A list
+  is written with commas between its items; a number, `true` or `false` as the file writes it.
+- `### Objects`, then a `#### <name>` heading for each object. The heading is where the object's
+  `name` goes; its other properties follow as the same bullets. `### Relationships` the same
+  way. Where a list is empty, the one line `*none*`.
+- **A value Markdown would consume** — one holding `<`, `|` or a line break — goes in a fenced
+  block, so the reader sees what the record holds. The bullet ends at its dash, and the block
+  sits under it, indented to belong to it.
+
+Copy; do not compose. Nothing is added, dropped, reworded or reordered, and no value is
+summarised. Take the property names from the artifact as it stands. A script that copies the
+values across is ordinary work.
+
+### The closing message
+
+Two things, and only these:
+
+1. **The report file's content, in full**, as Markdown the user reads directly. It goes in the
+   message itself, outside any code block.
+2. **The last line**: `Report file: <the file's full path>`, written whole, the way the host
+   platform spells it, so the user can copy it.
+
+Where the host has its own way to hand a file to the user, hand the report file over that way as
+well. A host may run somewhere other than the user's machine, and there the path alone leads
+nowhere.

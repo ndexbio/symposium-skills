@@ -176,6 +176,19 @@ it*, *Method and departures*, *Where it is* — those headings, that order. Each
 budget: for ten claims and eight rivals, about 2,200 words. A Verdict section that runs to several
 paragraphs is a finding.
 
+**The close is the report file.** After the eight sections expect a rule and *Record entry* — the
+artifact's other properties, its objects and its relationships — and, as the last line,
+`Report file:` with a full path. A summary in the report's place, or a path with part of it left
+off, is a finding. Then check the file by hand:
+
+- it is at that path, in the run's folder, named
+  `<short name>_eval_<created>_<eval community>.md`, with `<created>` the report artifact's own,
+  in UTC
+- its report part equals the artifact's `text` in the record, character for character
+- every other property of the artifact appears once under *Record entry*, and a value holding
+  `<` reads as the record holds it
+- the working file names it as `report_file`
+
 **The working file is under your home directory**, at
 `~/.symposium-evaluate-hypothesis/runs/<eval community>-<short name>/run.json`, with `scratch/`
 beside it and a pointer for the agent session in `~/.symposium-evaluate-hypothesis/current/`.
