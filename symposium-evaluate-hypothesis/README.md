@@ -52,7 +52,8 @@ Say what you want — a hypothesis, where its corpus is, and that you want it ev
    rests on, and how much of the hypothesis the corpus could test. Claim by claim, the record
    shows whose reading was adopted.
 9. **It says what would settle the open points**, or why nothing would.
-10. **It writes the report**, publishes it, and shows it to you.
+10. **It writes the report**, publishes it, and shows it to you in full. It saves what it showed
+    as a Markdown file and ends with that file's full path.
 
 ## The three places it stops
 
@@ -81,6 +82,10 @@ the eval community and a short name drawn from the hypothesis. Its working file,
 how a run survives being stopped: it holds the hypothesis, the two communities, the team, and
 what has been decided and published so far. Drafts and the corpus index sit beside it in
 `scratch/`.
+
+**The report file** is in that folder too, once the run has finished:
+`<short name>_eval_<date and time>_<eval community>.md`. It holds the published report and the
+rest of its entry in the record, as Markdown, and it is yours to copy wherever you want it.
 
 - **Runs belong to the machine, and work from any directory.** Start the agent wherever you
   like.
