@@ -89,14 +89,23 @@ def file_tables(o, files, content=None):
         for p in pathlib.Path(files).glob(f"{name}.{c.get('name')}*"):
             if p.suffix.lower() in (".png", ".pdf", ".py", ".svg"):
                 continue
-            opener = gzip.open if p.name.endswith(".gz") else open
+            # a stored file carries no reliable name: recognise gzip by its magic bytes, and read
+            # only what looks like a table (code and text are stored beside the tables too)
+            with open(p, "rb") as raw:
+                magic = raw.read(2)
+            opener = gzip.open if magic == b"\x1f\x8b" else open
             try:
                 with opener(p, "rt", encoding="utf-8-sig", newline="") as f:
                     head = f.read(4096)
+                    first = head.split("\n", 1)[0]
+                    if first.startswith(("#", '"""', "import ", "from ", "%PDF", "def ", "<")) or (
+                        first.count(",") < 1 and first.count("\t") < 1
+                    ):
+                        continue
                     f.seek(0)
-                    dialect = "excel-tab" if head.count("\t") > head.count(",") else "excel"
+                    dialect = "excel-tab" if first.count("\t") > first.count(",") else "excel"
                     out.append(list(csv.DictReader(f, dialect=dialect)))
-            except (OSError, csv.Error, UnicodeDecodeError):
+            except (OSError, csv.Error, UnicodeDecodeError, EOFError):
                 continue
     return out
 
@@ -131,6 +140,11 @@ def keyed_first(table, value_cols=None):
 def per_feature(table, out_csv):
     if not table:
         return None
+    # a table that also carries removed features marks the retained ones; keep those
+    rc = next((k for k in table[0] if k.strip().lower() in ("retained", "in_primary_family", "primary_family")), None)
+    if rc and len(table) > 1:
+        kept = [r for r in table if str(r[rc]).strip().lower() in ("true", "1", "yes", "y")]
+        table = kept or table
     r0 = table[0]
 
     def exact(*patterns):
@@ -144,9 +158,9 @@ def per_feature(table, out_csv):
         return None
 
     c_id = exact(r"row[ _]?id", r"feature[ _]?id", r"id") or L.col(r0, "row id", "feature") or next(iter(r0))
-    c_fc = exact(r"(baseline|base|b)_log2_?fc(_surg_vs_none)?", r"log2_?fc") or L.col(r0, "baseline log2fc")
-    c_q = exact(r"(baseline|base|b)_q(_filtered)?", r"q(_value)?") or L.col(r0, "baseline q")
-    c_p = exact(r"(baseline|base|b)_p(_raw)?", r"p(_raw|_value)?") or L.col(r0, "baseline p")
+    c_fc = exact(r"primary_log2fc", r"(baseline|base|b)_log2_?fc(_surg(ery)?_vs_none)?", r"log2_?fc") or L.col(r0, "baseline log2fc")
+    c_q = exact(r"primary_q", r"(baseline|base|b)_q(_filtered)?(_family)?", r"q(_value)?") or L.col(r0, "baseline q")
+    c_p = exact(r"primary_p", r"(baseline|base|b)_(raw_)?p(_raw)?", r"p(_raw|_value)?") or L.col(r0, "baseline p")
     keep = [(r[c_id], r.get(c_fc, ""), r.get(c_p, "") if c_p else "", r.get(c_q, "")) for r in table]
     if out_csv:
         with open(out_csv, "w", encoding="utf-8", newline="") as f:
@@ -225,6 +239,107 @@ def conclusion(arts, run_json, closing):
     )
 
 
+# ---------------------------------------------------------------- the record profile
+#
+# reference/RECORD.md fixes each artifact's topic and the tables inside it. Read by those names
+# first; the searches above are the fallback for a record made before the profile.
+
+STAGES = {
+    "qc_standards": (["internal_standards", "qc_summary"], ["sample_table"]),
+    "merges": (["counts", "candidates", "merge_map"], []),
+    "batch": (["check_summary"], []),
+    "processing": (["normalization_comparison"], ["filter_table", "processed_filtered", "processed_unfiltered"]),
+    "statistics": (["counts"], ["results", "results_unfiltered"]),
+    "sensitivity": (["summary"], []),
+    "multivariate": (["summary"], []),
+    "detection_rate": (["bins", "cumulative"], ["per_feature"]),
+    "network_classes": (["summary", "family_sizes", "families", "delta_masses", "composition", "color_key", "unclassified"],
+                        ["nodes", "edges", "class_assignments"]),
+    "removed_review": (["flagged", "added_back"], []),
+}
+COLUMNS = {
+    ("statistics", "results"): ["row_id", "mz", "rt_min", "retained", "added_back", "removed_by", "primary_log2fc", "primary_p", "primary_q"],
+    ("processing", "filter_table"): ["row_id", "retained", "added_back", "removed_by"],
+    ("detection_rate", "bins"): ["bin", "features", "features_with_msms", "features_with_library_match"],
+    ("network_classes", "summary"): ["item", "value"],
+    ("network_classes", "family_sizes"): ["bin", "families"],
+    ("network_classes", "delta_masses"): ["label", "mass", "edges"],
+    ("network_classes", "composition"): ["class_group", "fine_class", "annotated", "networked", "tested", "significant"],
+    ("merges", "candidates"): ["row_id_a", "row_id_b", "class", "decision"],
+    ("batch", "check_summary"): ["item", "value"],
+}
+
+
+def by_topic(arts, topic):
+    pat = re.compile(r".*_" + re.escape(topic) + r"_v(\d+)$")
+    hits = [(int(pat.match(o["artifact"]["name"]).group(1)), o) for o in arts if pat.match(o["artifact"]["name"])]
+    return max(hits, key=lambda h: h[0])[1] if hits else None
+
+
+def prop_table(o, prop):
+    v = (o or {}).get("artifact", {}).get(prop) if o else None
+    if not isinstance(v, str) or "\n" not in v:
+        return None
+    try:
+        rows = list(csv.DictReader(io.StringIO(v)))
+    except csv.Error:
+        return None
+    return rows or None
+
+
+def file_table(o, files, name):
+    if not o:
+        return None
+    tabs = file_tables(o, files, f"{name}_download")
+    return max(tabs, key=len) if tabs else None
+
+
+def record_shape(arts, files):
+    """What the profile requires and the record lacks, as a list of short descriptions."""
+    missing = []
+    goal = by_topic(arts, "goal")
+    if not goal or goal["artifact"].get("type") != "ResearchGoal":
+        missing.append("goal")
+    else:
+        for k in ("skill", "mode", "short_name", "task"):
+            if not goal["artifact"].get(k):
+                missing.append(f"goal.{k}")
+    if not by_topic(arts, "input_feature_table"):
+        missing.append("input_feature_table")
+    for stage, (props, fls) in STAGES.items():
+        if not by_topic(arts, f"analysis_{stage}"):
+            missing.append(f"analysis_{stage}")
+        d = by_topic(arts, f"data_{stage}")
+        if not d:
+            missing.append(f"data_{stage}")
+            continue
+        names = {c.get("name") for c in contents(d)}
+        for pr in props:
+            if pr not in d["artifact"]:
+                missing.append(f"data_{stage}.{pr}")
+            elif f"{pr}_csv" not in names:
+                missing.append(f"data_{stage}.{pr}_csv")
+        for fl in fls:
+            if f"{fl}_download" not in names:
+                missing.append(f"data_{stage}.{fl}_download")
+        for (st, tab), cols in COLUMNS.items():
+            if st != stage:
+                continue
+            t = prop_table(d, tab) if tab in props else file_table(d, files, tab)
+            if t is None:
+                if files or tab in props:
+                    missing.append(f"data_{stage}.{tab} (unreadable)")
+                continue
+            have = {k.strip() for k in t[0]}
+            for c in cols:
+                if c not in have:
+                    missing.append(f"data_{stage}.{tab}.{c}")
+    for t in ("handoff", "technical_report"):
+        if not by_topic(arts, t):
+            missing.append(t)
+    return missing
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--library", required=True)
@@ -243,7 +358,17 @@ def main():
     def T(must, must_not=(), prefer_file=False, prop=None, content=None):
         return find_table(lib, F, must, must_not, prefer_file, prop, content)
 
-    filt = T(["filter"], ["candidate", "merge"], content="download") or T(["filter"], ["candidate", "merge"], prefer_file=True)
+    P = lambda topic: by_topic(lib, topic)
+    filt = file_table(P("data_processing"), F, "filter_table")
+    for o in ([] if filt else lib):
+        if o["artifact"].get("type") != "Data":
+            continue
+        for c in contents(o):
+            if "filter" in c.get("name", "") and "table" in c.get("name", ""):
+                tabs = file_tables(o, F, c["name"])
+                if tabs:
+                    filt = max(tabs, key=len)
+    filt = filt or T(["filter"], ["candidate", "merge"], content="download") or T(["filter"], ["candidate", "merge"], prefer_file=True)
     fc = None
     if filt:
         fc = {"features_in": len(filt)}
@@ -251,7 +376,11 @@ def main():
         if c:
             fc["added_back"] = sum(str(r[c]).strip().lower() in ("true", "1", "yes", "y") for r in filt)
     status = None
-    for o in lib:
+    cs = prop_table(by_topic(lib, "data_batch"), "check_summary")
+    if cs:
+        st = {str(r.get("item")).strip(): str(r.get("value")).strip() for r in cs}.get("status")
+        status = st or None
+    for o in ([] if status else lib):
         if o["artifact"].get("type") in ("Data", "Analysis"):
             text = json.dumps(o["artifact"]).lower()
             if "batch" not in text:
@@ -261,22 +390,24 @@ def main():
             elif status is None and "batch" in words(o):
                 status = "check run"
     norm = [o["artifact"].get("procedure", "") for o in lib if o["artifact"].get("type") == "Analysis" and "normaliz" in words(o)]
-    mmap = T(["merge"], prop="map")
+    mmap = prop_table(by_topic(lib, "data_merges"), "merge_map") or T(["merge"], prop="map")
     has_map = mmap is not None or any("merge" in words(o) and "map" in words(o) for o in lib)
     # the primary per-feature results are the table, among those the record holds, that carries a
     # plainly named baseline q column; of several, the one for the primary family (not the
     # unfiltered table) and, after that, the largest
-    pf, best = None, None
-    for o in lib:
+    pf, best = file_table(P("data_statistics"), F, "results"), None
+    for o in ([] if pf else lib):
         if o["artifact"].get("type") != "Data":
             continue
         for tab in file_tables(o, F) + embedded_tables(o):
             if not tab:
                 continue
             cols = [k.strip().lower() for k in tab[0]]
-            if not any(re.fullmatch(r"(baseline|base|b)_q(_filtered)?", c) for c in cols):
+            if not any(re.fullmatch(r"(baseline|base|b)_q(_filtered)?(_family)?", c) for c in cols):
                 continue
-            key = ("unfiltered" not in words(o), len(tab))
+            # the abundance results carry an effect size; a detection table carries only p and q
+            has_fc = any(re.fullmatch(r"(baseline|base|b)_log2_?fc(_surg(ery)?_vs_none)?", c) for c in cols)
+            key = (has_fc, "unfiltered" not in words(o), len(tab))
             if best is None or key > best:
                 pf, best = tab, key
     c1, t1 = conclusion(lib, a.run_json[0] if a.run_json else None, a.closing[0] if a.closing else None)
@@ -286,18 +417,19 @@ def main():
         "filter_counts": fc,
         "batch_correction_check": {"status": status} if status else None,
         "normalization": (norm[-1][:400] if norm else None),
-        "feature_merge_candidates": len(T(["merge"], prop="candidate") or T(["merge", "candidate"]) or []) or None,
+        "feature_merge_candidates": len(prop_table(P("data_merges"), "candidates") or T(["merge"], prop="candidate") or T(["merge", "candidate"]) or []) or None,
         "feature_merge_map_rows": len(mmap or []) if has_map else None,
         "per_feature": per_feature(pf, a.per_feature),
-        "detection_rate_bins": keyed_first(T(["detection"], prop="bins")),
-        "detection_rate_cumulative": keyed_first(T(["detection"], prop="cumulative")),
-        "network_summary": keyed_first(T(["network"], prop="summary")),
-        "network_family_sizes": keyed_first(T(["network"], prop="family_size")),
-        "network_delta_masses": keyed_first(T(["network"], prop="delta"), ("mass", "edges")),
+        "detection_rate_bins": keyed_first(prop_table(P("data_detection_rate"), "bins") or T(["detection"], prop="bins")),
+        "detection_rate_cumulative": keyed_first(prop_table(P("data_detection_rate"), "cumulative") or T(["detection"], prop="cumulative")),
+        "network_summary": keyed_first(prop_table(P("data_network_classes"), "summary") or T(["network"], prop="summary")),
+        "network_family_sizes": keyed_first(prop_table(P("data_network_classes"), "family_sizes") or T(["network"], prop="family_size")),
+        "network_delta_masses": keyed_first(prop_table(P("data_network_classes"), "delta_masses") or T(["network"], prop="delta"), ("mass", "edges")),
         "compound_class_composition": {
             f"{r.get('class_group')} / {r.get('fine_class')}": {k: L.num(r.get(k)) for k in ("annotated", "networked", "tested", "significant")}
-            for r in (T(["class"], prop="composition") or T(["class", "composition"]) or [])
+            for r in (prop_table(P("data_network_classes"), "composition") or T(["class"], prop="composition") or T(["class", "composition"]) or [])
         } or None,
+        "record_shape_missing": record_shape(lib, F),
         "artifacts": len(lib),
         "stored_files": sum(1 for o in lib for c in contents(o) if str(c.get("location", "")).startswith("symposium-data:")),
         "conclusion": c1,

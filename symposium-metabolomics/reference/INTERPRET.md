@@ -1827,6 +1827,8 @@ Interpretation ends in **two reports**, drafted as [REPORT.md](REPORT.md) sets o
 
 ## 31.0 What interpretation publishes
 
+The names, topics and shapes are fixed in [RECORD.md](RECORD.md); the table below says what each part is for.
+
 | Published | Content |
 | :---- | :---- |
 | The question | The user's request for interpretation, verbatim, linked to the question the analysis served |

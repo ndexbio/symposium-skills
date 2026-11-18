@@ -1800,7 +1800,7 @@ Report counts, structure, mass differences, class membership and statistics only
 
 # 14\. What Each Stage Records
 
-Every stage's Analysis states, in its `procedure`, what the block below lists for it. A block is one stage; where the reuse table groups several stages into one Analysis, its procedure carries each of their blocks. `dataset` and `experimental_design` are stated once, in the first Analysis of the run, and the goal carries the question.
+Every stage's Analysis states, in its `procedure`, what the block below lists for it. What each stage is published as, and under which names, is [RECORD.md](RECORD.md). A block is one stage; where the reuse table groups several stages into one Analysis, its procedure carries each of their blocks. `dataset` and `experimental_design` are stated once, in the first Analysis of the run, and the goal carries the question.
 
 Record each field as it is decided, in the working file, so a run that stops loses none. Where a field does not apply, say so and why; an absent field reads as one nobody considered.
 

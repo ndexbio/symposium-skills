@@ -37,6 +37,7 @@ fixture, so a rehearsal runs this skill only.
 | [`extract_record.py`](rehearsal/extract_record.py) | reads this skill's records and writes the same facts for a run |
 | [`extract_local.py`](rehearsal/extract_local.py) | the same for a folder the original skill wrote; how the gold facts were made |
 | [`compare.py`](rehearsal/compare.py) | prints the assertion table for a run |
+| [`watch.py`](rehearsal/watch.py) | follows a headless session as it runs, and stops it at the first fault |
 
 **The study**: MassIVE MSV000082221, IBD stool, positive mode. **The task**: GNPS2 Everything
 Bagel `a9552f8e5018401ba4af91934f916289` on gnps2.org, served without login. **The question**:
@@ -67,9 +68,10 @@ make -C symposium-metabolomics deploy-local SKILLS=$HOME/dev/qa-metabolomics/.cl
 Use a data server and communities made for the rehearsal. A record is append-only: **each run
 needs a community nothing has been published to.**
 
-**Run the session under test on Opus 5.x or a smaller model**, named when the session is
-started (`claude --model <model>`), to keep the cost of each run down. Allow about an hour and a
-half of the agent's time for each mode.
+**Run the session under test on the latest Sonnet** (now `claude-sonnet-5-5`), named when the
+session is started (`claude --model <model>`). The gold run was made on Sonnet, so a run on
+another model can depart from it for reasons of the model and not the skill. Allow about an hour
+and a half of the agent's time for each mode.
 
 ## 2. The run: two loops
 
@@ -112,6 +114,7 @@ Each row is **exact** (a departure is a regression), **tolerance** (it passes wi
 | Network | 2,928 nodes, 4,629 edges, 524 families, 5,964 singletons, 8,892 MS/MS features, largest family 96; family-size bins 287, 140, 78, 19; the delta-mass edge counts. The same compound-class scheme as gold; the count in each class is not compared. | exact |
 | Report | Every number in the gold technical report's summary and findings table appears in the report artifact, within its band. | judged |
 | Publish timing | Nothing is in the library before the user approves the draft. A revision asked for before approval publishes nothing. | exact |
+| Record shape | The record follows [reference/RECORD.md](reference/RECORD.md): the goal carries `skill`, `mode`, `short_name` and `task`; every import, Analysis and output named there is present under its topic, with its properties, Contents and the columns the profile requires. `rehearsal/extract_record.py` reads the tables by these names, so a run that departs from the profile shows up here first. | exact |
 | Completeness | Every file in `gold-manifest.json` whose `becomes` begins `library:` has its counterpart: an artifact, or a file an artifact cites. Nothing the run produced is local only, apart from its own folder. | judged |
 | Conclusion | The report artifact is accepted. The closing message is that report in Markdown. Its last line is `Report file:` and a full path, and a PDF is at that path, in the run's folder. | exact |
 
@@ -137,6 +140,46 @@ Each row is **exact** (a departure is a regression), **tolerance** (it passes wi
 | Reuse table | Start analyze a second time on the same task with another comparison, and stop at its intake. | Every input and every stage that does not turn on the question is listed as reused, and the statistics as new. |
 | Overlap | Run interpret a second time on the same analysis and question. | It shows an overlap table matching each hypothesis to the finding already there, and publishes no Argument or conjecture restating one. |
 
+## Stopping a run early
+
+A run costs what section 1 says, and most of that is spent after the point where a fault shows.
+Stop as soon as one does.
+
+**While a turn runs.** A session started headless (`claude -p --output-format stream-json
+--verbose`) writes its events to a file as it works. `rehearsal/watch.py` follows that file and
+stops the session at the first of these, writing the reason beside the log:
+
+| Tripwire | Means |
+|---|---|
+| model | the session is not on the model section 1 names |
+| leak | a command reads or writes this repository (`rehearsal/` included) or wherever the answers are kept |
+| publish | something is published or stored before the user's approval to publish |
+| community | a command acts as a user context outside this run's communities |
+| loop | the same tool error four times in a row |
+| cost | the turn's spend passes a ceiling (the estimate reads about half of the real spend; set it at about half the real limit) |
+| time | the turn runs past a time limit |
+
+```sh
+python3 rehearsal/watch.py --events <turn.jsonl> --pid <claude pid> --model claude-sonnet-5-5 \
+    --community <library>[,<interpretation>] --approved <flag file, created when you approve> \
+    --forbid <this repository>,<where the answers are kept> --max-usd 10 --max-minutes 90
+```
+
+`--replay` on a finished log reports what would have stopped it. A session driven by hand is
+watched by the person driving it, for the same faults.
+
+**At each stop.** Read the stop before answering it. A recommendation that departs from
+`answers.md` is answered from `answers.md` and is not by itself a fault; a reasoning mistake is
+noted for the report.
+
+**At the draft.** Before approving publication, check the draft's own numbers against the exact
+and tolerance rows of section 3: the counts, the statistics, the detection rate and the network
+are all in the draft. A row already outside its band will not come back inside by publishing.
+Stop there, take it to section 5, and do not pay for publishing a run that has already failed.
+
+A run stopped early is not a result: nothing it did is compared. Fix the cause, then start that
+mode again in a new community, as section 5 sets out.
+
 ## 4. Reading the result
 
 Sync each community as its publishing member, fetch the files its record cites into one folder
@@ -155,10 +198,12 @@ python3 rehearsal/compare.py facts.json --per-feature per-feature.csv --mode ana
 passes. Rows marked `?` are the judged ones: read what the script prints for both sides against
 section 3.
 
-**Read `absent` first.** `extract_record.py` finds a table by what its title and description
-say, and prints what it could not find. A table the run published under words the extractor does
-not look for reads as a missing table, and that is a fault in the extractor to fix, not in the
-skill. Check that list before reading any failure.
+**Read the Record shape row and `absent` first.** The extractor reads each table by the name
+[reference/RECORD.md](reference/RECORD.md) gives it. A table missing from where the profile puts
+it is a Record shape failure, a fault in the skill's run. Only for a record made before the
+profile does the extractor fall back to searching titles and descriptions; there, a table it
+cannot find is a fault in the extractor to fix, not in the skill. Check both before reading any
+other failure.
 
 To confirm the fixture and the script agree with each other, the gold facts pass against
 themselves:

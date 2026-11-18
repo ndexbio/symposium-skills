@@ -8,8 +8,9 @@ metadata:
 
 # Metabolomics in a Symposium community
 
-**Before anything else, say in one line which mode is starting — analyze or interpret — and on
-what.** [Which mode a request starts](#which-mode-a-request-starts) says how to choose.
+**Before anything else, tell the user in one line which mode is starting — analyze or interpret —
+and on what. That line is the first thing the user reads.**
+[Which mode a request starts](#which-mode-a-request-starts) says how to choose.
 
 Two pieces of work, each ending in a Symposium community record.
 
@@ -79,7 +80,8 @@ anything else, and follow it as written. What is this skill's own:
 - **A run is one mode.** An analyze run publishes to the library community; an interpret run to
   the interpretation community. Each is named for that community and its short name.
 - **The short name** is a few key words of the study and the question, lowercase, joined by
-  underscores.
+  underscores, made unique in the community as [reference/RECORD.md](reference/RECORD.md) sets
+  out.
 - **The working file holds**, beyond what every run's does: the mode; the task ID and host; the
   question, verbatim; every intake answer and every decision the user made, each with what it
   decides; the stage reached; for analyze, the reuse table as approved; for interpret, the
@@ -260,7 +262,8 @@ a mode keeps its work out of the record until the user has approved it.
 2. **Show the draft report** in the conversation, as Markdown, and stop. The user revises as
    often as they like. Every revision is made in the run's folder and shown again.
 3. **Confirm what leaves this machine**, before storing or publishing anything: the question as
-   it will be published, word for word, since it may hold paths and names; and each file the
+   it will be published, word for word, since it may hold paths and names. The question is the
+   user's request word for word; never offer a reworded version of it; and each file the
    user supplied that will be stored with the community, since it may describe study subjects.
    Where the question holds a credential, stop and ask.
 4. **On approval, publish**, in the order the addresses require: the goal; the inputs; each
@@ -269,6 +272,11 @@ a mode keeps its work out of the record until the user has approved it.
    accepted.
 5. **A change asked for after approval** is a new artifact that supersedes the one it corrects,
    with what changed and why, and the mode closes again.
+
+**What each mode publishes, and under which names**, is fixed in
+[reference/RECORD.md](reference/RECORD.md): the goal and the properties that identify the run,
+every artifact's topic, the tables inside each and the columns they always hold. Publish exactly
+that shape.
 
 **Where each thing is kept** follows from what Symposium's documents say of embedding and of
 files. In this skill's terms:

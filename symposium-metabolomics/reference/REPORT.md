@@ -145,6 +145,8 @@ A mode's last act is its report: published as an artifact, built into a file, an
 
 ## 2.1 The report is an artifact
 
+Its topic is `technical_report` for analyze and `report` for interpret ([RECORD.md](RECORD.md)).
+
 The record holds the report, and the report is the way into the record. Publish it last, as one artifact that orients a reader and that nothing is argued from:
 
 * **Its text is the report, in Markdown**, in the structure this document requires for its mode (Section 0B for the technical report; Sections 1 and 6 onward for interpretation). For interpretation the text is the **full report**; the main report is a selection from it (Section 1).

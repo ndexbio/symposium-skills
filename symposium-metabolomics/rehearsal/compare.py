@@ -224,15 +224,34 @@ def main():
     t.add("analyze", "Network: nodes, edges, families, singletons, MS/MS features, largest family", "exact",
           all(w in have for w in want), want, sorted(set(have) & set(want)))
     t.exact("analyze", "Network: family-size bins", sorted(numbers(g["network_family_sizes"])), sorted(numbers(r.get("network_family_sizes"))))
-    gdm = sorted(v["edges"] for v in (g["network_delta_masses"] or {}).values() if isinstance(v, dict) and isinstance(v.get("edges"), (int, float)))
-    rdm = sorted(v["edges"] if isinstance(v, dict) else v for v in (r.get("network_delta_masses") or {}).values()
-                 if isinstance(v, (int, float)) or (isinstance(v, dict) and isinstance(v.get("edges"), (int, float))))
-    shared = len(set(gdm) & set(rdm))
-    t.add("analyze", "Network: delta-mass edge counts (at least 20 of gold's shared)", "exact", shared >= min(20, len(set(gdm))),
-          f"{len(gdm)} labels", f"{len(rdm)} labels, {shared} edge counts shared")
+    # the inventory's own rows, not its totals: a run may put the totals elsewhere. Labels are worded
+    # differently run to run, so the edge counts are compared, one label each.
+    def inventory(d):
+        out = []
+        for k, v in (d or {}).items():
+            if "total" in str(k).lower():
+                continue
+            e = v.get("edges") if isinstance(v, dict) else v
+            if isinstance(e, (int, float)):
+                out.append(e)
+        return sorted(out)
+    gdm, rdm = inventory(g["network_delta_masses"]), inventory(r.get("network_delta_masses"))
+    left, shared = list(rdm), 0
+    for e in gdm:
+        if e in left:
+            left.remove(e)
+            shared += 1
+    t.add("analyze", "Network: delta-mass edge counts (all but one of gold's labels matched)", "exact",
+          shared >= len(gdm) - 1, f"{len(gdm)} labels", f"{len(rdm)} labels, {shared} matched by edge count")
     gc, rc = set(g["compound_class_composition"] or {}), set(r.get("compound_class_composition") or {})
     t.add("analyze", "Compound classes: the same class scheme (counts are not asserted)", "exact",
           bool(rc) and len(gc & rc) >= 0.9 * len(gc), f"{len(gc)} classes", f"{len(rc)} classes, {len(gc & rc)} shared names")
+
+    # ------------------------------------------------------------------ analyze: record shape
+    if "record_shape_missing" in r:
+        miss = r["record_shape_missing"]
+        t.add("analyze", "Record shape: every artifact, property and column reference/RECORD.md requires", "exact",
+              not miss, "nothing missing", f"{len(miss)} missing: {miss[:12]}")
 
     # ------------------------------------------------------------------ analyze: judged
     t.judged("analyze", "Decisions: every decision in answers.md is stated in an Analysis procedure, with its parameters",
