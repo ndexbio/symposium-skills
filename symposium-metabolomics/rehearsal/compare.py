@@ -145,7 +145,10 @@ def main():
 
     # ------------------------------------------------------------------ analyze: inputs
     gi = {i["file_name"]: i for i in (g["inputs"] or []) if i.get("sha256") and i.get("used")
-          and not i["file_name"].startswith("input_prompt") and not i["file_name"].endswith(".html")}
+          and not i["file_name"].startswith("input_prompt") and not i["file_name"].endswith(".html")
+          # the network can be built from the pairs list and the feature table, so the GraphML
+          # files are not required; an input that holds no data is not required either
+          and not i["file_name"].endswith(".graphml") and (i.get("size_bytes") or 0) >= 100}
     ri = {i.get("sha256"): i for i in (r.get("inputs") or [])}
     missing = [n for n, i in gi.items() if i["sha256"] not in ri]
     # a task's status page is rendered afresh on each request, so its digest is not asserted
@@ -163,11 +166,8 @@ def main():
     gfinal = (g.get("per_feature") or {}).get("features")
     rfinal = (r.get("per_feature") or {}).get("features")
     t.tol("analyze", "Counts: features retained, within 1%", within(gfinal, rfinal, 0.01), gfinal, rfinal)
-    if rf.get("added_back") is not None:
-        t.tol("analyze", "Counts: features added back, within 40%", within(gf.get("added_back"), rf.get("added_back"), 0.40),
-              gf.get("added_back"), rf.get("added_back"))
-    else:
-        t.judged("analyze", "Counts: features added back, within 40%", gf.get("added_back"), "not found in the run's facts")
+    t.judged("analyze", "Add-back: the user's rule applied to the flagged features (the count is not compared)",
+             f"{gf.get('added_back')} added back from the gold review's flagged list", f"{rf.get('added_back')} added back")
     t.exact("analyze", "Counts: merge candidates", g.get("feature_merge_candidates"), r.get("feature_merge_candidates"))
     t.exact("analyze", "Counts: merges applied", g.get("feature_merge_map_rows"), r.get("feature_merge_map_rows"))
 

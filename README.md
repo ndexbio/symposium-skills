@@ -141,7 +141,7 @@ works, and it is **the expected outcomes for that skill's prose as it stands**.
 Run one like this:
 
 ```sh
-make -C <skill> deploy-local SKILLS=~/dev/qa-<skill>/.claude/skills
+make -C <skill> deploy-local SKILLS=$HOME/dev/qa-<skill>/.claude/skills
 cd ~/dev/qa-<skill> && claude
 ```
 

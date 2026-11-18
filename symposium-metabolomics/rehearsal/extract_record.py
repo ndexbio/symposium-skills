@@ -61,10 +61,13 @@ def contents(o):
     return [x for x in o.get("objects", []) if x.get("type") == "Content"]
 
 
-def embedded_tables(o):
-    """Every CSV held in a string property of the artifact, as lists of row dicts."""
+def embedded_tables(o, prop=None):
+    """Every CSV held in a string property of the artifact, as lists of row dicts; with `prop`,
+    only the properties whose name holds it."""
     out = []
     for k, v in (o.get("artifact") or {}).items():
+        if prop and prop not in k.lower():
+            continue
         if isinstance(v, str) and "\n" in v and v.count(",") >= 2 and k not in ("description", "procedure", "text", "import_method", "rationale"):
             try:
                 rows = list(csv.DictReader(io.StringIO(v)))
@@ -75,12 +78,14 @@ def embedded_tables(o):
     return out
 
 
-def file_tables(o, files):
+def file_tables(o, files, content=None):
     out = []
     if not files:
         return out
     name = o["artifact"]["name"]
     for c in contents(o):
+        if content is not None and c.get("name") != content:
+            continue
         for p in pathlib.Path(files).glob(f"{name}.{c.get('name')}*"):
             if p.suffix.lower() in (".png", ".pdf", ".py", ".svg"):
                 continue
@@ -96,14 +101,21 @@ def file_tables(o, files):
     return out
 
 
-def find_table(arts, files, must, must_not=(), prefer_file=False):
-    """The largest table of the latest artifact whose name, title and description hold every
-    word in `must` and none in `must_not`."""
+def find_table(arts, files, must, must_not=(), prefer_file=False, prop=None, content=None):
+    """A table of the latest artifact whose name, title and description hold every word in
+    `must` and none in `must_not`. One artifact often holds several tables, so `prop` narrows
+    to an embedded property whose name holds it, and `content` to the file of one Content. Where
+    neither is given, the largest table is taken."""
     hits = [o for o in arts if o["artifact"].get("type") == "Data" and all(w in words(o) for w in must)
             and not any(w in words(o) for w in must_not)]
     hits.sort(key=lambda o: str(o["artifact"].get("created") or ""))
     for o in reversed(hits):
-        tabs = (file_tables(o, files) + embedded_tables(o)) if prefer_file else (embedded_tables(o) + file_tables(o, files))
+        if prop is not None or content is not None:
+            tabs = (embedded_tables(o, prop) if prop is not None else []) + (file_tables(o, files, content) if content is not None else [])
+        elif prefer_file:
+            tabs = file_tables(o, files) + embedded_tables(o)
+        else:
+            tabs = embedded_tables(o) + file_tables(o, files)
         if tabs:
             return max(tabs, key=len)
     return None
@@ -120,10 +132,21 @@ def per_feature(table, out_csv):
     if not table:
         return None
     r0 = table[0]
-    c_id = L.col(r0, "row id", "row_id", "feature id", "feature") or next(iter(r0))
-    c_fc = L.col(r0, "baseline log2fc surg", "baseline log2fc", "base log2fc", "log2fc")
-    c_q = L.col(r0, "b_q_filtered", "baseline q", "base q", "q")
-    c_p = L.col(r0, "baseline p raw", "baseline p", "base p", "p raw", "p_raw")
+
+    def exact(*patterns):
+        """The first column whose whole name matches one of the patterns, in their order: a
+        table may carry the same statistic for several contrasts, and the primary one is the
+        one named plainly."""
+        for pat in patterns:
+            for k in r0:
+                if re.fullmatch(pat, k.strip().lower()):
+                    return k
+        return None
+
+    c_id = exact(r"row[ _]?id", r"feature[ _]?id", r"id") or L.col(r0, "row id", "feature") or next(iter(r0))
+    c_fc = exact(r"(baseline|base|b)_log2_?fc(_surg_vs_none)?", r"log2_?fc") or L.col(r0, "baseline log2fc")
+    c_q = exact(r"(baseline|base|b)_q(_filtered)?", r"q(_value)?") or L.col(r0, "baseline q")
+    c_p = exact(r"(baseline|base|b)_p(_raw)?", r"p(_raw|_value)?") or L.col(r0, "baseline p")
     keep = [(r[c_id], r.get(c_fc, ""), r.get(c_p, "") if c_p else "", r.get(c_q, "")) for r in table]
     if out_csv:
         with open(out_csv, "w", encoding="utf-8", newline="") as f:
@@ -217,10 +240,10 @@ def main():
     itp = load_record(a.interpretation, "")
     F = a.files
 
-    def T(must, must_not=(), prefer_file=False):
-        return find_table(lib, F, must, must_not, prefer_file)
+    def T(must, must_not=(), prefer_file=False, prop=None, content=None):
+        return find_table(lib, F, must, must_not, prefer_file, prop, content)
 
-    filt = T(["filter"], ["candidate", "merge"], prefer_file=True)
+    filt = T(["filter"], ["candidate", "merge"], content="download") or T(["filter"], ["candidate", "merge"], prefer_file=True)
     fc = None
     if filt:
         fc = {"features_in": len(filt)}
@@ -229,15 +252,33 @@ def main():
             fc["added_back"] = sum(str(r[c]).strip().lower() in ("true", "1", "yes", "y") for r in filt)
     status = None
     for o in lib:
-        if "batch" in words(o) and o["artifact"].get("type") in ("Data", "Analysis"):
+        if o["artifact"].get("type") in ("Data", "Analysis"):
             text = json.dumps(o["artifact"]).lower()
-            if "not possible" in text:
+            if "batch" not in text:
+                continue
+            if re.search(r"batch[^.]{0,200}not possible|not possible[^.]{0,200}batch|pooled_qc_available\W+(no|false)", text):
                 status = "not possible"
-            elif status is None:
+            elif status is None and "batch" in words(o):
                 status = "check run"
     norm = [o["artifact"].get("procedure", "") for o in lib if o["artifact"].get("type") == "Analysis" and "normaliz" in words(o)]
-    has_map = any("merge" in words(o) and "map" in words(o) for o in lib)
-    pf = T(["per feature"], ["unfiltered", "detection"], True) or T(["feature", "result"], ["unfiltered", "detection"], True)
+    mmap = T(["merge"], prop="map")
+    has_map = mmap is not None or any("merge" in words(o) and "map" in words(o) for o in lib)
+    # the primary per-feature results are the table, among those the record holds, that carries a
+    # plainly named baseline q column; of several, the one for the primary family (not the
+    # unfiltered table) and, after that, the largest
+    pf, best = None, None
+    for o in lib:
+        if o["artifact"].get("type") != "Data":
+            continue
+        for tab in file_tables(o, F) + embedded_tables(o):
+            if not tab:
+                continue
+            cols = [k.strip().lower() for k in tab[0]]
+            if not any(re.fullmatch(r"(baseline|base|b)_q(_filtered)?", c) for c in cols):
+                continue
+            key = ("unfiltered" not in words(o), len(tab))
+            if best is None or key > best:
+                pf, best = tab, key
     c1, t1 = conclusion(lib, a.run_json[0] if a.run_json else None, a.closing[0] if a.closing else None)
     analyze = {
         "inputs": inputs(lib),
@@ -245,17 +286,17 @@ def main():
         "filter_counts": fc,
         "batch_correction_check": {"status": status} if status else None,
         "normalization": (norm[-1][:400] if norm else None),
-        "feature_merge_candidates": len(T(["merge", "candidate"]) or []) or None,
-        "feature_merge_map_rows": len(T(["merge", "map"]) or []) if has_map else None,
+        "feature_merge_candidates": len(T(["merge"], prop="candidate") or T(["merge", "candidate"]) or []) or None,
+        "feature_merge_map_rows": len(mmap or []) if has_map else None,
         "per_feature": per_feature(pf, a.per_feature),
-        "detection_rate_bins": keyed_first(T(["detection", "bin"], ["cumulative", "per feature"])),
-        "detection_rate_cumulative": keyed_first(T(["detection", "cumulative"])),
-        "network_summary": keyed_first(T(["network", "summary"])),
-        "network_family_sizes": keyed_first(T(["family", "size"])),
-        "network_delta_masses": keyed_first(T(["delta"]), ("mass", "edges")),
+        "detection_rate_bins": keyed_first(T(["detection"], prop="bins")),
+        "detection_rate_cumulative": keyed_first(T(["detection"], prop="cumulative")),
+        "network_summary": keyed_first(T(["network"], prop="summary")),
+        "network_family_sizes": keyed_first(T(["network"], prop="family_size")),
+        "network_delta_masses": keyed_first(T(["network"], prop="delta"), ("mass", "edges")),
         "compound_class_composition": {
             f"{r.get('class_group')} / {r.get('fine_class')}": {k: L.num(r.get(k)) for k in ("annotated", "networked", "tested", "significant")}
-            for r in (T(["class", "composition"]) or [])
+            for r in (T(["class"], prop="composition") or T(["class", "composition"]) or [])
         } or None,
         "artifacts": len(lib),
         "stored_files": sum(1 for o in lib for c in contents(o) if str(c.get("location", "")).startswith("symposium-data:")),

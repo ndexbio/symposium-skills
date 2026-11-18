@@ -50,6 +50,7 @@ Where a run does not ask something listed here, note that too.
 | A9 | Prevalence filter | Detected in at least 20% of samples in at least one CD surgery group |
 | A10 | Normalization | Sum (TIC), with rCLR as a sensitivity check. No internal-standard normalization |
 | A11 | Zero handling | Replace zeros with half the feature's minimum positive value before log2 |
+| A11b | How the baseline and over-time comparisons are tested | Baseline: a Welch t-test per feature, surgery vs none, on the first-visit samples. Over time: a per-feature mixed model fitted with statsmodels MixedLM (REML), log2 abundance ~ surgery x month, random intercept per subject, Wald z tests. Benjamini-Hochberg within the retained family for each term |
 | A12 | Adjust for time since surgery | Ask whether it is needed and available; on hearing why it is not an ordinary covariate: skip it |
 | A13 | Removed features flagged for review | Add back those removed by the prevalence filter only. Those removed by the blank filter stay out. Contaminants and additives are not added back |
 | A14 | Unclassified annotations list | Fine as it is |

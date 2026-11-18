@@ -29,7 +29,7 @@ curation skill build one, and the second evaluates against it.
 
 Both skills go into the one QA directory: run `make -C symposium-curate-data deploy-local` and
 `make -C symposium-evaluate-hypothesis deploy-local`, each with
-`SKILLS=~/dev/qa-symposium-evaluate-hypothesis/.claude/skills`.
+`SKILLS=$HOME/dev/qa-symposium-evaluate-hypothesis/.claude/skills`.
 
 Set aside an evening for the first run and an hour or two for the second.
 

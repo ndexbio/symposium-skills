@@ -61,14 +61,15 @@ asserted at all. `variation.json` has the numbers.
 | A data server, and for each community an admin and a publishing member on this machine | found the communities before the run; Symposium's documents say how |
 
 ```sh
-make -C symposium-metabolomics deploy-local SKILLS=~/dev/qa-metabolomics/.claude/skills
+make -C symposium-metabolomics deploy-local SKILLS=$HOME/dev/qa-metabolomics/.claude/skills
 ```
 
 Use a data server and communities made for the rehearsal. A record is append-only: **each run
 needs a community nothing has been published to.**
 
-Allow about an hour and a half of the agent's time for each mode, and the cost that goes with
-it. `variation.json` records what the original skill's run took.
+**Run the session under test on Opus 5.x or a smaller model**, named when the session is
+started (`claude --model <model>`), to keep the cost of each run down. Allow about an hour and a
+half of the agent's time for each mode.
 
 ## 2. The run: two loops
 
@@ -100,10 +101,11 @@ Each row is **exact** (a departure is a regression), **tolerance** (it passes wi
 | Row | Expectation | Kind |
 |---|---|---|
 | Activation | The prompt gives a task and a biological question. Analyze starts, says in one line that it is analyze, and nothing of interpretation runs. Its closing message says interpretation is available. | judged |
-| Inputs | Every input the gold run used is an import in the library whose digest equals gold's: the quantification table, the MGF, the pairs list, both GraphML files, the task's metadata file, and the four user-supplied files. The GNPS2 files are cited at gnps2.org; the four user files are stored with the community. The task's status page is described and its digest is not compared. | exact |
+| Inputs | Every input the analysis's numbers rest on is an import in the library whose digest equals gold's: the quantification table, the MGF, the pairs list, and the four user-supplied files. The GNPS2 files are cited at gnps2.org; the four user files are stored with the community. Whether the network GraphML files are fetched is not compared (the network can be built from the pairs list and the feature table), nor are inputs that hold no data or the task's status page. | exact |
 | Inputs set aside | The task's own library hits are fetched and not imported, since the prompt says to use the user's annotations. | judged |
 | Decisions | Every decision in `answers.md` is stated in an Analysis's procedure, with its parameters and who made it: surgery defined as prior surgery at the sample; Crohn's primary and UC descriptive; no merges; solvent blanks at ratio 5; prevalence 20% in at least one Crohn's surgery group; sum (TIC) with rCLR as sensitivity and no internal-standard normalization; zeros to half the minimum; the add-back rule; the two follow-ups. | judged |
-| Counts | 24,770 features in; 166 merge candidates; no merge applied. Features retained within 1% of 11,363. Features added back within 40% of 121. | exact / tolerance |
+| Counts | 24,770 features in; 166 merge candidates; no merge applied. Features retained within 1% of 11,363. | exact / tolerance |
+| Add-back | The user's add-back rule is applied to the features the review flagged: those removed by prevalence alone are added back into the primary family, those removed by the blank filter stay out, and no contaminant or additive is added. How many are flagged depends on the review's own criteria, so the count is not compared. | judged |
 | Batch correction | The check runs and reports that correction is not possible, because there are no pooled QC samples. Sum (TIC) normalization is applied. | exact |
 | Statistics | Per-feature effect size and q rank-correlate with gold at 0.99 or more. Baseline hits at q < 0.05 within 5% of 1,540, overlapping gold's at Jaccard 0.90 or more, with direction agreeing for 99% or more. 16 features with a surgery × time interaction. | tolerance |
 | Detection rate | The five bins hold 420, 10,495, 4,043, 4,337 and 5,475 features. | exact |

@@ -8,6 +8,9 @@ metadata:
 
 # Metabolomics in a Symposium community
 
+**Before anything else, say in one line which mode is starting — analyze or interpret — and on
+what.** [Which mode a request starts](#which-mode-a-request-starts) says how to choose.
+
 Two pieces of work, each ending in a Symposium community record.
 
 **Analyze** takes one GNPS2 Everything Bagel task and a question, and leaves in a **library
@@ -42,8 +45,8 @@ Five documents share this vocabulary. It is fixed here.
 
 ## Which mode a request starts
 
-Choose the mode from what the user asked for and supplied. Say which mode is starting, in one
-line, before doing anything else. Start nothing silently.
+Choose the mode from what the user asked for and supplied, and say which, in one line, before
+doing anything else. Start nothing silently.
 
 | The user | Mode |
 |---|---|
@@ -84,7 +87,8 @@ anything else, and follow it as written. What is this skill's own:
   overlap table as approved; the time the user approved the draft, in UTC, as
   `draft_approved_at`; and, once it is built, the report file's full path as `report_pdf`.
 - **The run's folder holds** fetched copies of the inputs, the tables, figures and code as they
-  are worked, the draft report, and the report file.
+  are worked, the draft report, and the report file, until the mode closes; then it keeps only
+  the working file and the report file ([reference/REPORT.md](reference/REPORT.md), Section 2.2).
 - **The parts a run plays.** Analyze: the member who publishes to the library, and the context
   its gate runs as. Interpret: the member who reads the library; the member who publishes to
   the interpretation community; the context that community's gate runs as; and, where this
@@ -282,6 +286,10 @@ files. In this skill's terms:
   embeds none.
 - **A figure** is held beside the table it plots, with a line saying how to read it that states
   no result.
+- **A schematic plots no values**, so it has no table to sit beside. An interpretation
+  schematic is held as an image beside the finding it illustrates, and the overview schematic
+  beside the report, each with a line saying how to read it. It shows a reading of the
+  evidence; nobody argues from it.
 - **Code that ran** is held as a file and cited from the Analysis whose procedure it carried
   out.
 - **A file stored with a community carries the run's short name in its own name.**
@@ -353,8 +361,12 @@ Report what the gate said, and stop there. What to change is the user's decision
 1. **The reuse table**, where the library already holds work on this task.
 2. **Each decision the analysis turns on**, gathered into as few stops as the analysis allows,
    each with a recommendation, the alternatives and what each would change.
-3. **The draft technical report.**
-4. **What leaves this machine**, before publishing.
+3. **The removed-feature review and the technical follow-ups**
+   ([reference/ANALYZE.md](reference/ANALYZE.md), Sections 15 and 17.2): the features flagged
+   as possibly removed in error, and the follow-ups recommended, each put to the user before
+   the draft is written.
+4. **The draft technical report.**
+5. **What leaves this machine**, before publishing.
 
 **Interpret**
 

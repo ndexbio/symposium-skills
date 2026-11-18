@@ -151,6 +151,7 @@ The record holds the report, and the report is the way into the record. Publish 
 * **Every statement links to where the record holds it.** A number links to the table it is read from; a finding links to the artifact that argues it; a decision links to the analysis whose procedure states it; the question is quoted from the goal and links to it. The report asserts nothing the record does not already hold.
 * **Its tables** — the findings table, the decision workflow table, Table 1 and Table 2 — are in the text, and are also declared so a reader can navigate to a row. Nobody argues from them.
 * **Its figures** are named in the text where they belong, each by the address of the table it plots and the figure held beside it, with its "How to read this figure" line.
+* **Its schematics** (Section 7) plot no values, so each is held as an image beside what it illustrates: a finding's schematic with that finding, and the overview schematic with the report itself, each with its "How to read this figure" line, and each marked as something nobody argues from. The text names each where it belongs.
 * **It names the goal it serves.**
 
 It is published after the user has approved the draft and after everything it links to has been accepted, because a link to something not yet in the record is refused.
@@ -163,7 +164,8 @@ It is published after the user has approved the draft and after everything it li
 4. Sync, and read the accepted report from the record. It carries the time it was accepted; the draft does not.
 5. Build the report file (Section 2.3), from the accepted report.
 6. Record the file's full path in the working file as `report_pdf`, and only then mark the mode done.
-7. Send the closing message (Section 2.4).
+7. Reduce the run's folder to what a later sitting needs: the working file and the report file. Everything else in it — fetched inputs, working tables and figures, files staged for upload, drafts — is held by the record or at its source once the report is accepted. Remove it, and note how much was freed. Where anything the report links to is not yet accepted, remove nothing.
+8. Send the closing message (Section 2.4).
 
 **Where the gate refuses the report**, there is no report file: report what the gate said, and stop.
 
@@ -198,7 +200,7 @@ Two things, and only these:
 1. **The report, in full, as Markdown** the user reads directly, in the message itself, outside any code block: the accepted report's text, section for section. For interpretation, the main report. Each figure is shown where the text names it, with its "How to read this figure" line.
 2. **The last line**: `Report file: <the file's full path>`, written whole, the way the host platform spells it, so the user can copy it. For interpretation, the line before it is `Full report file: <the file's full path>`.
 
-Analyze's message says, directly before those lines, that interpretation is available on request.
+Before the report, one line says how much space the run's folder freed (Section 2.2, step 7). Analyze's message says, directly before the last lines, that interpretation is available on request.
 
 Where the host has its own way to hand a file to the user, hand the report file over that way as well.
 
@@ -422,7 +424,7 @@ Pattern IDs stay the same from the chat summary through both reports.
 
 # 7\. Interpretation Schematics
 
-Every key finding gets a schematic of the biological interpretation.
+Every key finding gets a schematic of the biological interpretation. Draw it for the report, keep its source in the run's folder, and publish it with the finding it illustrates (Section 2.1).
 
 **Style**
 
