@@ -1,0 +1,29 @@
+variable,set,n,levels,R2,perm_p
+subject,CD all samples,193,75,0.5342741255336609,0.01
+colon_present,CD all samples,193,3,0.08284338189978681,0.005
+surg,CD all samples,193,2,0.07196783027788678,0.005
+ic_valve_removed,CD all samples,193,2,0.06355325306134642,0.005
+ms_plate_number,CD all samples,193,4,0.03924949896508005,0.005
+antibiotic_use,CD all samples,193,4,0.03819819687572671,0.005
+time_point,CD all samples,189,6,0.03567947153772345,0.005
+small_bowel_resection,CD all samples,193,2,0.02917324360789569,0.005
+crohns_disease_behavior,CD all samples,193,3,0.02858778554595757,0.005
+pouch,CD all samples,193,2,0.021900373011504905,0.005
+collection_timestamp,CD all samples,193,3,0.016889190046725917,0.015
+immune_modulator_use,CD all samples,193,2,0.014686713094336327,0.005
+current_steroid_use,CD all samples,193,2,0.0124110788207796,0.005
+sex,CD all samples,193,2,0.00977461277111338,0.015
+current_tnf_inhibitor,CD all samples,193,2,0.007036963908544861,0.095
+colon_present,CD baseline,71,3,0.06107367361360918,0.005
+surg,CD baseline,71,2,0.0455483559184211,0.005
+ic_valve_removed,CD baseline,71,2,0.04143278745033987,0.005
+crohns_disease_behavior,CD baseline,71,3,0.03222821014389926,0.16
+ms_plate_number,CD baseline,71,3,0.031682909821508336,0.18
+small_bowel_resection,CD baseline,71,2,0.0310359973322578,0.005
+antibiotic_use,CD baseline,70,3,0.028230729444475005,0.495
+current_steroid_use,CD baseline,71,2,0.017571513339633606,0.15
+pouch,CD baseline,71,2,0.016856447648900957,0.135
+immune_modulator_use,CD baseline,71,2,0.015380460979856524,0.27
+sex,CD baseline,71,2,0.01365691542432975,0.56
+collection_timestamp,CD baseline,71,2,0.01336763948649496,0.56
+current_tnf_inhibitor,CD baseline,71,2,0.010457825753280279,0.955

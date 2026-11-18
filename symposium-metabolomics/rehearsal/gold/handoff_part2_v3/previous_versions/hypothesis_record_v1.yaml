@@ -1,0 +1,42 @@
+# Hypothesis record v1 (Part 2). States: PROPOSED, SUPPORTED_STATISTICALLY, UNTESTED, CONTRADICTED. Nothing here is validated experimentally.
+hypotheses:
+  - id: H1
+    title: Anatomy-graded bile-acid pool (ileal loss raises primary/conjugated bile acids; colon loss lowers secondary)
+    patterns: [P1, P2, P25, P26]
+    state: PROPOSED
+    evidence: [primary bile acids +0.57 log2 (153 features), ileocolonic +1.06, matched-background p<0.001, plate-adjusted +0.60, antibiotic-adjusted +0.73; secondary -0.36 plate-adjusted]
+    literature: ["[1] summary only (supports)", "[2] summary only (contradicts secondary direction)"]
+    alternatives: [diet, transit, medication, batch]
+    next_investigation: metagenomic bai-operon genes; ileal status model; sample-level secondary/primary ratio
+    additional_analysis: {proposed: true, approved: true, performed: [surgery-type mixed model, plate and antibiotic adjustment], result: effects unchanged}
+  - id: H2
+    title: Colon loss or bypass lowers bilirubin-reducing microbes and urobilinoids
+    patterns: [P3]
+    state: PROPOSED
+    evidence: [47 of 51 features lower, -1.34 log2; ileostomy -2.55, J-pouch -2.02, ileorectal -0.61; antibiotic effect -0.88; score tracks detection rho 0.56]
+    literature: ["[4] summary only", "[5] summary only (antibiotic classes differ)", "[7] summary only"]
+    alternatives: [shorter colonic residence, lower detection]
+    next_investigation: BilR gene counts; authentic standards and MS/MS
+  - id: H3
+    title: Lauroylcarnitine marks epithelial lipid stress after surgery
+    patterns: [P5]
+    state: PROPOSED
+    evidence: [lauroylcarnitine +2.7 log2 (q 0.011); palmitoyl-, acetyl-, free carnitine flat]
+    literature: ["[6] summary only (class-wide IBD elevation; no surgery data)"]
+    alternatives: [microbial source, dietary medium-chain fat]
+    next_investigation: within-person series with mucosal healing; authentic standard
+  - id: H4
+    title: Chain-length-selective N-acyl amide production changes after ileocolonic resection
+    patterns: [P7]
+    state: PROPOSED
+    evidence: [C18 amides higher (N-oleoyl leucine +1.3), C4 amides lower; ileocolonic +0.68, others negative]
+    literature: ["[9] summary only (bacterial N-acyl amides exist; no surgery or chain-length data)"]
+    alternatives: [dietary fat, host enzymes]
+    next_investigation: microbeMASST on the amides (parked)
+  - id: H5
+    title: Over-time change in the surgery difference
+    patterns: [P23, P24]
+    state: UNTESTED
+    evidence: [unadjusted slopes 538, interaction 16; plate-adjusted 5 and 6; within-plate 0 features at q<0.05; time and plate confounded]
+    next_investigation: plate-matched re-run of about 40 samples
+parked: [DrugReadout and FoodReadout (P14, P17, P18, P32), MASST and MassQL follow-ups, time since surgery]

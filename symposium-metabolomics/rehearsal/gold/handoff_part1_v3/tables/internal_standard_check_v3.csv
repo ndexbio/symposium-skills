@@ -1,0 +1,13 @@
+standard,group,n,detected,median_area,cv_pct,rt,expected_mz,status,added
+"Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",study sample,334,332,275576.5,29.12779951301974,3.8395,311.0809,intact (one M+0 row within 20 ppm and 0.2 min of expected RT),resuspension
+"Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",solvent blank,33,33,303900.0,47.36985908932735,3.8395,311.0809,intact (one M+0 row within 20 ppm and 0.2 min of expected RT),resuspension
+"Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",no-injection blank,29,13,97.0,34.44774058321198,3.8395,311.0809,intact (one M+0 row within 20 ppm and 0.2 min of expected RT),resuspension
+"Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",standard mix,11,11,258650.0,10.181589073684044,3.8395,311.0809,intact (one M+0 row within 20 ppm and 0.2 min of expected RT),resuspension
+"Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",study sample,334,56,258.5,51.37664333324292,2.601,279.091,"detected in standard mixes, mostly missing in samples",extraction
+"Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",solvent blank,33,0,,,2.601,279.091,"detected in standard mixes, mostly missing in samples",extraction
+"Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",no-injection blank,29,0,,,2.601,279.091,"detected in standard mixes, mostly missing in samples",extraction
+"Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",standard mix,11,11,361166.0,4.004617805365225,2.601,279.091,"detected in standard mixes, mostly missing in samples",extraction
+"Other feature at sulfamethazine m/z, feature 18629, RT 5.00",study sample,334,321,854.0,73.9893482651539,4.999,279.091,not the standard (RT differs by 2.4 min),extraction
+"Other feature at sulfamethazine m/z, feature 18629, RT 5.00",solvent blank,33,33,547.0,44.21068274508976,4.999,279.091,not the standard (RT differs by 2.4 min),extraction
+"Other feature at sulfamethazine m/z, feature 18629, RT 5.00",no-injection blank,29,29,437.0,74.96899983701518,4.999,279.091,not the standard (RT differs by 2.4 min),extraction
+"Other feature at sulfamethazine m/z, feature 18629, RT 5.00",standard mix,11,11,617.0,25.290332551995146,4.999,279.091,not the standard (RT differs by 2.4 min),extraction

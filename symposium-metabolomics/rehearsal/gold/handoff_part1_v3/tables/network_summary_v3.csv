@@ -1,0 +1,15 @@
+item,value
+nodes,2928
+edges,4629
+families,524
+families_from_ComponentIndex,524
+singletons,5964
+ms2_features,8892
+networked_nodes_without_ms2,0
+largest_family,96
+annotated_networked,961
+annotated_singletons,285
+annotated_total,1246
+annotated_without_msms,0
+min_cosine,0.7 (task default; edges Cosine min 0.700)
+min_matched_peaks,see task page

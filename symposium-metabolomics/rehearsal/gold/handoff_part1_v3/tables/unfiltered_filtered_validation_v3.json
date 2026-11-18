@@ -1,0 +1,11 @@
+{
+ "unfiltered_features": 24770,
+ "filtered_features": 11363,
+ "removed": 13407,
+ "same_samples": true,
+ "retained_plus_removed_equals_total": true,
+ "max_abs_diff_retained_values": 0.0,
+ "tic_factors": "recomputed on the 11,363 final retained features; same factors applied to the unfiltered table",
+ "max_abs_log2_factor_change_vs_v1": 0.04,
+ "median_abs_log2_factor_change_vs_v1": 0.0006
+}

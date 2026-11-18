@@ -1,0 +1,75 @@
+{
+ "source": "gold-rerun vs gold-author, same skill version, same decisions by meaning",
+ "exact_in_both": [
+  "features_in 24770",
+  "ms2_features 8892",
+  "network nodes/edges/families/singletons/largest family",
+  "network family-size bins",
+  "detection-rate bins and cumulative rows (feature counts)",
+  "delta-mass inventory edge counts (21 of 22 labels shared)",
+  "feature-merge candidates 166, merges applied 0",
+  "annotated total 1246",
+  "surgery x time interaction features at q<0.05: 16",
+  "sha256 of every input both runs fetched",
+  "batch correction: not possible (no pooled QCs)",
+  "normalization applied: sum (TIC)",
+  "class scheme: the same 32 group/fine-class names"
+ ],
+ "tolerance": {
+  "features_retained_final": {
+   "author": 11363,
+   "rerun": 11399,
+   "band": "within 1%"
+  },
+  "features_retained_first_pass": {
+   "author": 11242,
+   "rerun": 11241,
+   "band": "within 0.1%"
+  },
+  "features_added_back": {
+   "author": 121,
+   "rerun": 158,
+   "band": "within 40%; depends on a review list each run builds"
+  },
+  "baseline_q_lt_0.05": {
+   "author": 1540,
+   "rerun": 1499,
+   "band": "within 5%"
+  },
+  "baseline_hits_overlap_jaccard": {
+   "observed": 0.93,
+   "band": ">= 0.90"
+  },
+  "per_feature_effect_spearman": {
+   "observed": 0.998,
+   "band": ">= 0.99"
+  },
+  "per_feature_q_spearman": {
+   "observed": 0.997,
+   "band": ">= 0.99"
+  },
+  "sign_agreement_among_shared_hits": {
+   "observed": 1.0,
+   "band": ">= 0.99"
+  },
+  "lower_vs_higher_with_surgery": {
+   "author": "1228/312",
+   "rerun": "1188/311",
+   "band": "each within 5%"
+  }
+ },
+ "varies_and_is_not_asserted": [
+  "compound-class counts per class (2 of 32 equal; unclassified 193 vs 54)",
+  "number of patterns (33 vs 22) and their IDs",
+  "number of hypothesis records (7 vs 5) and their wording",
+  "which extra GNPS2 files were fetched (15 vs 20 manifest rows) and which were marked unused",
+  "file names, column names and row labels of every table",
+  "decision-log format (Markdown table vs YAML)",
+  "number of report versions (3 vs 2 for the analysis; 3 vs 1 for the interpretation)",
+  "which literature sources were cited beyond the shared core"
+ ],
+ "cost": {
+  "wall_minutes": 85,
+  "turns": 8
+ }
+}

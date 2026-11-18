@@ -53,3 +53,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
+
+  symposium-metabolomics:
+    if: startsWith(github.event.release.tag_name, 'symposium-metabolomics-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the skill, stamped with the tag's version
+        run: make -C symposium-metabolomics build VERSION="${TAG#symposium-metabolomics-v}"
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+
+      - name: Attach the zip to the release
+        run: gh release upload "$TAG" "symposium-metabolomics/dist/symposium-metabolomics_skill-${TAG#symposium-metabolomics-v}.zip" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}

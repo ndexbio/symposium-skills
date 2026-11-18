@@ -1,0 +1,17 @@
+theme,Established,Family/class trend,Nominal feature signal,No evidence beyond noise
+Amino acids and peptides,0,1,0,3
+Anatomy,0,1,0,0
+Annotation level,0,1,0,0
+Bile acids,1,1,0,0
+Bile pigments,1,1,0,0
+Detection,1,0,0,0
+Diet and plant,1,2,0,0
+Drugs and exposures,3,0,0,0
+Filter loss,0,1,1,1
+Global,0,1,0,0
+Lipids,3,2,0,0
+Medication,0,0,1,0
+Surgery type,1,0,0,0
+Time,1,0,1,0
+Unknown families,2,0,0,0
+Unknowns,1,0,0,0

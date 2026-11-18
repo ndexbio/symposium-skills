@@ -1,0 +1,23 @@
+label,mass,edges,example_annotated_compound,explanation,PEG_flag
+CH2,14.0157,225,related spectra of 'Spectral Match to Ofloxacin from NIST14 ,One carbon added or removed,0.0
+C2H4O,44.0262,147,PG(16:1/0:0); [M-H]- C22H42O9P1,PEG repeat unit (contamination),1.0
+H2O,18.0106,173,Gabapentin|1-(Aminomethyl)cyclohexaneacetic acid| 2-[1-(amin,Water lost or gained,0.0
+H2,2.0157,259,Solanidine_CE45,Double bond formed or reduced,0.0
+C2H4,28.0313,62,N-Acetyl Mesalazine,Two carbons added or removed,0.0
+O,15.9949,187,Ciprofloxacin|1-cyclopropyl-6-fluoro-4-keto-7-piperazin-4-iu,One oxygen added,0.0
+2x C2H4O,88.0524,71,PG(16:1/0:0); [M-H]- C22H42O9P1,Two PEG repeat units,1.0
+NH3,17.0265,24,Spectral Match to 1-Amino-2-ethoxybenzene from NIST14,Amine gained or lost,0.0
+C2H4O at z=2,22.0131,88,Spectral Match to Ricinoleic acid methyl ester from NIST14,PEG unit seen at charge 2,1.0
+CH2O,30.0106,93,"NCGC00380912-01!1,10-dihydroxy-3-methylbenzo[c][1]benzoxepin",One carbon and one oxygen,0.0
+C2H2,26.0157,35,Suspect related to Hematoporphyrin (predicted molecular form,"Two carbons, one double bond",0.0
+C4H8,56.0626,12,Suspect related to N-Acetyl Mesalazine (predicted molecular ,Longer or shorter chain,0.0
+C2H2O,42.0106,28,3-HYDROXYANTHRANILIC ACID,Acetyl group added,0.0
+CO2,43.9898,49,Ciprofloxacin|1-cyclopropyl-6-fluoro-4-keto-7-piperazin-4-iu,Carboxyl group added or lost,0.0
+SO3,79.9568,8,Demethyleneberberine,Sulfate added,0.0
+Gly conjugation,57.0215,7,Conjugate of CARNITINE (delta mass: 297.1396 Da; putative an,Glycine attached,0.0
+Hexose,162.0528,22,Glycochenodeoxycholic acid - 40.0 eV,Hexose attached,0.0
+Taurine conjugation,107.0041,0,none annotated,Taurine attached,0.0
+Glucuronic acid,176.0321,12,Amitryptiline,Glucuronic acid attached,0.0
+TOTAL same-mass (|d|<0.1),,413,,,
+TOTAL assigned,,1502,,,
+TOTAL unassigned,,2714,,,

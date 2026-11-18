@@ -1,0 +1,7 @@
+Investigate this IBD study. I want to know how surgery impacts the metabolome, both initially and over time.
+
+a9552f8e5018401ba4af91934f916289 everything bagel task id, with the metadata ("<INPUTS>/gnps_metadata_MSV000082221.tsv") and annotations ("<INPUTS>/eb_curated_annotations_MSV000082221.tsv"). Use the annotations in my folder, not in the everything bagel task id.
+
+Run order is here: "<INPUTS>/CMI_IBD_fecal_metadata_ms_positive.xlsx" Extraction internal standard was sulfamethazine, internal standard added during resuspension was sulfadimethoxine.
+
+Publish into the Symposium library community <LIBRARY>.
