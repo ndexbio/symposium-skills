@@ -1,0 +1,33 @@
+class_group,fine_class,class_color,class_marker
+Bile acids,Free / keto bile acids,#cd4814,o
+Bile acids,Amino acid–conjugated bile acids,#eb6936,s
+Bile acids,Bile acid–amine/aldehyde adducts,#f09470,^
+Amino acid conjugates & peptides,Di- & tripeptides,#1f5ba3,o
+Amino acid conjugates & peptides,N-acyl amino acids,#266fc6,s
+Amino acid conjugates & peptides,Amine–carbonyl adducts,#3d84d9,^
+Amino acid conjugates & peptides,N-acetyl amino acids,#619be0,D
+Lipids,Oxylipins,#127955,o
+Lipids,Fatty acids & esters,#169064,s
+Lipids,Fatty amides & N-acyl ethanolamines,#19a673,^
+Lipids,Acylcarnitines,#1dbc83,D
+Lipids,Glycerolipids & lysophospholipids,#20d292,v
+Lipids,Sphingolipids & long-chain bases,#2dde9f,P
+Diet & plant metabolites,Flavonoids & isoflavones,#6e34b8,o
+Diet & plant metabolites,Piperamides & capsaicinoids,#7a3fc8,s
+Diet & plant metabolites,Steroidal alkaloids & saponins,#8853cd,^
+Diet & plant metabolites,Terpenoids & polyketide natural products,#9666d3,D
+Diet & plant metabolites,Phenylpropanoids & polyphenols,#a37ad9,v
+Diet & plant metabolites,Vitamins & cofactors,#b18ede,P
+Drugs & agrochemicals,Antimicrobials & agrochemicals,#af2b70,o
+Drugs & agrochemicals,Anti-inflammatory & steroid drugs,#d14990,s
+Drugs & agrochemicals,Other drugs & drug-like,#de7caf,^
+Small host & microbial metabolites,Amino acids & derivatives,#7e5b07,o
+Small host & microbial metabolites,Purines & nucleosides,#966d08,s
+Small host & microbial metabolites,Sugars & glycosides,#ae7e0a,^
+Small host & microbial metabolites,Polyamines & acetylated amines,#c6900b,D
+Small host & microbial metabolites,Indoles & tryptophan metabolites,#dea20d,v
+Small host & microbial metabolites,Tetrapyrroles,#f0b114,P
+Contaminants & additives,PEG & polymer additives,#4b4a48,o
+Contaminants & additives,"Surfactants, plasticizers & other additives",#8c8b86,s
+Synthetic & unclassified,Synthetic heterocycles & screening-library entries,#5f3e28,o
+Synthetic & unclassified,Other annotated (unclassified),#b57952,s

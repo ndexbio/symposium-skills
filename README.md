@@ -12,6 +12,7 @@ the Symposium skill installed alongside it.
 |---|---|
 | [`symposium-curate-data`](symposium-curate-data/README.md) | Takes one hypothesis, finds the scientific sources that bear on it, and publishes them into a community record as a grounded corpus |
 | [`symposium-evaluate-hypothesis`](symposium-evaluate-hypothesis/README.md) | Takes one hypothesis and the community holding its corpus, evaluates the hypothesis against that corpus with a team of members, and publishes the claims, the arguments, the verdict and a report into a second community record |
+| [`symposium-metabolomics`](symposium-metabolomics/README.md) | Analyzes an untargeted LC-MS/MS metabolomics study from a GNPS2 Everything Bagel task into a library community record, and interprets an analysis held there biologically, publishing the findings into a second community record |
 
 ## Installing Skill
 
@@ -22,6 +23,7 @@ Each Symposium skill ships as a zip file attached on a Github release:
 | `symposium` | `symposium_skill-<version>.zip` | [ndexbio/symposium](https://github.com/ndexbio/symposium/releases) |
 | `symposium-curate-data` | `symposium-curate-data_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
 | `symposium-evaluate-hypothesis` | `symposium-evaluate-hypothesis_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
+| `symposium-metabolomics` | `symposium-metabolomics_skill-<version>.zip` | [ndexbio/symposium-skills](https://github.com/ndexbio/symposium-skills/releases) |
 
 Download `<skill>_skill-<version>.zip` from the Github release of the skill you want. The zip
 follows the standard [Agent Skills](https://agentskills.io) format and is usable by any skills compatible agent. 
@@ -49,18 +51,28 @@ A skill folder holds two kinds of file, and the line between them is what ships:
 ```
 <skill>/
 ├── REHEARSAL.md    what a correct run of it looks like                ·  repository only
+├── rehearsal/      what a rehearsal is checked against, where kept    ·  repository only, optional
 ├── CHANGELOG.md    what each release provides                         ·  repository only
 ├── Makefile        lint ← build ← deploy-local                        ·  repository only
 ├── lint.sh         the checks `make lint` runs                        ·  repository only
 ├── SKILL.md        ┐  what the agent reads
 ├── README.md       │  what the skill does, installing it, using it
-└── reference/      │  shipped in the zip, with the repository's LICENSE
-    └── *.md        ┘
+├── reference/      │  shipped in the zip, with the repository's LICENSE
+│   └── *.md        │
+└── scripts/        ┘  optional: code the skill ships
 ```
 
-`SKILL.md`, `README.md`, `reference/` and `LICENSE` are all an installed skill has. Everything
-else is a repository concern — how the skill is tested, built and released — and `make build`
-keeps it out of the zip.
+`SKILL.md`, `README.md`, `reference/`, `LICENSE` and, where a skill has one, `scripts/` are all
+an installed skill has. Everything else is a repository concern — how the skill is tested, built
+and released — and `make build` keeps it out of the zip.
+
+**`scripts/` is optional, and most skills have none.** A skill here is prose, and the code an
+agent needs is written in the moment. A skill ships a script only for a computation that should
+not be rewritten each run: one validated against a reference implementation, say. Such a skill's
+Makefile copies `scripts/` into the zip, its `lint.sh` counts it among what ships and checks the
+built zip holds what ships and only that, and a `make test` target runs the script's own
+self-test. [`symposium-metabolomics`](symposium-metabolomics/README.md) is the one that does:
+its `reference/` also holds the example figures its documents show.
 
 Because the two kinds sit in one folder, `make lint` holds one rule that is easy to break by
 accident: **a shipped document links only to shipped documents, or to a full web address.** A
@@ -74,6 +86,8 @@ and no others: `name`, `description`, `license`, and the version under `metadata
 
 1. A folder with the shape above.
 2. A job in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) running `make -C <skill> build`.
+   Where the skill ships `scripts/`, the job also installs what they need and runs
+   `make -C <skill> test`.
 3. A job in [`.github/workflows/release.yml`](.github/workflows/release.yml) under the tag prefix
    `<skill>-v`, copied from the one that is there.
 4. Its own `README.md`, `REHEARSAL.md` and `CHANGELOG.md`.
@@ -82,6 +96,7 @@ and no others: `name`, `description`, `license`, and the version under `metadata
 
 ```sh
 make -C <skill> lint            # frontmatter, foreign references, links, orphans
+make -C <skill> test            # where the skill ships scripts/: their own self-test
 make -C <skill> build           # lint, then dist/<skill>_skill-0.0.0-dev.zip
 make -C <skill> build VERSION=<semver>    # dist/<skill>_skill-<semver>.zip
 make -C <skill> deploy-local    # build, then install from the zip into ~/.claude/skills
@@ -90,8 +105,9 @@ make -C <skill> deploy-local    # build, then install from the zip into ~/.claud
 `deploy-local` installs what the zip holds, replacing any copy already there, and installs nothing
 where the checks fail. `SKILLS=<dir>` sends it to another skills directory.
 
-The zip holds one folder named for the skill, with `SKILL.md`, `README.md`, `LICENSE` and
-`reference/` inside it. Its name carries the version stamped inside it.
+The zip holds one folder named for the skill, with `SKILL.md`, `README.md`, `LICENSE`,
+`reference/` and, where the skill has one, `scripts/` inside it. Its name carries the version
+stamped inside it.
 
 A release is a GitHub release tagged `<skill>-v<semver>` — `symposium-curate-data-v1.0.0`. The
 prefix selects the job and the rest is the version, which lives in the tag: the job passes it to

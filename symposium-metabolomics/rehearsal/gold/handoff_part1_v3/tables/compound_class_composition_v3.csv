@@ -1,0 +1,33 @@
+class_group,fine_class,class_color,class_marker,annotated,networked,tested,significant
+Bile acids,Free / keto bile acids,#cd4814,o,164,111,129,60
+Bile acids,Amino acid–conjugated bile acids,#eb6936,s,17,8,12,4
+Bile acids,Bile acid–amine/aldehyde adducts,#f09470,^,23,16,21,8
+Amino acid conjugates & peptides,Di- & tripeptides,#1f5ba3,o,75,59,72,16
+Amino acid conjugates & peptides,N-acyl amino acids,#266fc6,s,19,16,13,5
+Amino acid conjugates & peptides,Amine–carbonyl adducts,#3d84d9,^,10,8,8,5
+Amino acid conjugates & peptides,N-acetyl amino acids,#619be0,D,27,24,14,5
+Lipids,Oxylipins,#127955,o,31,24,18,5
+Lipids,Fatty acids & esters,#169064,s,28,23,20,11
+Lipids,Fatty amides & N-acyl ethanolamines,#19a673,^,43,35,22,5
+Lipids,Acylcarnitines,#1dbc83,D,7,6,7,3
+Lipids,Glycerolipids & lysophospholipids,#20d292,v,26,21,17,4
+Lipids,Sphingolipids & long-chain bases,#2dde9f,P,4,3,0,0
+Diet & plant metabolites,Flavonoids & isoflavones,#6e34b8,o,18,15,10,1
+Diet & plant metabolites,Piperamides & capsaicinoids,#7a3fc8,s,5,4,4,1
+Diet & plant metabolites,Steroidal alkaloids & saponins,#8853cd,^,9,7,5,3
+Diet & plant metabolites,Terpenoids & polyketide natural products,#9666d3,D,36,26,17,4
+Diet & plant metabolites,Phenylpropanoids & polyphenols,#a37ad9,v,27,23,18,3
+Diet & plant metabolites,Vitamins & cofactors,#b18ede,P,12,6,9,4
+Drugs & agrochemicals,Antimicrobials & agrochemicals,#af2b70,o,49,45,19,4
+Drugs & agrochemicals,Anti-inflammatory & steroid drugs,#d14990,s,13,9,4,1
+Drugs & agrochemicals,Other drugs & drug-like,#de7caf,^,146,113,66,17
+Small host & microbial metabolites,Amino acids & derivatives,#7e5b07,o,34,28,30,10
+Small host & microbial metabolites,Purines & nucleosides,#966d08,s,15,8,12,5
+Small host & microbial metabolites,Sugars & glycosides,#ae7e0a,^,32,23,26,8
+Small host & microbial metabolites,Polyamines & acetylated amines,#c6900b,D,13,12,9,2
+Small host & microbial metabolites,Indoles & tryptophan metabolites,#dea20d,v,24,17,22,9
+Small host & microbial metabolites,Tetrapyrroles,#f0b114,P,36,31,30,21
+Contaminants & additives,PEG & polymer additives,#4b4a48,o,55,52,27,9
+Contaminants & additives,"Surfactants, plasticizers & other additives",#8c8b86,s,12,10,2,0
+Synthetic & unclassified,Synthetic heterocycles & screening-library entries,#5f3e28,o,43,36,21,7
+Synthetic & unclassified,Other annotated (unclassified),#b57952,s,193,142,134,52

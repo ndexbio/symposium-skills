@@ -1,0 +1,5 @@
+hurdle_category,all features,baseline q<0.05
+presence only,1445,600
+presence and abundance,153,127
+abundance (detected samples) only,372,20
+neither,4937,5

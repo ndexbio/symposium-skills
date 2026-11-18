@@ -1,0 +1,10 @@
+{
+ "status": "not possible",
+ "reason": "no pooled QC injections (only 11 standard-mix injections, 29 no-injection blanks, 33 solvent blanks); injection order available from the run-order sheet",
+ "plates": [
+  "01",
+  "02",
+  "03",
+  "04"
+ ]
+}

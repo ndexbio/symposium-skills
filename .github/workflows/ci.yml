@@ -19,3 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: make -C symposium-evaluate-hypothesis build
+
+  symposium-metabolomics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy pandas "scipy>=1.10"
+      - run: make -C symposium-metabolomics build
+      - run: make -C symposium-metabolomics test

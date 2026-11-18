@@ -1,0 +1,1489 @@
+{
+ "source": "the skill author's run of metabolomics-interpretation-skillset v12 (package v4.3) on GNPS2 task a9552f8e5018401ba4af91934f916289, 12-13 Nov 2026",
+ "analyze": {
+  "inputs": [
+   {
+    "file_name": "11546_20230209-165600_metadata.txt",
+    "origin": "user provided by other means",
+    "source": "user-supplied path in prompt (or its MSV000082221 folder: 11546_20230209-165600_metadata.txt)",
+    "task_id": null,
+    "size_bytes": 396790,
+    "sha256": "a71106924a682600a618f45618e8071562ff667c3d89d259450f7973bf9b0cef",
+    "used": true
+   },
+   {
+    "file_name": "CMI_IBD_fecal_metadata_ms_positive.xlsx",
+    "origin": "user provided by other means",
+    "source": "user-supplied path in prompt (or its MSV000082221 folder: CMI_IBD_fecal_metadata_ms_positive.xlsx)",
+    "task_id": null,
+    "size_bytes": 35605,
+    "sha256": "54a80c6cc9a9003886289762aba385671a7d41cf9a1a6399f2bbb3a39a966046",
+    "used": true
+   },
+   {
+    "file_name": "GNPS2 connector tools",
+    "origin": "n/a",
+    "source": "mcp gnps2 tools not available in this session",
+    "task_id": null,
+    "size_bytes": "",
+    "sha256": null,
+    "used": true
+   },
+   {
+    "file_name": "aligned_features.csv",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/feature_finding/feature_finding_results/aligned_features.csv",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 29772484,
+    "sha256": "e3a2ae25a417f133381b137e38c3a505ff9bde8eb4065193915dbc4f9adaba17",
+    "used": true
+   },
+   {
+    "file_name": "aligned_features_filled.mgf",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/feature_finding/aligned_features_filled.mgf",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 6151973,
+    "sha256": "b2af26827fd5d66370da68d2bf155b2b76d7aefb91b134464b9098da69444cbe",
+    "used": true
+   },
+   {
+    "file_name": "eb_curated_annotations_MSV000082221.tsv",
+    "origin": "user provided by other means",
+    "source": "user-supplied path in prompt (or its MSV000082221 folder: eb_curated_annotations_MSV000082221.tsv)",
+    "task_id": null,
+    "size_bytes": 858833,
+    "sha256": "73292ef5c919682222db124d14c05b24eb8746ef9cf4fb3f2e8abd3ff4c9bfb4",
+    "used": true
+   },
+   {
+    "file_name": "filtered_pairs.tsv",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/networking/filtered_pairs.tsv",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 127796,
+    "sha256": "d4fb172699b0a3899b549279c4039e80f85b317d638b49ab83ba6ddd06848ad4",
+    "used": true
+   },
+   {
+    "file_name": "gap_fill_report.tsv",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/feature_finding/feature_finding_results/gap_fill_report.tsv (downloaded, not used)",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 200976568,
+    "sha256": "6b4f84d3e4565cc375c1e9d89ade3ea8fa8357dd06b5eef81dfaaf0efaaa2f2f",
+    "used": false
+   },
+   {
+    "file_name": "gnps_metadata_MSV000082221.tsv",
+    "origin": "user provided by other means",
+    "source": "user-supplied path in prompt (or its MSV000082221 folder: gnps_metadata_MSV000082221.tsv)",
+    "task_id": null,
+    "size_bytes": 202315,
+    "sha256": "78f1675a6597f2986c0069edc94b4934f0ecdb570aafb724c698827b8b0db82e",
+    "used": true
+   },
+   {
+    "file_name": "input_prompt_v1.txt",
+    "origin": "user attached in chat",
+    "source": "first prompt of the run",
+    "task_id": null,
+    "size_bytes": 771,
+    "sha256": "cddbdc6870f1eb6e7f702b6577ccb72ed7c2e58e98c66f5a596c049bf83d6fca",
+    "used": true
+   },
+   {
+    "file_name": "merged_feature_library_search_results.tsv",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/feature_library_search/merged_feature_library_search_results.tsv (downloaded but NOT used: user supplied curated annotations)",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 73688672,
+    "sha256": "eab02743ba3a3731db52428deac309445c617936f5508fb206ca6b30bf9bcc84",
+    "used": false
+   },
+   {
+    "file_name": "merged_metadata.tsv",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/metadata/merged_metadata.tsv (header only: no metadata supplied to the task)",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 9,
+    "sha256": "8c26367dfe7ca4772336b9090e5dbf7dfce3eab3e3296c64b0379b9055350994",
+    "used": true
+   },
+   {
+    "file_name": "network.graphml",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/networking/network.graphml",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 27079039,
+    "sha256": "f0642ff6a69e4fbac3bcbfdae61951154907dda6667a32f861baac418d60ab05",
+    "used": true
+   },
+   {
+    "file_name": "network_singletons.graphml",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /resultfile nf_output/networking/network_singletons.graphml (downloaded; singletons computed from MS/MS features without edges)",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 159999213,
+    "sha256": "2e050b88d285bce8ec2299d0e9fa96b360536f11a8a2a345c16d6ea8419a391b",
+    "used": true
+   },
+   {
+    "file_name": "status_page.html",
+    "origin": "gnps2.org download",
+    "source": "gnps2.org /status?task=<id>",
+    "task_id": "a9552f8e5018401ba4af91934f916289",
+    "size_bytes": 53645,
+    "sha256": "d9c00aa99a34436adc1c6a5f9487a861ff6702cfbfcafbc8c95aacadf4c9299d",
+    "used": true
+   }
+  ],
+  "decisions": [
+   {
+    "log": "decision_log_v1.md",
+    "block": "input_files",
+    "status": "done",
+    "detail": "All originals in `user_supplied_input_files/` with `input_files_manifest.csv`. GNPS2 connector not available; files pulled from gnps2.org. Library search output downloaded but NOT used (user's `eb_curated_annotations_MSV000082221.tsv` used). Qiita metadata `11546_..._metadata.txt` (same MSV folder) used for surgery fields."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "design",
+    "status": "user approved",
+    "detail": "Exposure = `has_surgery` y vs n (prior surgery). Initial = baseline CD Welch test; over time = log2 ~ surgery x month + (1/subject) mixed model (all CD samples) + per-time-point Welch tests. Primary = CD (193 samples, 75 people). UC descriptive only (7 baseline surgery samples, 5 people, all colectomy+pouch)."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "sample_linkage",
+    "status": "done",
+    "detail": "324 of 334 study injections linked (`PLCL<id>` = Qiita `anonymized_name`). 10 unlinked excluded."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "raw_vs_normalized",
+    "status": "user",
+    "detail": "Raw peak areas, gap-filled."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "internal_standards",
+    "status": "user-provided",
+    "detail": "Sulfadimethoxine (resuspension): intact, feature 79, 332/334 samples. Sulfamethazine (extraction): feature 253 RT 2.60, 56/334 samples, 11/11 std mixes; essentially absent from samples. Metadata lists other standards (sulfamethizole, sulfachloropyridazine); not used."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "feature_merge",
+    "status": "user approved: none",
+    "detail": "166 candidate pairs (5 ppm, 0.1 min); 10 spectra-supported review pairs, 139 review, 17 do not merge. No XIC available. Merge map empty."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "batch_correction",
+    "status": "not possible",
+    "detail": "No pooled QCs. Four plates; plate-adjusted baseline model agrees (r=0.997)."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "blank_filter",
+    "status": "user approved",
+    "detail": "Mean(324 study samples) / mean(33 solvent blanks) >= 5. 1,183 fail."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "prevalence_filter",
+    "status": "user approved",
+    "detail": "Detected in >= 20% of samples in at least one CD surgery group (all time points). 11,242 retained."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "normalization_comparison",
+    "status": "run; applied",
+    "detail": "status: run. Recommended and applied: sum (TIC) over the retained features, scaled to the median. rCLR sensitivity. IS normalization not applied (user)."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "zeros",
+    "status": "user approved",
+    "detail": "Zero -> half minimum positive normalized value per feature, log2."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "unfiltered_table",
+    "status": "on",
+    "detail": "Same samples, factors, imputation; max abs diff of retained values = 0. Separate unfiltered-family q."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "detection_rate",
+    "status": "on",
+    "detail": "Samples counted: 193 CD."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "molecular_network",
+    "status": "on",
+    "detail": "2,928 nodes, 4,629 edges, 524 families, 5,964 singletons (nodes + singletons = 8,892 MS/MS features)."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "compound_classes",
+    "status": "rule-based",
+    "detail": "193 of 1,246 annotated unclassified (list provided)."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "outliers",
+    "status": "flag only",
+    "detail": "2 CD samples (T2 > 99.9%) kept."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "statistics",
+    "status": "done",
+    "detail": "Welch t, OLS adjusted (sex, steroid, TNF inhibitor, antibiotics, immunomodulator), MixedLM REML, PLS-DA (5-fold CV, 200 permutations), PERMANOVA-style R2. BH within filtered family; separate unfiltered family. Volcano cutoff raw p < 0.05 and abs(log2FC) >= 0.58."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "removed_feature_review",
+    "status": "done, nothing re-added",
+    "detail": "411 flagged; awaiting user decision."
+   },
+   {
+    "log": "decision_log_v1.md",
+    "block": "report",
+    "status": "v1",
+    "detail": "`MSV000082221_part1_report_v1.pdf`"
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "flagged_features_add_back",
+    "status": "user decision, applied",
+    "detail": "Of 411 flagged in v1: 344 were removed by the prevalence filter only; 67 involved the blank filter (kept out, as instructed). Contaminants and additives class: 0 of the 344. 223 of the 344 have zero CD detections (not testable) and were held out; 121 added back."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "rescued_family",
+    "status": "analyst default (user can change)",
+    "detail": "Rescued features analyzed as a separate family (selected on signal, optimistic p). Primary q (11,242) unchanged. Per-feature table has q_rescued_family and q_combined_family. Normalization factors, PCA, PLS-DA not recomputed."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "correction_of_v1",
+    "status": "error found",
+    "detail": "1,481 features with fewer than 3 CD detections have constant imputed CD values; v1 reported spurious mixed-model p-values and unfiltered-family q for them (flag list: 224 of 411 affected; unfiltered-family baseline q<0.05: 2,222 in v1, 1,270 corrected). v2 sets their CD tests to missing (`testable_CD` = false). Primary results unaffected."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "unclassified_annotations",
+    "status": "user: acceptable",
+    "detail": "193 of 1,246 left unclassified."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "time_since_surgery",
+    "status": "user: skipped",
+    "detail": "Not run."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "presence_absence",
+    "status": "next step 1, done",
+    "detail": "6,907 retained features with at least 50% imputed CD values and at least 3 detections. Fisher exact (baseline), detected-only Welch, GEE logistic over time."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "surgery_type_stratified",
+    "status": "next step 2, done",
+    "detail": "Baseline CD: none 39, ileocolonic 19, colectomy 11; 2 samples excluded (partial colectomy; surgery_type none). Welch on 11,242 primary features."
+   },
+   {
+    "log": "decision_log_v2.md",
+    "block": "report",
+    "status": "v2",
+    "detail": "`MSV000082221_part1_report_v2.pdf`"
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "rescued_features_family",
+    "status": "user decision, applied",
+    "detail": "The 121 added-back features (flagged, prevalence-only, testable in CD, not contaminants) are merged into the primary family. Final primary family = 11,363 features (11,242 + 121). Column `origin` in `per_feature_results_v3.csv` = `v1_primary` or `added_back_v2`."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "q_values",
+    "status": "recomputed",
+    "detail": "BH q recomputed within the 11,363 features for every test (columns `*_q_filtered`). Baseline q < 0.05: 1,552 (v1, v2) -> 1,540. Only 4 of the 121 added-back features keep baseline q < 0.05 in the merged family (v2's separate-family q of 121 of 121 was misleading)."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "normalization",
+    "status": "recomputed",
+    "detail": "TIC factors recomputed on the 11,363 final features; same factors applied to the unfiltered table (max |log2 change| in any sample 0.04, median 0.0006). Normalization comparison (Section 7) not rerun (run on the 11,242-feature set)."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "analyses_rerun",
+    "status": "done",
+    "detail": "Zero imputation, Welch, adjusted OLS, mixed models, rCLR sensitivity, PCA, PLS-DA, PERMANOVA-style drivers, plate-adjusted model, network node/class tables and volcano figures, presence/absence (Fisher, GEE), surgery-type stratification."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "testability_correction",
+    "status": "carried from v2",
+    "detail": "Features with fewer than 3 CD detections (1,481) have CD test results set to missing; unfiltered-family q recomputed. 223 flagged zero-detection features held out (not testable)."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "removed_feature_review",
+    "status": "updated",
+    "detail": "13,407 features removed; 66 remain flagged (30 exploratory baseline signal, 37 annotated removed by the blank filter, 0 mixed-model-only). None re-added beyond the 121."
+   },
+   {
+    "log": "decision_log_v3.md",
+    "block": "report",
+    "status": "v3",
+    "detail": "`MSV000082221_part1_report_v3.pdf`"
+   },
+   {
+    "log": "decision_log_v4_addendum.md",
+    "block": "over_time_wording",
+    "status": "corrected",
+    "detail": "Time and plate are confounded (month R2 on plate 0.59; VIF 2.5; SE of time slope x1.55). The Part 1 v3 and the first Part 2 statements (\"plate artifacts\") are replaced by \"inconclusive\"."
+   },
+   {
+    "log": "decision_log_v4_addendum.md",
+    "block": "within_plate_analysis",
+    "status": "user approved, done",
+    "detail": "26 people, 54 samples, 27 person-plate pairs; no feature slope at q<0.05."
+   },
+   {
+    "log": "decision_log_v4_addendum.md",
+    "block": "plate_adjusted_models",
+    "status": "done",
+    "detail": "Surgery effect month 0 q<0.05: 3,370 features; no-surgery slope 5; interaction 6."
+   },
+   {
+    "log": "decision_log_v4_addendum.md",
+    "block": "instrument_stability",
+    "status": "checked",
+    "detail": "Standard mixes and the resuspension standard are stable across plates."
+   },
+   {
+    "log": "decision_log_v4_addendum.md",
+    "block": "files",
+    "status": "",
+    "detail": "`MSV000082221_part1_addendum_v4.pdf`; Part 1 v3 files unchanged."
+   }
+  ],
+  "filter_counts": {
+   "features_in": 24770,
+   "pass_blank": 23587,
+   "pass_prevalence": 12362,
+   "retained_first_pass": 11242,
+   "added_back": 121,
+   "by_origin": {
+    "v1_primary": 11242,
+    "": 13407,
+    "added_back_v2": 121
+   }
+  },
+  "unfiltered_filtered_validation": {
+   "unfiltered_features": 24770,
+   "filtered_features": 11363,
+   "removed": 13407,
+   "same_samples": true,
+   "retained_plus_removed_equals_total": true,
+   "max_abs_diff_retained_values": 0.0,
+   "tic_factors": "recomputed on the 11,363 final retained features; same factors applied to the unfiltered table",
+   "max_abs_log2_factor_change_vs_v1": 0.04,
+   "median_abs_log2_factor_change_vs_v1": 0.0006
+  },
+  "batch_correction_check": {
+   "status": "not possible",
+   "reason": "no pooled QC injections (only 11 standard-mix injections, 29 no-injection blanks, 33 solvent blanks); injection order available from the run-order sheet",
+   "plates": [
+    "01",
+    "02",
+    "03",
+    "04"
+   ]
+  },
+  "feature_merge_map_rows": 0,
+  "feature_merge_candidates": 166,
+  "timepoint_summary": {
+   "baseline": {
+    "n_no_surgery": 39,
+    "n_surgery": 32,
+    "features_q_lt_0.05": 1540,
+    "median_log2FC": -0.437500615991814,
+    "median_abs_log2FC": 0.6525575189552573
+   },
+   "~6 mo": {
+    "n_no_surgery": 30,
+    "n_surgery": 22,
+    "features_q_lt_0.05": 4831,
+    "median_log2FC": -0.8950662598719221,
+    "median_abs_log2FC": 1.1166524198479717
+   },
+   "~12 mo": {
+    "n_no_surgery": 24,
+    "n_surgery": 20,
+    "features_q_lt_0.05": 3148,
+    "median_log2FC": -0.6502698775148783,
+    "median_abs_log2FC": 0.9726460020115768
+   },
+   "18+ mo": {
+    "n_no_surgery": 8,
+    "n_surgery": 18,
+    "features_q_lt_0.05": 704,
+    "median_log2FC": -0.6865758087910896,
+    "median_abs_log2FC": 1.0670137057025428
+   }
+  },
+  "per_feature": {
+   "file": "per_feature_results_v3.csv",
+   "columns_used": {
+    "id": "row ID",
+    "effect": "baseline_log2FC_surg_vs_none",
+    "p": "baseline_p_raw",
+    "q": "b_q_filtered"
+   },
+   "features": 11363,
+   "q_lt_0.05": 1540,
+   "p_lt_0.05": 3753,
+   "higher_in_surgery_at_q05": 312,
+   "lower_in_surgery_at_q05": 1228
+  },
+  "detection_rate_bins": {
+   "Not detected": {
+    "lower": 0,
+    "upper": 0,
+    "features": 420,
+    "features_with_msms": 130,
+    "msms_rate_pct": 30.95,
+    "features_with_library_match": 17,
+    "library_rate_all_pct": 4.05,
+    "library_rate_msms_pct": 13.08
+   },
+   ">0 to <10%": {
+    "lower": 0,
+    "upper": 10,
+    "features": 10495,
+    "features_with_msms": 2532,
+    "msms_rate_pct": 24.13,
+    "features_with_library_match": 307,
+    "library_rate_all_pct": 2.93,
+    "library_rate_msms_pct": 12.12
+   },
+   "10 to <25%": {
+    "lower": 10,
+    "upper": 25,
+    "features": 4043,
+    "features_with_msms": 1731,
+    "msms_rate_pct": 42.81,
+    "features_with_library_match": 229,
+    "library_rate_all_pct": 5.66,
+    "library_rate_msms_pct": 13.23
+   },
+   "25 to 50%": {
+    "lower": 25,
+    "upper": 50,
+    "features": 4337,
+    "features_with_msms": 1874,
+    "msms_rate_pct": 43.21,
+    "features_with_library_match": 242,
+    "library_rate_all_pct": 5.58,
+    "library_rate_msms_pct": 12.91
+   },
+   ">50%": {
+    "lower": 50,
+    "upper": 100,
+    "features": 5475,
+    "features_with_msms": 2625,
+    "msms_rate_pct": 47.95,
+    "features_with_library_match": 451,
+    "library_rate_all_pct": 8.24,
+    "library_rate_msms_pct": 17.18
+   }
+  },
+  "detection_rate_cumulative": {
+   ">1% of samples": {
+    "lower": "",
+    "upper": "",
+    "features": 23868,
+    "features_with_msms": 8607,
+    "msms_rate_pct": 36.06,
+    "features_with_library_match": 1216,
+    "library_rate_all_pct": 5.09,
+    "library_rate_msms_pct": 14.13,
+    "cutoff_samples": 2
+   },
+   ">50% of samples": {
+    "lower": "",
+    "upper": "",
+    "features": 5475,
+    "features_with_msms": 2625,
+    "msms_rate_pct": 47.95,
+    "features_with_library_match": 451,
+    "library_rate_all_pct": 8.24,
+    "library_rate_msms_pct": 17.18,
+    "cutoff_samples": 97
+   }
+  },
+  "network_summary": {
+   "nodes": 2928,
+   "edges": 4629,
+   "families": 524,
+   "families_from_ComponentIndex": 524,
+   "singletons": 5964,
+   "ms2_features": 8892,
+   "networked_nodes_without_ms2": 0,
+   "largest_family": 96,
+   "annotated_networked": 961,
+   "annotated_singletons": 285,
+   "annotated_total": 1246,
+   "annotated_without_msms": 0,
+   "min_cosine": "0.7 (task default; edges Cosine min 0.700)",
+   "min_matched_peaks": "see task page"
+  },
+  "network_family_sizes": {
+   "2 nodes": 287,
+   "3 to 5": 140,
+   "6 to 20": 78,
+   ">20": 19
+  },
+  "network_delta_masses": {
+   "CH2": {
+    "mass": 14.0157,
+    "edges": 225
+   },
+   "C2H4O": {
+    "mass": 44.0262,
+    "edges": 147
+   },
+   "H2O": {
+    "mass": 18.0106,
+    "edges": 173
+   },
+   "H2": {
+    "mass": 2.0157,
+    "edges": 259
+   },
+   "C2H4": {
+    "mass": 28.0313,
+    "edges": 62
+   },
+   "O": {
+    "mass": 15.9949,
+    "edges": 187
+   },
+   "2x C2H4O": {
+    "mass": 88.0524,
+    "edges": 71
+   },
+   "NH3": {
+    "mass": 17.0265,
+    "edges": 24
+   },
+   "C2H4O at z=2": {
+    "mass": 22.0131,
+    "edges": 88
+   },
+   "CH2O": {
+    "mass": 30.0106,
+    "edges": 93
+   },
+   "C2H2": {
+    "mass": 26.0157,
+    "edges": 35
+   },
+   "C4H8": {
+    "mass": 56.0626,
+    "edges": 12
+   },
+   "C2H2O": {
+    "mass": 42.0106,
+    "edges": 28
+   },
+   "CO2": {
+    "mass": 43.9898,
+    "edges": 49
+   },
+   "SO3": {
+    "mass": 79.9568,
+    "edges": 8
+   },
+   "Gly conjugation": {
+    "mass": 57.0215,
+    "edges": 7
+   },
+   "Hexose": {
+    "mass": 162.0528,
+    "edges": 22
+   },
+   "Taurine conjugation": {
+    "mass": 107.0041,
+    "edges": 0
+   },
+   "Glucuronic acid": {
+    "mass": 176.0321,
+    "edges": 12
+   },
+   "TOTAL same-mass (|d|<0.1)": {
+    "mass": "",
+    "edges": 413
+   },
+   "TOTAL assigned": {
+    "mass": "",
+    "edges": 1502
+   },
+   "TOTAL unassigned": {
+    "mass": "",
+    "edges": 2714
+   }
+  },
+  "compound_class_composition": {
+   "Bile acids / Free / keto bile acids": {
+    "annotated": 164,
+    "networked": 111,
+    "tested": 129,
+    "significant": 60
+   },
+   "Bile acids / Amino acid–conjugated bile acids": {
+    "annotated": 17,
+    "networked": 8,
+    "tested": 12,
+    "significant": 4
+   },
+   "Bile acids / Bile acid–amine/aldehyde adducts": {
+    "annotated": 23,
+    "networked": 16,
+    "tested": 21,
+    "significant": 8
+   },
+   "Amino acid conjugates & peptides / Di- & tripeptides": {
+    "annotated": 75,
+    "networked": 59,
+    "tested": 72,
+    "significant": 16
+   },
+   "Amino acid conjugates & peptides / N-acyl amino acids": {
+    "annotated": 19,
+    "networked": 16,
+    "tested": 13,
+    "significant": 5
+   },
+   "Amino acid conjugates & peptides / Amine–carbonyl adducts": {
+    "annotated": 10,
+    "networked": 8,
+    "tested": 8,
+    "significant": 5
+   },
+   "Amino acid conjugates & peptides / N-acetyl amino acids": {
+    "annotated": 27,
+    "networked": 24,
+    "tested": 14,
+    "significant": 5
+   },
+   "Lipids / Oxylipins": {
+    "annotated": 31,
+    "networked": 24,
+    "tested": 18,
+    "significant": 5
+   },
+   "Lipids / Fatty acids & esters": {
+    "annotated": 28,
+    "networked": 23,
+    "tested": 20,
+    "significant": 11
+   },
+   "Lipids / Fatty amides & N-acyl ethanolamines": {
+    "annotated": 43,
+    "networked": 35,
+    "tested": 22,
+    "significant": 5
+   },
+   "Lipids / Acylcarnitines": {
+    "annotated": 7,
+    "networked": 6,
+    "tested": 7,
+    "significant": 3
+   },
+   "Lipids / Glycerolipids & lysophospholipids": {
+    "annotated": 26,
+    "networked": 21,
+    "tested": 17,
+    "significant": 4
+   },
+   "Lipids / Sphingolipids & long-chain bases": {
+    "annotated": 4,
+    "networked": 3,
+    "tested": 0,
+    "significant": 0
+   },
+   "Diet & plant metabolites / Flavonoids & isoflavones": {
+    "annotated": 18,
+    "networked": 15,
+    "tested": 10,
+    "significant": 1
+   },
+   "Diet & plant metabolites / Piperamides & capsaicinoids": {
+    "annotated": 5,
+    "networked": 4,
+    "tested": 4,
+    "significant": 1
+   },
+   "Diet & plant metabolites / Steroidal alkaloids & saponins": {
+    "annotated": 9,
+    "networked": 7,
+    "tested": 5,
+    "significant": 3
+   },
+   "Diet & plant metabolites / Terpenoids & polyketide natural products": {
+    "annotated": 36,
+    "networked": 26,
+    "tested": 17,
+    "significant": 4
+   },
+   "Diet & plant metabolites / Phenylpropanoids & polyphenols": {
+    "annotated": 27,
+    "networked": 23,
+    "tested": 18,
+    "significant": 3
+   },
+   "Diet & plant metabolites / Vitamins & cofactors": {
+    "annotated": 12,
+    "networked": 6,
+    "tested": 9,
+    "significant": 4
+   },
+   "Drugs & agrochemicals / Antimicrobials & agrochemicals": {
+    "annotated": 49,
+    "networked": 45,
+    "tested": 19,
+    "significant": 4
+   },
+   "Drugs & agrochemicals / Anti-inflammatory & steroid drugs": {
+    "annotated": 13,
+    "networked": 9,
+    "tested": 4,
+    "significant": 1
+   },
+   "Drugs & agrochemicals / Other drugs & drug-like": {
+    "annotated": 146,
+    "networked": 113,
+    "tested": 66,
+    "significant": 17
+   },
+   "Small host & microbial metabolites / Amino acids & derivatives": {
+    "annotated": 34,
+    "networked": 28,
+    "tested": 30,
+    "significant": 10
+   },
+   "Small host & microbial metabolites / Purines & nucleosides": {
+    "annotated": 15,
+    "networked": 8,
+    "tested": 12,
+    "significant": 5
+   },
+   "Small host & microbial metabolites / Sugars & glycosides": {
+    "annotated": 32,
+    "networked": 23,
+    "tested": 26,
+    "significant": 8
+   },
+   "Small host & microbial metabolites / Polyamines & acetylated amines": {
+    "annotated": 13,
+    "networked": 12,
+    "tested": 9,
+    "significant": 2
+   },
+   "Small host & microbial metabolites / Indoles & tryptophan metabolites": {
+    "annotated": 24,
+    "networked": 17,
+    "tested": 22,
+    "significant": 9
+   },
+   "Small host & microbial metabolites / Tetrapyrroles": {
+    "annotated": 36,
+    "networked": 31,
+    "tested": 30,
+    "significant": 21
+   },
+   "Contaminants & additives / PEG & polymer additives": {
+    "annotated": 55,
+    "networked": 52,
+    "tested": 27,
+    "significant": 9
+   },
+   "Contaminants & additives / Surfactants, plasticizers & other additives": {
+    "annotated": 12,
+    "networked": 10,
+    "tested": 2,
+    "significant": 0
+   },
+   "Synthetic & unclassified / Synthetic heterocycles & screening-library entries": {
+    "annotated": 43,
+    "networked": 36,
+    "tested": 21,
+    "significant": 7
+   },
+   "Synthetic & unclassified / Other annotated (unclassified)": {
+    "annotated": 193,
+    "networked": 142,
+    "tested": 134,
+    "significant": 52
+   }
+  },
+  "internal_standards": [
+   {
+    "standard": "Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",
+    "group": "study sample",
+    "n": 334,
+    "detected": 332,
+    "status": "intact (one M+0 row within 20 ppm and 0.2 min of expected RT)"
+   },
+   {
+    "standard": "Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",
+    "group": "solvent blank",
+    "n": 33,
+    "detected": 33,
+    "status": "intact (one M+0 row within 20 ppm and 0.2 min of expected RT)"
+   },
+   {
+    "standard": "Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",
+    "group": "no-injection blank",
+    "n": 29,
+    "detected": 13,
+    "status": "intact (one M+0 row within 20 ppm and 0.2 min of expected RT)"
+   },
+   {
+    "standard": "Sulfadimethoxine (resuspension IS), feature 79, m/z 311.0803 RT 3.84",
+    "group": "standard mix",
+    "n": 11,
+    "detected": 11,
+    "status": "intact (one M+0 row within 20 ppm and 0.2 min of expected RT)"
+   },
+   {
+    "standard": "Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",
+    "group": "study sample",
+    "n": 334,
+    "detected": 56,
+    "status": "detected in standard mixes, mostly missing in samples"
+   },
+   {
+    "standard": "Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",
+    "group": "solvent blank",
+    "n": 33,
+    "detected": 0,
+    "status": "detected in standard mixes, mostly missing in samples"
+   },
+   {
+    "standard": "Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",
+    "group": "no-injection blank",
+    "n": 29,
+    "detected": 0,
+    "status": "detected in standard mixes, mostly missing in samples"
+   },
+   {
+    "standard": "Sulfamethazine (extraction IS), feature 253, m/z 279.0911 RT 2.60",
+    "group": "standard mix",
+    "n": 11,
+    "detected": 11,
+    "status": "detected in standard mixes, mostly missing in samples"
+   },
+   {
+    "standard": "Other feature at sulfamethazine m/z, feature 18629, RT 5.00",
+    "group": "study sample",
+    "n": 334,
+    "detected": 321,
+    "status": "not the standard (RT differs by 2.4 min)"
+   },
+   {
+    "standard": "Other feature at sulfamethazine m/z, feature 18629, RT 5.00",
+    "group": "solvent blank",
+    "n": 33,
+    "detected": 33,
+    "status": "not the standard (RT differs by 2.4 min)"
+   },
+   {
+    "standard": "Other feature at sulfamethazine m/z, feature 18629, RT 5.00",
+    "group": "no-injection blank",
+    "n": 29,
+    "detected": 29,
+    "status": "not the standard (RT differs by 2.4 min)"
+   },
+   {
+    "standard": "Other feature at sulfamethazine m/z, feature 18629, RT 5.00",
+    "group": "standard mix",
+    "n": 11,
+    "detected": 11,
+    "status": "not the standard (RT differs by 2.4 min)"
+   }
+  ]
+ },
+ "interpret": {
+  "patterns": [
+   {
+    "id": "P1",
+    "theme": "Bile acids",
+    "title": "Primary and conjugated bile acids (CA, CDCA, UDCA/muricholic, Gly/Tau and amino-acid conjugates) higher in surgery",
+    "members": 153,
+    "lower": 45,
+    "higher": 107,
+    "mean_log2FC": 0.5717158414537827,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Bile-acid malabsorption signature (primary and conjugated bile acids reach stool), stronger with ileocolonic resection"
+   },
+   {
+    "id": "P2",
+    "theme": "Bile acids",
+    "title": "Secondary bile acids (DCA- and LCA-based) do not rise with the primary bile acids",
+    "members": 36,
+    "lower": 18,
+    "higher": 18,
+    "mean_log2FC": -0.1460552125518176,
+    "tier": "Family/class trend",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Secondary (colon-microbial) bile acids not rising with primary ones; reduced 7-dehydroxylation is possible but not shown"
+   },
+   {
+    "id": "P3",
+    "theme": "Bile pigments",
+    "title": "Urobilinoids (urobilin, stercobilin) and their molecular family (F10) lower in surgery",
+    "members": 51,
+    "lower": 47,
+    "higher": 4,
+    "mean_log2FC": -1.3423596450808652,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Fewer microbial bilirubin-reduction products (urobilinoids), stronger without a colon"
+   },
+   {
+    "id": "P4",
+    "theme": "Bile pigments",
+    "title": "Heme/porphyrin-related features (family F13 and bilirubin/biliverdin/hemin annotations)",
+    "members": 44,
+    "lower": 32,
+    "higher": 12,
+    "mean_log2FC": -0.3704877525130941,
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Heme/porphyrin features lower; direction mixed, not specific vs matched background"
+   },
+   {
+    "id": "P5",
+    "theme": "Lipids",
+    "title": "Acylcarnitines and the lauroylcarnitine family (F99) higher in surgery",
+    "members": 9,
+    "lower": 2,
+    "higher": 7,
+    "mean_log2FC": 1.3273415445960406,
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Fatty-acid carnitine esters in stool, stronger without a colon"
+   },
+   {
+    "id": "P6",
+    "theme": "Lipids",
+    "title": "Lysophospholipids and glycerolipids (families F23, F156, F128) higher in surgery",
+    "members": 31,
+    "lower": 3,
+    "higher": 28,
+    "mean_log2FC": 0.8136488203826495,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Lysophospholipids and glycerolipids higher, mostly when the colon is absent"
+   },
+   {
+    "id": "P7",
+    "theme": "Lipids",
+    "title": "N-acyl amides of amino acids and amines (N-oleoyl leucine F95, N-acyl tyramines F117, N-acyl putrescines F159) higher in surgery",
+    "members": 31,
+    "lower": 7,
+    "higher": 24,
+    "mean_log2FC": 0.3880420523281897,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Microbial or host N-acyl amides higher, mostly with partial resection"
+   },
+   {
+    "id": "P8",
+    "theme": "Lipids",
+    "title": "Fatty acids and fatty-acid esters, incl. long-chain acyl lipids, higher in surgery",
+    "members": 27,
+    "lower": 12,
+    "higher": 15,
+    "mean_log2FC": 0.216942859167057,
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Fatty acids/esters modestly higher"
+   },
+   {
+    "id": "P9",
+    "theme": "Lipids",
+    "title": "Oxylipins lower in surgery",
+    "members": 31,
+    "lower": 23,
+    "higher": 8,
+    "mean_log2FC": -0.4888597164528369,
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Oxylipins lower but within the general shift"
+   },
+   {
+    "id": "P10",
+    "theme": "Amino acids and peptides",
+    "title": "Di- and tripeptides lower in surgery",
+    "members": 74,
+    "lower": 58,
+    "higher": 16,
+    "mean_log2FC": -0.3682192967415503,
+    "tier": "No evidence beyond noise",
+    "tag": "Observed",
+    "verdict": "likely technical",
+    "meaning": "Peptides lower, same size as the global shift"
+   },
+   {
+    "id": "P11",
+    "theme": "Amino acids and peptides",
+    "title": "Amino acids, N-acetyl amino acids and indole/tryptophan metabolites lower in surgery",
+    "members": 81,
+    "lower": 52,
+    "higher": 29,
+    "mean_log2FC": -0.5225937542982206,
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "likely technical",
+    "meaning": "Amino-acid and tryptophan-pathway features lower, same size as the global shift"
+   },
+   {
+    "id": "P12",
+    "theme": "Amino acids and peptides",
+    "title": "Tyr-containing conjugates lower, Phe-containing conjugates higher (opposite directions)",
+    "members": 22,
+    "lower": 13,
+    "higher": 9,
+    "mean_log2FC": -0.2865639690153283,
+    "tier": "No evidence beyond noise",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Tyr conjugates down, Phe conjugates up; small groups"
+   },
+   {
+    "id": "P13",
+    "theme": "Amino acids and peptides",
+    "title": "Amine-carbonyl adduct families (F47, F61) from the synthetic-library annotations",
+    "members": 28,
+    "lower": 14,
+    "higher": 14,
+    "mean_log2FC": -0.3980411597995966,
+    "tier": "No evidence beyond noise",
+    "tag": "Observed",
+    "verdict": "likely technical",
+    "meaning": "Synthetic-library annotations; probably not true biology"
+   },
+   {
+    "id": "P14",
+    "theme": "Diet and plant",
+    "title": "Flavonoids and isoflavones (genistein/daidzein family F16, naringenin family F146) higher in surgery",
+    "members": 39,
+    "lower": 7,
+    "higher": 32,
+    "mean_log2FC": 0.3119281724135035,
+    "tier": "Family/class trend",
+    "tag": "Inferred",
+    "verdict": "worth a look",
+    "meaning": "Dietary flavonoids/isoflavones higher"
+   },
+   {
+    "id": "P15",
+    "theme": "Diet and plant",
+    "title": "Other plant/diet families (piperine F35, xanthones F49, curcuminoids F11, terpenoids)",
+    "members": 110,
+    "lower": 58,
+    "higher": 51,
+    "mean_log2FC": -0.032657929848942,
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Mixed direction; rarely detected"
+   },
+   {
+    "id": "P16",
+    "theme": "Diet and plant",
+    "title": "Vitamins/cofactors and steroidal alkaloids lower in surgery",
+    "members": 20,
+    "lower": 17,
+    "higher": 2,
+    "mean_log2FC": -0.7799654996262225,
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Vitamin/alkaloid features lower within the general shift"
+   },
+   {
+    "id": "P17",
+    "theme": "Drugs and exposures",
+    "title": "Medication families higher in surgery (amoxicillin F37, opioids F46, sildenafil F57, pantoprazole F143, valsartan F32, mycophenolate F105, cathinone F199)",
+    "members": 57,
+    "lower": 8,
+    "higher": 49,
+    "mean_log2FC": 0.367664108432834,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "worth a look",
+    "meaning": "Medication or exposure families higher in surgery (opioid, antibiotic, PPI, immunosuppressant)"
+   },
+   {
+    "id": "P18",
+    "theme": "Drugs and exposures",
+    "title": "Medication families lower in surgery (PPIs F21, cetirizine F60, quinidine F31, cortisone F84, sotalol F36, trazodone F123, atorvastatin F34, quinoline F106)",
+    "members": 93,
+    "lower": 88,
+    "higher": 5,
+    "mean_log2FC": -0.7782256183919087,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "worth a look",
+    "meaning": "Other medication families lower in surgery"
+   },
+   {
+    "id": "P19",
+    "theme": "Drugs and exposures",
+    "title": "Polyethylene glycol (PEG) series lower in surgery (families F2, F12, F42, F15, F6)",
+    "members": 259,
+    "lower": 251,
+    "higher": 8,
+    "mean_log2FC": -0.8559800792761406,
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "worth a look (deferred by user)",
+    "meaning": "Polyethylene glycol (laxative, excipient or collection-material) signal much lower in surgery"
+   },
+   {
+    "id": "P20",
+    "theme": "Unknown families",
+    "title": "Families of unannotated or putative-conjugate features lower in surgery",
+    "members": 204,
+    "lower": 183,
+    "higher": 21,
+    "mean_log2FC": -1.085920461921511,
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Unannotated and putative-conjugate families lower, many linked to bile pigments, PEG or drugs"
+   },
+   {
+    "id": "P21",
+    "theme": "Unknown families",
+    "title": "Families of unannotated features higher in surgery (F83, F147, F172, F7 part)",
+    "members": 14,
+    "lower": 0,
+    "higher": 14,
+    "mean_log2FC": 1.006264085829899,
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Unannotated families higher in surgery"
+   },
+   {
+    "id": "P22",
+    "theme": "Global",
+    "title": "Overall lower detection and signal in surgery (all features, unannotated, singletons)",
+    "members": 23289,
+    "lower": 16662,
+    "higher": 6505,
+    "mean_log2FC": -0.2177326306703913,
+    "tier": "Family/class trend",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Lower overall detection in surgery (already reported as lower metabolome diversity)"
+   },
+   {
+    "id": "P23",
+    "theme": "Time",
+    "title": "No-surgery group: nearly all features rise over time (527 of 538 q<0.05 rise before plate adjustment); time is confounded with plate (run order vs month rho 0.73)",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Established",
+    "tag": "Speculative",
+    "verdict": "unresolved",
+    "meaning": "Unresolved: plate adjustment leaves 5 features; slopes not distinguishable from plate or batch"
+   },
+   {
+    "id": "P24",
+    "theme": "Time",
+    "title": "Surgery x time interaction (16 features; 15 negative slopes) follows the same plate-confounded rise",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Nominal feature signal",
+    "tag": "Speculative",
+    "verdict": "unresolved",
+    "meaning": "Unresolved: interaction falls from 16 to 6 features after plate adjustment, inconclusive"
+   },
+   {
+    "id": "P25",
+    "theme": "Anatomy",
+    "title": "Colon presence and ileocecal valve removal explain as much or more variance than has_surgery (colon_present R2 6.1% vs surgery 4.5% at baseline)",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Family/class trend",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Points to anatomy (ileal loss vs colon loss) as the driver; surgery label is a proxy"
+   },
+   {
+    "id": "P26",
+    "theme": "Surgery type",
+    "title": "Ileocolonic vs colectomy differ for 151 features (q<0.05): bile acids and N-acyl amides lean ileocolonic; lysophospholipids and acylcarnitines lean colectomy",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Established",
+    "tag": "Inferred",
+    "verdict": "pursued (follow-up done)",
+    "meaning": "Separates ileal-loss from colon-loss effects"
+   },
+   {
+    "id": "P27",
+    "theme": "Detection",
+    "title": "Presence-only differences: 600 of 752 baseline-significant features (in the high-imputed set) differ in detection, not abundance",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Detection vs true absence cannot be separated here"
+   },
+   {
+    "id": "P28",
+    "theme": "Filter loss",
+    "title": "Annotated features removed by prevalence: drugs/agrochemicals 58%, contaminants 57%, diet 43%; retained-only class means understate drug and PEG effects",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Family/class trend",
+    "tag": "Inferred",
+    "verdict": "worth a look",
+    "meaning": "Unfiltered class means: PEG -0.86 vs -1.33 retained; drugs lower-group -0.78 vs -1.06"
+   },
+   {
+    "id": "P29",
+    "theme": "Filter loss",
+    "title": "37 annotated features removed by the blank filter (11 lipids, 7 contaminants, 5 drugs, 5 diet); none significant at baseline",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "No evidence beyond noise",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Blank-filter losses show no surgery signal"
+   },
+   {
+    "id": "P30",
+    "theme": "Filter loss",
+    "title": "14 removed features detected in only one surgery group (11 only in no-surgery); all unannotated",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Nominal feature signal",
+    "tag": "Observed",
+    "verdict": "weak or redundant",
+    "meaning": "Too rare to interpret"
+   },
+   {
+    "id": "P31",
+    "theme": "Unknowns",
+    "title": "703 robust unannotated MS/MS features (q<0.05, robust); 77 have an annotated neighbor (e.g. m/z 358.2599 up +3.95 next to a lauroylcarnitine-related node by C2H4)",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Established",
+    "tag": "Observed",
+    "verdict": "worth a look",
+    "meaning": "Annotated neighbors give chemical context; identities unconfirmed"
+   },
+   {
+    "id": "P32",
+    "theme": "Medication",
+    "title": "Cortisone-acetate-related family F84 is lower in surgery and lower in current steroid users (raw p 0.004) although steroid use is more common in surgery (29% vs 22%)",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Nominal feature signal",
+    "tag": "Speculative",
+    "verdict": "worth a look",
+    "meaning": "Opposite to the expected direction; needs checking"
+   },
+   {
+    "id": "P33",
+    "theme": "Annotation level",
+    "title": "Annotated features shift less than detection-matched unannotated features (annotated mean log2FC -0.14 vs -0.30)",
+    "members": "",
+    "lower": "",
+    "higher": "",
+    "mean_log2FC": "",
+    "tier": "Family/class trend",
+    "tag": "Observed",
+    "verdict": "likely technical",
+    "meaning": "Annotation bias toward abundant, widely detected classes"
+   }
+  ],
+  "hypotheses": [
+   {
+    "id": "H1",
+    "title": "Anatomy-graded bile-acid pool (ileal loss raises primary/conjugated bile acids; colon loss lowers secondary)",
+    "patterns": "[P1, P2, P25, P26]",
+    "state": "PROPOSED (refined in v3: bile acids track small-bowel resection extent; secondary bile acids also rise with it)",
+    "evidence": "[primary bile acids +0.57 log2 (153 features), ileocolonic +1.06, matched-background p<0.001, plate-adjusted +0.60, antibiotic-adjusted +0.73; secondary -0.36 plate-adjusted; small-bowel resection +0.29 (primary, p 0.017) and +0.32 (secondary, p 0.003); balance score A baseline Cliff delta 0.49, p 0.0004]",
+    "literature": "[\"[1] summary only (supports)\", \"[2] summary only (contradicts secondary direction)\"]",
+    "alternatives": "[diet, transit, medication, batch]",
+    "next_investigation": "metagenomic bai-operon genes; ileal status model; sample-level secondary/primary ratio",
+    "additional_analysis": "{proposed: true, approved: true, performed: [surgery-type mixed model, plate and antibiotic adjustment], result: effects unchanged}"
+   },
+   {
+    "id": "H2",
+    "title": "Colon loss or bypass lowers bilirubin-reducing microbes and urobilinoids",
+    "patterns": "[P3]",
+    "state": "PROPOSED",
+    "evidence": "[47 of 51 features lower, -1.34 log2; ileostomy -2.55, J-pouch -2.02, ileorectal -0.61; antibiotic effect -0.88; score tracks detection rho 0.56]",
+    "literature": "[\"[4] summary only\", \"[5] summary only (antibiotic classes differ)\", \"[7] summary only\"]",
+    "alternatives": "[shorter colonic residence, lower detection]",
+    "next_investigation": "BilR gene counts; authentic standards and MS/MS"
+   },
+   {
+    "id": "H3",
+    "title": "Lauroylcarnitine marks epithelial lipid stress after surgery",
+    "patterns": "[P5]",
+    "state": "PROPOSED",
+    "evidence": "[lauroylcarnitine +2.7 log2 (q 0.011); palmitoyl-, acetyl-, free carnitine flat]",
+    "literature": "[\"[6] summary only (class-wide IBD elevation; no surgery data)\"]",
+    "alternatives": "[microbial source, dietary medium-chain fat]",
+    "next_investigation": "within-person series with mucosal healing; authentic standard"
+   },
+   {
+    "id": "H4",
+    "title": "Chain-length-selective N-acyl amide production changes after ileocolonic resection",
+    "patterns": "[P7]",
+    "state": "PROPOSED",
+    "evidence": "[C18 amides higher (N-oleoyl leucine +1.3), C4 amides lower; ileocolonic +0.68, others negative]",
+    "literature": "[\"[9] summary only (bacterial N-acyl amides exist; no surgery or chain-length data)\"]",
+    "alternatives": "[dietary fat, host enzymes]",
+    "next_investigation": "microbeMASST on the amides (parked)"
+   },
+   {
+    "id": "H5",
+    "title": "Over-time change in the surgery difference",
+    "patterns": "[P23, P24]",
+    "state": "UNTESTED",
+    "evidence": "[unadjusted slopes 538, interaction 16; plate-adjusted 5 and 6; within-plate 0 features at q<0.05; time and plate confounded]",
+    "next_investigation": "plate-matched re-run of about 40 samples"
+   },
+   {
+    "id": "UC_check",
+    "title": "Pouch-related patterns replicate in UC J-pouch",
+    "patterns": "[P1, P2, P3, P5, P6, P22]",
+    "state": "SUPPORTED_STATISTICALLY (descriptive only)",
+    "evidence": "[UC J-pouch vs none correlates with CD J-pouch (Spearman 0.72, 666 pattern features); bile acids +0.53 vs +0.49; urobilinoids -1.79 vs -2.02; features detected -0.36 log2 (p<0.001); PEG and N-acyl amides do not replicate]",
+    "alternatives": "[only 5 UC surgery people, all J-pouch; plate 1 holds 7 of 16 UC surgery samples]",
+    "additional_analysis": "{proposed: true, approved: true, performed: [UC J-pouch vs UC no surgery mixed model compared with CD J-pouch], result: patterns follow the pouch, not the disease}"
+   },
+   {
+    "id": "CONFOUNDERS",
+    "title": "Disease activity and medications do not explain the surgery patterns",
+    "patterns": "[P1, P2, P3, P5, P6, P7, P22]",
+    "state": "SUPPORTED_STATISTICALLY (exploratory)",
+    "evidence": "[adjusting for physician global assessment, TNF inhibitor, steroid, immunomodulator, integrin inhibitor and antibiotics leaves surgery effects unchanged (P3 -0.550 to -0.505; P1 +0.217 to +0.231); endoscopic activity and global assessment have no effect]",
+    "alternatives": "[activity may follow surgery (over-adjustment), partly missing records]",
+    "additional_analysis": "{proposed: true, approved: true, performed: [mixed-model adjustment, ileal vs colon model, bile-acid balance score], result: effects unchanged; anatomy terms collinear (VIF up to 9.9)}"
+   }
+  ],
+  "key_references": [
+   {
+    "title": "Primary bile acids with ileocolonic resection, 2024",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/38750900/",
+    "access": "summary only"
+   },
+   {
+    "title": "BilR enzyme, Nature Microbiology 2024",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/38172624",
+    "access": "summary only"
+   },
+   {
+    "title": "Fecal acylcarnitines and IBD, JCI Insight",
+    "url": "https://www.jci.org/articles/view/133371/figure/7",
+    "access": "summary only"
+   },
+   {
+    "title": "Cohen et al. 2017, commensal N-acyl amides",
+    "url": "https://ideas.repec.org/a/nat/nature/v549y2017i7670d10.1038_nature23874.html",
+    "access": "summary only"
+   },
+   {
+    "title": "LysoPS and LPC in Crohn's stool, JEM 2022",
+    "url": "https://rupress.org/jem/article/219/7/e20211291/213240/Lysophosphatidylserines-derived-from-microbiota-in",
+    "access": "summary only"
+   },
+   {
+    "title": "PEG peaks in urine metabolomics, Analyst 2024",
+    "url": "https://pubs.rsc.org/en/content/articlehtml/2024/an/d3an01874a",
+    "access": "summary only"
+   },
+   {
+    "title": "Isoflavones in ileostomy subjects",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/17413104/",
+    "access": "summary only"
+   },
+   {
+    "title": "UCSD surgery study on diversity",
+    "url": "https://escholarship.org/uc/item/03r944h7",
+    "access": "summary only"
+   },
+   {
+    "title": "Lloyd-Price 2019 IBD multi-omics",
+    "url": "https://gut.bmj.com/content/68/9/1716",
+    "access": "summary only"
+   },
+   {
+    "title": "Antibiotics and fecal urobilinoids, 1986",
+    "url": "https://informahealthcare.com/doi/abs/10.3109/00365528608996410",
+    "access": "summary only"
+   },
+   {
+    "title": "Intestinal microflora and bilirubin, 2005",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/15664250/",
+    "access": "summary only"
+   },
+   {
+    "title": "Faecal diversion and the microbiome, systematic review",
+    "url": "https://core-prod.cambridgecore.org/core/services/aop-cambridge-core/content/view/956FCAFF9802DD92E256F916D5BF20F7/S263228972400001Xa.pdf/impact_of_faecal_diversion_on_the_gut_microbiome_a_systematic_review.pdf",
+    "access": "summary only"
+   }
+  ]
+ }
+}
